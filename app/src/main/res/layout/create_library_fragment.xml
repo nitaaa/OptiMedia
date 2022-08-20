@@ -48,6 +48,7 @@
                 android:text="@string/lib_type" />
 
             <RadioGroup
+                android:id="@+id/radioType"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:checkedButton="@+id/radio_book">
