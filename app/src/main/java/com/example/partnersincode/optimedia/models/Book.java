@@ -15,17 +15,7 @@ public class Book {
     private Property<Boolean> complete= new Property<>();
     //add author and genre as fields?
 
-    //Constructor
-//    public Book(int bookID, int authorID, int genreID, String ISBN, String title, boolean favourite, boolean started, boolean complete) {
-//        this.bookID.set(bookID);
-//        this.authorID.set(authorID);
-//        this.genreID.set(genreID);
-//        this.ISBN.set(ISBN);
-//        this.title.set(title);
-//        this.favourite.set(favourite);
-//        this.started.set(started);
-//        this.complete.set(complete);
-//    }
+
 
     public Book(int bookID, int authorID, int genreID, String ISBN, String title, Boolean favourite, Boolean started, Boolean complete) {
         this.bookID.set(bookID);
