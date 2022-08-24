@@ -1,17 +1,18 @@
 package com.example.partnersincode.optimedia.models;
 
 
+import com.example.partnersincode.optimedia.Property;
 
 public class Book {
     //Properties
-    private int bookID;
-    private int authorID;
-    private int genreID;
-    private String ISBN;
-    private String title;
-    private Boolean favourite;
-    private Boolean started;
-    private Boolean complete;
+    private Property<Integer> bookID = new Property<>();
+    private Property<Integer> authorID= new Property<>();
+    private Property<Integer> genreID= new Property<>();
+    private Property<String> ISBN= new Property<>();
+    private Property<String> title= new Property<>();
+    private Property<Boolean> favourite= new Property<>();
+    private Property<Boolean> started= new Property<>();
+    private Property<Boolean> complete= new Property<>();
     //add author and genre as fields?
 
     //Constructor
@@ -27,14 +28,14 @@ public class Book {
 //    }
 
     public Book(int bookID, int authorID, int genreID, String ISBN, String title, Boolean favourite, Boolean started, Boolean complete) {
-        this.bookID = bookID;
-        this.authorID = authorID;
-        this.genreID = genreID;
-        this.ISBN = ISBN;
-        this.title = title;
-        this.favourite = favourite;
-        this.started = started;
-        this.complete = complete;
+        this.bookID.set(bookID);
+        this.authorID.set(authorID);
+        this.genreID.set(genreID);
+        this.ISBN.set(ISBN);
+        this.title.set(title);
+        this.favourite.set(favourite);
+        this.started.set(started);
+        this.complete.set(complete);
     }
 
 

@@ -1,16 +1,18 @@
 package com.example.partnersincode.optimedia.models;
 
-import javafx.beans.property.*;
+import com.example.partnersincode.optimedia.Property;
+
+
 
 public class Game {
     //Properties
-    private IntegerProperty gameID = new SimpleIntegerProperty();
-    private IntegerProperty genreID = new SimpleIntegerProperty();
-    private StringProperty title = new SimpleStringProperty();
-    private StringProperty type = new SimpleStringProperty();
-    private BooleanProperty favourite = new SimpleBooleanProperty();
-    private BooleanProperty started = new SimpleBooleanProperty();
-    private BooleanProperty complete = new SimpleBooleanProperty();
+    private Property<Integer> gameID = new Property<>();
+    private Property<Integer> genreID = new Property<>();
+    private Property<String> title = new Property<>();
+    private Property<String> type = new Property<>();
+    private Property<Boolean> favourite = new Property<>();
+    private Property<Boolean> started = new Property<>();
+    private Property<Boolean> complete = new Property<>();
 
     //Constructor
     public Game(int gameID, int genreID, String title, String type, boolean favourite, boolean started, boolean complete) {

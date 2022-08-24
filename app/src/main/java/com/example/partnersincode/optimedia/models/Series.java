@@ -1,15 +1,17 @@
 package com.example.partnersincode.optimedia.models;
 
-import javafx.beans.property.*;
+import com.example.partnersincode.optimedia.Property;
+
+
 
 public class Series {
     //Properties
-    private IntegerProperty seriesID = new SimpleIntegerProperty();
-    private IntegerProperty genreID = new SimpleIntegerProperty();
-    private StringProperty title = new SimpleStringProperty();
-    private BooleanProperty favourite = new SimpleBooleanProperty();
-    private BooleanProperty started = new SimpleBooleanProperty();
-    private BooleanProperty complete = new SimpleBooleanProperty();
+    private Property<Integer> seriesID = new Property<>();
+    private Property<Integer> genreID = new Property<>();
+    private Property<String> title = new Property<>();
+    private Property<Boolean> favourite = new Property<>();
+    private Property<Boolean> started = new Property<>();
+    private Property<Boolean> complete = new Property<>();
 
     //Constructor
     public Series(int seriesID, int genreID, String title, boolean favourite, boolean started, boolean complete) {
@@ -46,7 +48,7 @@ public class Series {
         return seriesID.get();
     }
 
-    public IntegerProperty seriesIDProperty() {
+    public Property seriesIDProperty() {
         return seriesID;
     }
 
@@ -54,7 +56,7 @@ public class Series {
         return title.get();
     }
 
-    public StringProperty titleProperty() {
+    public Property titleProperty() {
         return title;
     }
 }

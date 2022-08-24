@@ -1,15 +1,16 @@
 package com.example.partnersincode.optimedia.models;
 
-import javafx.beans.property.*;
+
+import com.example.partnersincode.optimedia.Property;
 
 public class Movie {
     //Properties
-    private IntegerProperty movieID = new SimpleIntegerProperty();
-    private IntegerProperty genreID = new SimpleIntegerProperty();
-    private StringProperty title = new SimpleStringProperty();
-    private BooleanProperty favourite = new SimpleBooleanProperty();
-    private BooleanProperty started = new SimpleBooleanProperty();
-    private BooleanProperty complete = new SimpleBooleanProperty();
+    private Property<Integer>  movieID = new Property<>();
+    private Property<Integer> genreID = new Property<>();
+    private Property<String> title =  new Property<>();
+    private Property<Boolean> favourite =  new Property<>();
+    private Property<Boolean> started = new Property<>();
+    private Property<Boolean> complete = new Property<>();
 
     //Constructor
     public Movie(int movieID, int genreID, String title, boolean favourite, boolean started, boolean complete) {
@@ -46,7 +47,7 @@ public class Movie {
         return movieID.get();
     }
 
-    public IntegerProperty movieIDProperty() {
+    public Property movieIDProperty() {
         return movieID;
     }
 
@@ -54,7 +55,7 @@ public class Movie {
         return title.get();
     }
 
-    public StringProperty titleProperty() {
+    public Property titleProperty() {
         return title;
     }
 }
