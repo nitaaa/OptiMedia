@@ -28,4 +28,17 @@
         android:name="com.example.partnersincode.optimedia.ui.createLibrary.CreateLibrary"
         android:label="@string/createlabel"
         tools:layout="@layout/create_library_fragment" />
+
+    <fragment
+        android:id="@+id/nav_addNewMedia"
+        android:name="com.example.partnersincode.optimedia.ui.AddNewMedia"
+        android:label="@string/label_new_media"
+        tools:layout="@layout/fragment_add_new_media" />
+
+    <fragment
+        android:id="@+id/nav_create_game"
+        android:name="com.example.partnersincode.optimedia.ui.CreateGame"
+        android:label="@string/add_new_game"
+        tools:layout="@layout/fragment_create_game" />
+
 </navigation>
