@@ -1,13 +1,21 @@
 package com.example.partnersincode.optimedia;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.partnersincode.optimedia.models.Game;
+import com.example.partnersincode.optimedia.models.Genre;
+import com.example.partnersincode.optimedia.models.Library;
+
+import java.util.ArrayList;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DB_NAME = "optimediadb";
@@ -26,7 +34,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String CREATE_MOVIE = "CREATE TABLE Movie (movieID INTEGER PRIMARY KEY AUTOINCREMENT, genreID INTEGER REFERENCES Genre (genreID), movieTitle TEXT, favourite BOOLEAN, started BOOLEAN, complete BOOLEAN)";
     private static final String CREATE_MOVIE_LOG = "CREATE TABLE MovieLog (ML_ID INTEGER PRIMARY KEY AUTOINCREMENT, movieID INTEGER REFERENCES Movie (movieID), m_note TEXT, m_timestamp TEXT)";
     private static final String CREATE_SERIES = "CREATE TABLE Series (seriesID INTEGER PRIMARY KEY AUTOINCREMENT, genreID INTEGER REFERENCES Genre (genreID), seriesTitle TEXT, favourite BOOLEAN, started BOOLEAN, complete BOOLEAN)";
-    private static final String CREATE_SERIES_LOG = "CREATE TABLE SeriesLog (SL_ID INTEGER PRIMARY KEY AUTOINCREMENT, seriesID INTEGER REFERENCES Series (seriesID), season STRING, episode STRING, s_note TEXT, s_timestamp TEXT)";
+    private static final String CREATE_SERIES_LOG = "CREATE TABLE SeriesLog (SL_ID INTEGER PRIMARY KEY AUTOINCREMENT, seriesID INTEGER REFERENCES Series (seriesID), season TEXT, episode TEXT, s_note TEXT, s_timestamp TEXT)";
     private static final String CREATE_WATCH_LIBRARY = "CREATE TABLE WatchLibrary (libraryID INTEGER REFERENCES Library (libraryID), WLI_ID INTEGER REFERENCES WatchListItem (WLI_ID))";
     private static final String CREATE_WATCH_LIST_ITEM = "CREATE TABLE WatchListItem (WLI_ID INTEGER PRIMARY KEY AUTOINCREMENT, seriesID INTEGER REFERENCES Series (seriesID), movieID INTEGER REFERENCES Movie (movieID), link TEXT)";
 
@@ -162,6 +170,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //SQL QUERIES - see https://demonuts.com/sqlite-multiple-tables/
 
+    /**
+     * Creates a new library in the database.
+     * Qaanita Fataar
+     * @param LibraryType String - Library's Type (Book, Game, Watch)
+     */
     public void createLibrary(String LibraryName, String LibraryType){
         Log.d("createLibrary", " starting ");
         SQLiteDatabase db = this.getWritableDatabase();
@@ -185,4 +198,81 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         long id = db.insertWithOnConflict("Library", null, values, SQLiteDatabase.CONFLICT_IGNORE);
         Log.d("createLibrary", "complete // " +id);
     }
+
+    /**
+     * Gets all Libraries from the database.
+     * Qaanita Fataar
+     * @return ArrayList<Library>
+     */
+    @SuppressLint("Range")
+    public ArrayList<Library> getAllLibraries() {
+        ArrayList<Library> libraryArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Library";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Library library = new Library();
+                library.setLibraryID(c.getInt(c.getColumnIndex("libraryID")));
+                library.setLibraryName(c.getString(c.getColumnIndex("libraryName")));
+                library.setLibraryName(c.getString(c.getColumnIndex("libraryType")));
+
+                libraryArrayList.add(library);
+                Log.d("DatabaseHandler", "getAllLibraries: " + library.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return libraryArrayList;
+    }
+
+    /**
+     * Create new game in database.
+     * Qaanita Fataar.
+     * @return int ID
+     */
+    public int createNewGame(Game game){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("genreID", game.getGenreID());
+        values.put("gameTitle", game.getGameTitle());
+        values.put("gameType", game.getGameType());
+        values.put("favourite", game.isFavourite());
+        values.put("started", game.isStarted());
+        values.put("complete", game.isCompleted());
+        long id = db.insertWithOnConflict("Game", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        Log.d("createNewGame", "complete // " +id);
+
+        return (int) id;
+    }
+
+    /**
+     * Gets all genres from the database.
+     * Qaanita Fataar
+     * @return ArrayList<Genre>
+     */
+    @SuppressLint("Range")
+    public ArrayList<Genre> getGenres() {
+        ArrayList<Genre> genreArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Genre";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Genre genre = new Genre();
+                genre.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                genre.setGenreName(c.getString(c.getColumnIndex("genreName")));
+
+                genreArrayList.add(genre);
+                Log.d("DatabaseHandler", "getAllLibraries: " + genre.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return genreArrayList;
+    }
+
 }
