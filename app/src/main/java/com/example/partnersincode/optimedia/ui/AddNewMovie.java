@@ -12,12 +12,17 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.models.Genre;
+
+import java.util.ArrayList;
 
 public class AddNewMovie extends Fragment {
 
@@ -25,6 +30,7 @@ public class AddNewMovie extends Fragment {
 
     private EditText movieTitle;
     private EditText movieLink;
+    private Spinner spinGenre;
 
 
 
@@ -45,6 +51,15 @@ public class AddNewMovie extends Fragment {
         setting.setOnClickListener(this::onCancelClicked);
         setting = root.findViewById(R.id.A08400_btnSave);
         setting.setOnClickListener(this::onSaveClicked);
+
+        //Set up code for setting Genre
+        DatabaseHandler db = new DatabaseHandler(this.getContext());
+
+
+        ArrayList<Genre> genres = db.getGenres();
+        ArrayAdapter<Genre> adapter = new ArrayAdapter<>(this.getContext(),android.R.layout.simple_spinner_dropdown_item,genres);
+        spinGenre = root.findViewById(R.id.A04800_spinGenre);
+        spinGenre.setAdapter(adapter);
 
 
         return root;
@@ -69,6 +84,9 @@ public class AddNewMovie extends Fragment {
     {
         String title = movieTitle.getText().toString();
         String link = movieLink.getText().toString();
+        Genre selGenre =  (Genre) spinGenre.getSelectedItem();
+
+
 
         DatabaseHandler handler = new DatabaseHandler(this.getContext());
         SQLiteDatabase db = handler.getWritableDatabase();
@@ -76,6 +94,7 @@ public class AddNewMovie extends Fragment {
         ContentValues movie = new ContentValues();
 
         movie.put("movieTitle",title);
+        movie.put("genreID",selGenre.getGenreID());
         long id = db.insertWithOnConflict("Movie",null,movie, SQLiteDatabase.CONFLICT_IGNORE);
 
         String SQL = String.format("INSERT INTO WatchListItem (movieID, link)" +
@@ -89,7 +108,8 @@ public class AddNewMovie extends Fragment {
     }
 
     public void onCancelClicked(View view) {
-        Navigation.findNavController(view).navigate(R.id.nav_home);
+//        Navigation.findNavController(view).navigate(R.id.nav_home);
+        getActivity().onBackPressed();
     }
 
 }

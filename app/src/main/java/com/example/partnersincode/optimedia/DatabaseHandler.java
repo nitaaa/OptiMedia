@@ -1,13 +1,19 @@
 package com.example.partnersincode.optimedia;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.partnersincode.optimedia.models.Genre;
+
+import java.util.ArrayList;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DB_NAME = "optimediadb";
@@ -184,5 +190,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         long id = db.insertWithOnConflict("Library", null, values, SQLiteDatabase.CONFLICT_IGNORE);
         Log.d("createLibrary", "complete // " +id);
+    }
+
+    /**
+     * Gets all genres from the database.
+     * Qaanita Fataar
+     * @return ArrayList<Genre>
+     */
+    @SuppressLint("Range")
+    public ArrayList<Genre> getGenres() {
+        ArrayList<Genre> genreArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Genre";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Genre genre = new Genre();
+                genre.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                genre.setGenreName(c.getString(c.getColumnIndex("genreName")));
+
+                genreArrayList.add(genre);
+                Log.d("DatabaseHandler", "getAllLibraries: " + genre.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return genreArrayList;
     }
 }
