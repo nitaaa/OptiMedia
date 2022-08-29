@@ -24,11 +24,11 @@
     <string name="addMediaToLibrary">Add %s to library</string>
     <string name="selLibrary">Select a Library</string>
     <string name="action_search">Search</string>
-    <string name="action_addSelected" >Add Selected</string>
+    <string name="action_addSelected">Add Selected</string>
     <string name="label_SelectLibrary">Select a Library</string>
     <string name="selectMedia">Select %ss (max %d)</string>
     <string name="heading_addNewMovie">Add new movie to database</string>
-    <string name="action_save" >Save</string>
+    <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
     <string name="lbl_movie_title">Movie title:</string>
     <string name="lbl_movie_link">Movie link:</string>
