@@ -28,4 +28,16 @@
         android:name="com.example.partnersincode.optimedia.ui.createLibrary.CreateLibrary"
         android:label="@string/createlabel"
         tools:layout="@layout/create_library_fragment" />
+    <fragment
+        android:id="@+id/nav_addBookLog"
+        android:name="com.example.partnersincode.optimedia.ui.addBookLog.AddBookLog"
+        android:label="Add BookLog" />
+    <fragment
+        android:id="@+id/nav_shareLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.shareLibrary.ShareLibrary"
+        android:label="Share Library" />
+    <fragment
+        android:id="@+id/nav_createSeries"
+        android:name="com.example.partnersincode.optimedia.ui.createSeries.CreateSeries"
+        android:label="Add Series" />
 </navigation>

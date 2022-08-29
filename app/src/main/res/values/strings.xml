@@ -21,4 +21,17 @@
     <string name="movieseriestxt">Movie/Series</string>
     <string name="createbtn">Create</string>
     <string name="createlabel">Create Library</string>
+    <string name="series_name">Series Name:</string>
+    <string name="genre_type">Genre Type:</string>
+    <string name="favourite">Favourite:</string>
+    <string name="started">Started:</string>
+    <string name="completed">Completed:</string>
+    <string name="addbtn">Add</string>
+    <string name="log_title">Log Title:</string>
+    <string name="log_note">Note:</string>
+    <string name="log_pgno">Page Number:</string>
+    <string name="share_qr">Generate QR Code</string>
+    <string name="share_xml">Create XML</string>
+
+
 </resources>
