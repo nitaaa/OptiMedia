@@ -21,5 +21,9 @@
             android:id="@+id/nav_createLibrary"
             android:icon="@drawable/ic_add"
             android:title="@string/createlabel" />
+        <item
+            android:id="@+id/nav_addNewMovie"
+            android:icon="@drawable/ic_add"
+            android:title="@string/heading_addNewMovie" />
     </group>
 </menu>

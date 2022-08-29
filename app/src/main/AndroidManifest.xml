@@ -11,9 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OptiMedia">
-        <activity
-            android:name=".ui.AddToWatchLibrary"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
