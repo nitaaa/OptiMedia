@@ -91,7 +91,12 @@ public class AddNewMovie extends Fragment {
         DatabaseHandler handler = new DatabaseHandler(this.getContext());
         SQLiteDatabase db = handler.getWritableDatabase();
 
+        if(title.equals(""))
+        {Toast.makeText(this.getContext(), getResources().getString(R.string.invalidMovieTitle),Toast.LENGTH_SHORT).show();
+            return;}
+
         ContentValues movie = new ContentValues();
+
 
         movie.put("movieTitle",title);
         movie.put("genreID",selGenre.getGenreID());

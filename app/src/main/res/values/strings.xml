@@ -34,4 +34,5 @@
     <string name="lbl_movie_link">Movie link:</string>
     <string name="message_movieAdded">Movie (%s) was added</string>
     <string name="lbl_genre">Select Genre</string>
+    <string name="invalidMovieTitle">Please Enter a Valid Movie Title</string>
 </resources>
