@@ -36,4 +36,5 @@
     <string name="lbl_genre">Select Genre</string>
     <string name="movie">Movie</string>
     <string name="series">Series</string>
+    <string name="invalidMovieTitle">Please Enter a Valid Movie Title</string>
 </resources>
