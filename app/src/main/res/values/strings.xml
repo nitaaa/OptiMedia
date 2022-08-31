@@ -21,12 +21,12 @@
     <string name="movieseriestxt">Movie/Series</string>
     <string name="createbtn">Create</string>
     <string name="createlabel">Create Library</string>
-    <string name="addMediaToLibrary">Add %s to library</string>
+    <string name="addMediaToLibrary">Add Movie/Series to library</string>
     <string name="selLibrary">Select a Library</string>
     <string name="action_search">Search</string>
     <string name="action_addSelected">Add Selected</string>
     <string name="label_SelectLibrary">Select a Library</string>
-    <string name="selectMedia">Select %ss (max %d)</string>
+    <string name="selectMedia">Select Movies/Series (max %d)</string>
     <string name="heading_addNewMovie">Add new movie to database</string>
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
@@ -34,5 +34,6 @@
     <string name="lbl_movie_link">Movie link:</string>
     <string name="message_movieAdded">Movie (%s) was added</string>
     <string name="lbl_genre">Select Genre</string>
-    <string name="invalidMovieTitle">Please Enter a Valid Movie Title</string>
+    <string name="movie">Movie</string>
+    <string name="series">Series</string>
 </resources>

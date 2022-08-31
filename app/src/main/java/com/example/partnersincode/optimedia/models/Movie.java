@@ -3,23 +3,17 @@ package com.example.partnersincode.optimedia.models;
 
 import com.example.partnersincode.optimedia.Property;
 
-public class Movie {
+//Adriaan Benn
+//Changed Series and movie to inherit from another class to simplify implementation of recyclerview holders
+public class Movie extends WatchObject {
     //Properties
-    private Property<Integer>  movieID = new Property<>();
-    private Property<Integer> genreID = new Property<>();
-    private Property<String> title =  new Property<>();
-    private Property<Boolean> favourite =  new Property<>();
-    private Property<Boolean> started = new Property<>();
-    private Property<Boolean> complete = new Property<>();
+    private Property<Integer>  movieID;
+
 
     //Constructor
     public Movie(int movieID, int genreID, String title, boolean favourite, boolean started, boolean complete) {
-        this.movieID.set(movieID);
-        this.genreID.set(genreID);
-        this.title.set(title);
-        this.favourite.set(favourite);
-        this.started.set(started);
-        this.complete.set(complete);
+        super(genreID,title,favourite,started,complete);
+        this.movieID = new Property<>(movieID);
     }
 
     //Accessors and Modifiers
@@ -32,7 +26,7 @@ public class Movie {
      @throws Exception
      */
     //Other methods
-    public void logGame()
+    public void logMovie()
     {
         try{
             System.out.println("MovieID: "+movieID.get()+"\nGenreID: "+genreID.get()+"\nTitle: "+title.get()

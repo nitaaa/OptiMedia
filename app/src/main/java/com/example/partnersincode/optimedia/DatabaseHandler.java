@@ -12,6 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.partnersincode.optimedia.models.Genre;
+import com.example.partnersincode.optimedia.models.Library;
+import com.example.partnersincode.optimedia.models.Movie;
+import com.example.partnersincode.optimedia.models.Series;
+import com.example.partnersincode.optimedia.models.WatchObject;
 
 import java.util.ArrayList;
 
@@ -218,4 +222,93 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         c.close();
         return genreArrayList;
     }
+
+
+    /**
+     * Gets all the Libraries of type watch from the database
+     * Adriaan Benn
+     * @return ArrayList<WatchLibrary> populated with watchLibraries
+     */
+    @SuppressLint("Range")
+    public ArrayList<Library> getWatchLibraries()
+    {
+        ArrayList<Library> watchLibraries = new ArrayList<>();
+
+        String SQL = "SELECT * FROM Library WHERE libraryType = \"Watch\"";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(SQL, null);
+
+        if(c.moveToFirst())
+        {
+            do{
+
+                int libraryID = c.getInt(c.getColumnIndex("libraryID"));
+                String libraryName = c.getString(c.getColumnIndex("libraryName"));
+                String libraryType = c.getString(c.getColumnIndex("libraryType"));
+                watchLibraries.add(new Library(libraryID,libraryName,libraryType));
+
+
+            } while (c.moveToNext());
+        }
+        return watchLibraries;
+    }
+
+
+    /**
+     * Database access to get a list of all movies and series that can be added to watch list, hopefully merged
+     *
+     * @return ArrayList containing all the movies and series
+     */
+    @SuppressLint("Range")
+    public ArrayList<WatchObject> getMoviesAndSeries()
+    {
+        ArrayList<WatchObject> moviesAndSeries = new ArrayList<>();
+
+        String SQLMovies = "SELECT * FROM Movie ORDER BY movieTitle";
+
+        String SQLSeries = "SELECT * FROM Series ORDER BY seriesTitle";
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor movies = db.rawQuery(SQLMovies, null);
+
+        Cursor series = db.rawQuery(SQLSeries, null);
+
+
+        if(movies.moveToFirst())
+        {
+            do
+            {
+                int movieID = movies.getInt(movies.getColumnIndex("movieID"));
+                int genreID = movies.getInt(movies.getColumnIndex("genreID"));
+                String movieTitle = movies.getString(movies.getColumnIndex("movieTitle"));
+                boolean favourite = movies.getInt(movies.getColumnIndex("favourite"))==1;
+                boolean started = movies.getInt(movies.getColumnIndex("started")) == 1;
+                boolean complete = movies.getInt(movies.getColumnIndex("complete"))==1;
+                
+                moviesAndSeries.add(new Movie(movieID,genreID,movieTitle,favourite,started,complete));
+
+            }while(movies.moveToNext());
+        }
+        
+        if(series.moveToFirst())
+        {
+            do
+            {
+                int seriesID = series.getInt(series.getColumnIndex("seriesID"));
+                int genreID = series.getInt(series.getColumnIndex("genreID"));
+                String seriesTitle = series.getString(series.getColumnIndex("seriesTitle"));
+                boolean favourite = series.getInt(series.getColumnIndex("favourite"))==1;
+                boolean started = series.getInt(series.getColumnIndex("started")) == 1;
+                boolean complete = series.getInt(series.getColumnIndex("complete"))==1;
+
+                moviesAndSeries.add(new Series(seriesID,genreID,seriesTitle,favourite,started,complete));
+
+            }while(series.moveToNext());
+        }
+
+
+        return moviesAndSeries;
+    }
+
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Menu;
 
 import com.example.partnersincode.optimedia.ui.AddNewMovie;
+import com.example.partnersincode.optimedia.ui.AddToWatchLibrary;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.nav_host_fragment_content_main,new AddNewMovie())
+                        .replace(R.id.nav_host_fragment_content_main,new AddToWatchLibrary())
                         .addToBackStack(null)
                         .commit();
             }
