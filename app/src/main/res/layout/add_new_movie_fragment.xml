@@ -72,26 +72,13 @@
             android:id="@+id/A08400_btnSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginEnd="30dp"
-            android:text="@string/action_save"
-            app:layout_constraintEnd_toStartOf="@+id/A08400_btnCancel"
-            app:layout_constraintHorizontal_bias="0.5"
+            android:layout_marginStart="250dp"
+            android:layout_marginTop="68dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/action_addMovie"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/A04800_spinGenre" />
-
-        <Button
-            android:id="@+id/A08400_btnCancel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="20dp"
-            android:text="@string/action_cancel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/A08400_btnSave"
-            app:layout_constraintTop_toTopOf="@+id/A08400_btnSave" />
 
         <TextView
             android:id="@+id/A08400_lblSelGenre"

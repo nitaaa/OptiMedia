@@ -31,5 +31,10 @@ public class Library
         return libraryName.get();
     }
 
+    public int getID()
+    {
+        return libraryID.get();
+    }
+
 
 }

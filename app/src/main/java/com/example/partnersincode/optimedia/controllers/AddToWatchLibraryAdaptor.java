@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.models.Library;
 import com.example.partnersincode.optimedia.models.Movie;
 import com.example.partnersincode.optimedia.models.WatchObject;
 
@@ -22,6 +23,7 @@ public class AddToWatchLibraryAdaptor extends RecyclerView.Adapter<AddToWatchLib
     private View.OnClickListener onClickListener;
 
     ArrayList<WatchObject> watchObjects;
+    static ArrayList<WatchObject> selectedObjects;
 
     // make use of database handler to get media objects
     DatabaseHandler db;
@@ -36,13 +38,14 @@ public class AddToWatchLibraryAdaptor extends RecyclerView.Adapter<AddToWatchLib
         //Object related fields
         WatchObject heldObject;
         Boolean selected;
-        int defaultColour;
+
 
 
         public WatchObjectViewHolder(@NonNull View itemView) {
             super(itemView);
             mediaTitle =  itemView.findViewById(R.id.recyc_mediaTitle);
-            defaultColour = itemView.getDrawingCacheBackgroundColor();
+            mediaType = itemView.findViewById(R.id.recyc_mediaType);
+
         }
 
         public void setHeldObject(WatchObject heldObject) {
@@ -53,17 +56,30 @@ public class AddToWatchLibraryAdaptor extends RecyclerView.Adapter<AddToWatchLib
             else mediaType.setText(R.string.series);
         }
 
+        public WatchObject getHeldObject()
+        {
+            return heldObject;
+        }
+
         public void setSelected()
         {
+            //If it isn't selected by clicked on, make it green(or other colour) and set selected
             if (!selected) {
                 selected = true;
+                selectedObjects.add(getHeldObject());
                 itemView.setBackgroundResource(R.color.selectedColour);
             }
             else
             {
+                //If already selected and clicked on, set unselected
                 selected = false;
-                itemView.setBackgroundColor(defaultColour);
+                itemView.setBackgroundResource(R.color.design_default_color_background);
+                selectedObjects.remove(getHeldObject());
             }
+        }
+
+        public Boolean isSelected() {
+            return selected;
         }
     }
 
@@ -71,6 +87,7 @@ public class AddToWatchLibraryAdaptor extends RecyclerView.Adapter<AddToWatchLib
     {
         this.db = db;
         getWatchObjects();
+        selectedObjects = new ArrayList<>();
 
     }
 
@@ -109,6 +126,15 @@ public class AddToWatchLibraryAdaptor extends RecyclerView.Adapter<AddToWatchLib
 
         watchObjects = db.getMoviesAndSeries();
         notifyDataSetChanged();
+    }
+
+    public void setOnClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    public ArrayList<WatchObject> getSelectedWatchObjects()
+    {
+        return selectedObjects;
     }
 
 

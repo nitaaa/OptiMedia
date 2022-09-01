@@ -53,4 +53,9 @@ public class Series extends WatchObject {
     public Property titleProperty() {
         return title;
     }
+
+    @Override
+    public int getID() {
+        return seriesID.get();
+    }
 }

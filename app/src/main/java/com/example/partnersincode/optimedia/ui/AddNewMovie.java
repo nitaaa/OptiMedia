@@ -47,9 +47,7 @@ public class AddNewMovie extends Fragment {
         movieTitle = root.findViewById(R.id.A08400_txtMovieTitle);
         movieLink = root.findViewById(R.id.A08400_txtMovieLink);
         //setting the onclick listeners manually, because XML did not want to find methods, idk why
-        Button setting = root.findViewById(R.id.A08400_btnCancel);
-        setting.setOnClickListener(this::onCancelClicked);
-        setting = root.findViewById(R.id.A08400_btnSave);
+        Button setting = root.findViewById(R.id.A08400_btnSave);
         setting.setOnClickListener(this::onSaveClicked);
 
         //Set up code for setting Genre
@@ -109,12 +107,8 @@ public class AddNewMovie extends Fragment {
 
         Toast.makeText(getActivity(),getResources().getString(R.string.message_movieAdded,title),Toast.LENGTH_SHORT).show();
         //Close the window
-        onCancelClicked(view);
-    }
-
-    public void onCancelClicked(View view) {
-//        Navigation.findNavController(view).navigate(R.id.nav_home);
         getActivity().onBackPressed();
     }
+
 
 }

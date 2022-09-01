@@ -1,8 +1,13 @@
 package com.example.partnersincode.optimedia.ui;
 
+import android.annotation.SuppressLint;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -18,7 +23,10 @@ import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
 import com.example.partnersincode.optimedia.controllers.AddToWatchLibraryAdaptor;
 import com.example.partnersincode.optimedia.models.Library;
+import com.example.partnersincode.optimedia.models.Movie;
+import com.example.partnersincode.optimedia.models.WatchObject;
 
+import java.sql.SQLData;
 import java.util.ArrayList;
 
 /**
@@ -101,21 +109,84 @@ public class AddToWatchLibrary extends Fragment {
     }
 
     private void setUpRecyclerView() {
+
+        //Initialize adapter
         adaptor = new AddToWatchLibraryAdaptor(new DatabaseHandler(this.getContext()));
+
+        //set up recycler layout
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+
+        recView.setAdapter(adaptor);
+        recView.setLayoutManager(layoutManager);
+
+
+        //set the onclick listener for each cardview
+        //This will set the viewHolder as selected and will change colour
+        adaptor.setOnClickListener(view -> {
+            AddToWatchLibraryAdaptor.WatchObjectViewHolder viewHolder = (AddToWatchLibraryAdaptor.WatchObjectViewHolder) recView.findContainingViewHolder(view);
+
+            if (viewHolder != null) {
+                viewHolder.setSelected();
+            }
+        });
 
     }
 
     private void onAddSelectedClicked(View view)
     {
-
+        addObjectsToLibrary();
+        getActivity().onBackPressed();
     }
 
     private void onSearchClicked(View view)
     {
         String searchTerm = searchField.getText().toString();
 
+        if(searchTerm.equals(""))
+        {
+            Toast.makeText(getContext(),R.string.invalidSearchTerm,Toast.LENGTH_SHORT).show();
+        }
+
         //Do some thing with this text to call another use case
         Toast.makeText(getContext(), "This is where A07000 will be called to search for "+searchTerm,Toast.LENGTH_SHORT).show();
 
     }
+
+    //This adds to the database, assuming the movie/series and watchlist item already exists
+    @SuppressLint("Range")
+    private void addObjectsToLibrary()
+    {
+        Library library = (Library) selectedLibrary.getSelectedItem();
+
+        for (WatchObject added :
+                adaptor.getSelectedWatchObjects()) {
+
+            String idFieldName = "";
+
+            if (added instanceof Movie) idFieldName = "movieID";
+            else idFieldName = "seriesID";
+
+            //get the id, if the id is -1, then we got the wrong object and thus the wrong number
+            int objectID = added.getID();
+            if (objectID == -1) return;
+
+            String SQL = String.format("SELECT WLI_ID FROM WatchListItem WHERE %s = %d", idFieldName, objectID);
+            DatabaseHandler handler = new DatabaseHandler(getContext());
+            SQLiteDatabase db = handler.getReadableDatabase();
+
+            Cursor c = db.rawQuery(SQL, null);
+            int WLI_ID = -1;
+            if (c.moveToFirst()) {
+                WLI_ID = c.getInt(c.getColumnIndex(idFieldName));
+            }
+
+            //Add movie or series to watchlibrary
+            SQL = String.format("INSERT INTO WatchLibrary (libraryID, WLI_ID) VALUES (%d,%d);", library.getID(), WLI_ID);
+
+            db.execSQL(SQL);
+
+        }
+    }
+
+
 }

@@ -6,28 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.AddToWatchLibrary">
 
-    <TextView
-        android:id="@+id/A02310_lblHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/addMediaToLibrary"
-        android:textSize="28sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/A02310_lblHeading">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/lblSelectLibrary"
@@ -97,8 +84,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/A02310_RecView"
-            android:layout_height="0dp"
             android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
@@ -112,7 +99,7 @@
             android:id="@+id/A02310_AddSelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="40dp"
             android:layout_marginBottom="20dp"
             android:text="@string/action_addSelected"
             app:layout_constraintBottom_toBottomOf="parent"

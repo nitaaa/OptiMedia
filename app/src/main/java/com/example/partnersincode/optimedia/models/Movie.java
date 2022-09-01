@@ -52,4 +52,9 @@ public class Movie extends WatchObject {
     public Property titleProperty() {
         return title;
     }
+
+    @Override
+    public int getID() {
+        return movieID.get();
+    }
 }

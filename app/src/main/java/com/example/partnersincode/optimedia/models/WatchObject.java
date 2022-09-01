@@ -46,4 +46,9 @@ public class WatchObject
     {
         return title.get();
     }
+
+    public int getID()
+    {
+        return -1;
+    }
 }
