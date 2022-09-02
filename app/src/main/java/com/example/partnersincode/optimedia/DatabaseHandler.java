@@ -11,9 +11,12 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+
+import com.example.partnersincode.optimedia.ui.createSeries.Genre;
 import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.Genre;
 import com.example.partnersincode.optimedia.models.Library;
+
 
 import java.util.ArrayList;
 
@@ -181,22 +184,62 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         //Works both ways:
         //Way 1:
-//        String query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','"+ LibraryType +"')";
-//        if (LibraryType.equals("Movie/Series")){
-//            query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','Watch')";
-//        }
-//        db.execSQL(query);
+        String query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','"+ LibraryType +"')";
+        if (LibraryType.equals("Movie/Series")){
+            query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','Watch')";
+        }
+        db.execSQL(query);
 
         //Way 2: Helpful because you get the ID as well
-        ContentValues values = new ContentValues();
-        values.put("libraryName", LibraryName);
-        if (LibraryType.equals("Movie/Series")){
-            values.put("libraryType", "Watch");
-        } else {
-            values.put("libraryType", LibraryType);
+    //    ContentValues values = new ContentValues();
+    //    values.put("libraryName", LibraryName);
+    //    if (LibraryType.equals("Movie/Series")){
+    //        values.put("libraryType", "Watch");
+     //   } else {
+     //       values.put("libraryType", LibraryType);
+     //   }
+     //   long id = db.insertWithOnConflict("Library", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+     //   Log.d("createLibrary", "complete // " +id);
+    }
+
+    public void addBookToLib(String LibraryID, String BookID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+       String query = "INSERT INTO BookLibrary (libraryID,bookID) VALUES (\""+LibraryID+"\",\""+BookID+"\")";
+        db.execSQL(query);
+    }
+
+    public void addLogToBook(String BookID, String blTitle, String blNote,int blPageNumber) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "INSERT INTO BookLog (bookID,blTitle,blNote,blPageNumber) VALUES (\""+BookID+"\",\""+blTitle+"\",\""+blNote+"\",\""+blPageNumber+"\")";
+        db.execSQL(query);
+    }
+
+    public void createSeries(String seriesTitle,String genreID, boolean favourite, boolean started,boolean completed) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "INSERT INTO Series (seriesTitle,genreID,favourite,started,complete) VALUES (\""+seriesTitle+"\",\""+genreID+"\",\""+favourite+"\",\""+started+"\",\""+completed+"\")";
+        db.execSQL(query);
+    }
+
+    @SuppressLint("Range")
+    public ArrayList<Genre> getGenres() {
+        ArrayList<Genre> genreArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Genre";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Genre genre = new Genre();
+                genre.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                genre.setGenreName(c.getString(c.getColumnIndex("genreName")));
+
+                genreArrayList.add(genre);
+                Log.d("DatabaseHandler", "getAllLibraries: " + genre.toString());
+            } while (c.moveToNext());
         }
-        long id = db.insertWithOnConflict("Library", null, values, SQLiteDatabase.CONFLICT_IGNORE);
-        Log.d("createLibrary", "complete // " +id);
+        c.close();
+        return genreArrayList;
     }
 
     /**
