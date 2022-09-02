@@ -145,6 +145,8 @@ public class AddToWatchLibrary extends Fragment {
         if(searchTerm.equals(""))
         {
             Toast.makeText(getContext(),R.string.invalidSearchTerm,Toast.LENGTH_SHORT).show();
+            DatabaseHandler db = new DatabaseHandler(getContext());
+
         }
 
         //Do some thing with this text to call another use case
@@ -177,7 +179,7 @@ public class AddToWatchLibrary extends Fragment {
             Cursor c = db.rawQuery(SQL, null);
             int WLI_ID = -1;
             if (c.moveToFirst()) {
-                WLI_ID = c.getInt(c.getColumnIndex(idFieldName));
+                WLI_ID = c.getInt(c.getColumnIndex("WLI_ID"));
             }
 
             //Add movie or series to watchlibrary

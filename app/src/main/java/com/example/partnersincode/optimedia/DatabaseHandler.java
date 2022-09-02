@@ -311,4 +311,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return moviesAndSeries;
     }
 
+    public void addMovie(String title, String link, Genre selGenre)
+    {
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        ContentValues movie = new ContentValues();
+        movie.put("movieTitle",title);
+        movie.put("genreID",selGenre.getGenreID());
+        long id = db.insertWithOnConflict("Movie",null,movie, SQLiteDatabase.CONFLICT_IGNORE);
+
+        String SQL = String.format("INSERT INTO WatchListItem (movieID, link)" +
+                "\n VALUES (%d, \"%s\" )",id,link);
+
+        db.execSQL(SQL);
+    }
+
+
+    public boolean isMovieInList(String title)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String SQL = String.format("SELECT * FROM Movie WHERE movieTitle = \"%s\"",title);
+        Cursor c = db.rawQuery(SQL,null);
+
+        return c.moveToFirst();
+
+
+
+
+    }
+
+
+
+
 }

@@ -40,4 +40,7 @@
     <string name="invalidMovieTitle">Please Enter a Valid Movie Title</string>
     <string name="action_addMovie" >Add Movie</string>
     <string name="invalidSearchTerm">Please Enter a Valid Search Term</string>
+    <string name="movieAlreadyInDB">Movie named %s already in database. Do you wish to continue adding?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
