@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,6 @@ import com.example.partnersincode.optimedia.R;
 import com.example.partnersincode.optimedia.models.Genre;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AddNewMovie extends Fragment {
 
@@ -102,12 +100,13 @@ public class AddNewMovie extends Fragment {
             return;}
 
 
-        if(handler.isMovieInList(title))
+        if(handler.isMovieInDatabase(title))
         {
             //If there is a similarly named movie, we show display a message to the user
             showMovieAlreadyExists();
 
         }
+        else addMovie();
 
 
 

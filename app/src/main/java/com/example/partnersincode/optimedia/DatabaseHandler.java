@@ -311,6 +311,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return moviesAndSeries;
     }
 
+
+    /**
+     * Adds a new movie object to the database, also adds the related WatchListItem
+     * Adriaan
+     * @param title of movie
+     * @param link of where movie is found
+     * @param selGenre Genre object
+     */
     public void addMovie(String title, String link, Genre selGenre)
     {
 
@@ -328,7 +336,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public boolean isMovieInList(String title)
+    /**
+     * Checks to see if there is already a movie in db with the movieTitle = title
+     * Adriaan Benn
+     * @param title of movie we want to check
+     * @return true if movie is already in the DB
+     */
+    public boolean isMovieInDatabase(String title)
     {
         SQLiteDatabase db = getReadableDatabase();
 
@@ -336,13 +350,49 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(SQL,null);
 
         return c.moveToFirst();
-
-
-
-
     }
 
 
+    /**
+     * Get the WatchListItemID of a given movie/series
+     * SQL extract: WHERE idFieldName = objectID
+     * Adriaan Benn
+     * @param idFieldName Used to specify if the movie passed is a movieID or seriesID, no alternative. This is the field queried in WLI
+     * @param objectID ID we are querying, which will either be a seriesID or a movieID
+     * @return
+     */
+    @SuppressLint("Range")
+    public int getWLI_ID(String idFieldName, int objectID)
+    {
+        //Return the WLI if the field query field is specified correctly
+        if(idFieldName.equals("movieID")||idFieldName.equals("seriesID")) {
+            String SQL = String.format("SELECT WLI_ID FROM WatchListItem WHERE %s = %d", idFieldName, objectID);
+            SQLiteDatabase db = getReadableDatabase();
+
+            Cursor c = db.rawQuery(SQL, null);
+            int WLI_ID = -1;
+            if (c.moveToFirst()) {
+                WLI_ID = c.getInt(c.getColumnIndex("WLI_ID"));
+            }
+
+            return WLI_ID;
+        }
+        return -1; //return -1 if an invalid field is passed via idFieldName
+    }
+
+
+    /**
+     * Add watchlist item to library
+     * Adriaan Benn
+     * @param library To contain WLI
+     * @param WLI_ID pk of WLI
+     */
+    public void addWLItoLibrary(Library library, int WLI_ID)
+    {
+        String SQL = String.format("INSERT INTO WatchLibrary (libraryID, WLI_ID) VALUES (%d,%d);", library.getID(), WLI_ID);
+
+        getReadableDatabase().execSQL(SQL);
+    }
 
 
 }

@@ -145,7 +145,7 @@ public class AddToWatchLibrary extends Fragment {
         if(searchTerm.equals(""))
         {
             Toast.makeText(getContext(),R.string.invalidSearchTerm,Toast.LENGTH_SHORT).show();
-            DatabaseHandler db = new DatabaseHandler(getContext());
+
 
         }
 
@@ -172,20 +172,12 @@ public class AddToWatchLibrary extends Fragment {
             int objectID = added.getID();
             if (objectID == -1) return;
 
-            String SQL = String.format("SELECT WLI_ID FROM WatchListItem WHERE %s = %d", idFieldName, objectID);
-            DatabaseHandler handler = new DatabaseHandler(getContext());
-            SQLiteDatabase db = handler.getReadableDatabase();
-
-            Cursor c = db.rawQuery(SQL, null);
-            int WLI_ID = -1;
-            if (c.moveToFirst()) {
-                WLI_ID = c.getInt(c.getColumnIndex("WLI_ID"));
-            }
+            //Get the id of the watchlistitem holding this movie/series object
+            DatabaseHandler db = new DatabaseHandler(getContext());
+            int WLI_ID = db.getWLI_ID(idFieldName,objectID);
 
             //Add movie or series to watchlibrary
-            SQL = String.format("INSERT INTO WatchLibrary (libraryID, WLI_ID) VALUES (%d,%d);", library.getID(), WLI_ID);
-
-            db.execSQL(SQL);
+            db.addWLItoLibrary(library,WLI_ID);
 
         }
     }
