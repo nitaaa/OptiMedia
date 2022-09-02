@@ -76,7 +76,6 @@ public class AddNewMedia extends Fragment {
 
         btnNewGame.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_create_game));
 
-
         return rootView;
     }
 }

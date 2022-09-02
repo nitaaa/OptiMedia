@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
 import com.example.partnersincode.optimedia.ui.gallery.GalleryViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class CreateLibrary extends Fragment {
 
@@ -36,19 +37,19 @@ public class CreateLibrary extends Fragment {
 
         View view = inflater.inflate(R.layout.create_library_fragment,container, false);
         Button button = (Button) view.findViewById(R.id.btnCreate);
-        button.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                //TODO: create library in DB here, move to next screen
-                //https://stackoverflow.com/questions/40562226/how-can-i-navigate-from-fragment-to-fragment-on-button-click
-                String libName = ((EditText) view.findViewById(R.id.edtTxtLibName)).getText().toString();
-                int selectedType = ((RadioGroup) view.findViewById(R.id.radioType)).getCheckedRadioButtonId();
-                String libType = ((RadioButton) view.findViewById(selectedType)).getText().toString();
+        button.setOnClickListener(v -> {
+            //TODO: create library in DB here, move to next screen
+            //https://stackoverflow.com/questions/40562226/how-can-i-navigate-from-fragment-to-fragment-on-button-click
+            String libName = ((EditText) view.findViewById(R.id.edtTxtLibName)).getText().toString();
+            int selectedType = ((RadioGroup) view.findViewById(R.id.radioType)).getCheckedRadioButtonId();
+            String libType = ((RadioButton) view.findViewById(selectedType)).getText().toString();
 
-                dbHandler.createLibrary(libName, libType);
-            }
+            dbHandler.createLibrary(libName, libType);
+        });
+
+        FloatingActionButton fabTemp = view.findViewById(R.id.fabTemp);
+        fabTemp.setOnClickListener(view1 -> {
+            dbHandler.getAllLibraries();
         });
         return view;
     }

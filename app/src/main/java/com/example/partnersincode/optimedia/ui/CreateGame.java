@@ -106,6 +106,12 @@ public class CreateGame extends Fragment {
                 Toast.makeText(this.getContext(), "Unable to add game.", Toast.LENGTH_LONG).show();
             }
 
+            edtxtGameName.setText("");
+            edtxtGameType.setText("");
+            spinGenre.setSelection(0);
+
+            edtxtGameName.requestFocus();
+
         });
 
         return rootView;
