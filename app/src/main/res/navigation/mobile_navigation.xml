@@ -28,6 +28,8 @@
         android:name="com.example.partnersincode.optimedia.ui.createLibrary.CreateLibrary"
         android:label="@string/createlabel"
         tools:layout="@layout/create_library_fragment" />
+
+
     <!--Colin presented -->
     <fragment
         android:id="@+id/nav_addBookLog"

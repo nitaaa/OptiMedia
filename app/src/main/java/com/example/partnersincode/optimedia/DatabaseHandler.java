@@ -11,8 +11,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-
-import com.example.partnersincode.optimedia.ui.createSeries.Genre;
 import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.Genre;
 import com.example.partnersincode.optimedia.models.Library;
@@ -135,15 +133,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         sqLiteDatabaseDB.execSQL(query);
 
         //add book library
-        query = "INSERT INTO BookLibrary (libraryID,bookID) VALUES ('4','1'), ('1','3')";
+        query = "INSERT INTO BookLibrary (libraryID,bookID) VALUES (4,1), (1,3)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add game library
-        query = "INSERT INTO GameLibrary (libraryID,gameID) VALUES ('2','1')";
+        query = "INSERT INTO GameLibrary (libraryID,gameID) VALUES (2,1)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add watch library
-        query = "INSERT INTO WatchLibrary (libraryID,WLI_ID)VALUES ('3','1'), ('3','2'), ('3','3'), ('5','4'),('5','5')";
+        query = "INSERT INTO WatchLibrary (libraryID,WLI_ID)VALUES (3,1), (3,2), (3,3), (5,4),(5,5)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add book log
@@ -202,44 +200,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      //   Log.d("createLibrary", "complete // " +id);
     }
 
-    public void addBookToLib(String LibraryID, String BookID) {
+    /**
+     * Colin O'Linksy
+     * @return void
+     */
+    public void addBookToLib(int LibraryID, int BookID) {
         SQLiteDatabase db = this.getWritableDatabase();
-       String query = "INSERT INTO BookLibrary (libraryID,bookID) VALUES (\""+LibraryID+"\",\""+BookID+"\")";
+        String query = "INSERT INTO BookLibrary (libraryID,bookID) VALUES ("+LibraryID+","+BookID+")";
         db.execSQL(query);
     }
 
+    /**
+     * Colin O'Linksy
+     * @return void
+     */
     public void addLogToBook(String BookID, String blTitle, String blNote,int blPageNumber) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO BookLog (bookID,blTitle,blNote,blPageNumber) VALUES (\""+BookID+"\",\""+blTitle+"\",\""+blNote+"\",\""+blPageNumber+"\")";
+        String query = "INSERT INTO BookLog (bookID,blTitle,blNote,blPageNumber) VALUES ("+BookID+",'"+blTitle+"','"+blNote+"','"+blPageNumber+"')";
         db.execSQL(query);
     }
 
-    public void createSeries(String seriesTitle,String genreID, boolean favourite, boolean started,boolean completed) {
+    /**
+     * Colin O'Linksy
+     * @return void
+     */
+    public void createSeries(String seriesTitle,int genreID, boolean favourite, boolean started,boolean completed) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO Series (seriesTitle,genreID,favourite,started,complete) VALUES (\""+seriesTitle+"\",\""+genreID+"\",\""+favourite+"\",\""+started+"\",\""+completed+"\")";
+        String query = "INSERT INTO Series (seriesTitle,genreID,favourite,started,complete) VALUES ('"+seriesTitle+"',"+genreID+",'"+favourite+"','"+started+"','"+completed+"')";
         db.execSQL(query);
-    }
-
-    @SuppressLint("Range")
-    public ArrayList<Genre> getGenres() {
-        ArrayList<Genre> genreArrayList = new ArrayList<>();
-
-        String selectQuery = "SELECT * FROM Genre";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery(selectQuery, null);
-        // looping through all rows and adding to list
-        if (c.moveToFirst()) {
-            do {
-                Genre genre = new Genre();
-                genre.setGenreID(c.getInt(c.getColumnIndex("genreID")));
-                genre.setGenreName(c.getString(c.getColumnIndex("genreName")));
-
-                genreArrayList.add(genre);
-                Log.d("DatabaseHandler", "getAllLibraries: " + genre.toString());
-            } while (c.moveToNext());
-        }
-        c.close();
-        return genreArrayList;
     }
 
     /**
