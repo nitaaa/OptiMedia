@@ -75,6 +75,7 @@ public class AddNewMedia extends Fragment {
         final Button btnNewSeries = (Button) rootView.findViewById(R.id.btnNewSeries);
 
         btnNewGame.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_create_game));
+        btnNewSeries.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_createSeries));
 
 
         return rootView;

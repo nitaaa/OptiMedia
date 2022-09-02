@@ -32,10 +32,10 @@
             android:icon="@drawable/ic_add"
             android:title="Share Library" />
 
-        <item
-            android:id="@+id/nav_createSeries"
-            android:icon="@drawable/ic_add"
-            android:title="Add Series" />
+<!--        <item-->
+<!--            android:id="@+id/nav_createSeries"-->
+<!--            android:icon="@drawable/ic_add"-->
+<!--            android:title="Add Series" />-->
 
         <item
             android:id="@+id/nav_addNewMedia"
