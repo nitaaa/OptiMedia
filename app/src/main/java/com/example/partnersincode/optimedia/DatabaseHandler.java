@@ -260,7 +260,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Library library = new Library();
                 library.setLibraryID(c.getInt(c.getColumnIndex("libraryID")));
                 library.setLibraryName(c.getString(c.getColumnIndex("libraryName")));
-                library.setLibraryName(c.getString(c.getColumnIndex("libraryType")));
+                library.setLibraryType(c.getString(c.getColumnIndex("libraryType")));
 
                 libraryArrayList.add(library);
                 Log.d("DatabaseHandler", "getAllLibraries: " + library.toString());

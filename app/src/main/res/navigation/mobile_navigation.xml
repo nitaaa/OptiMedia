@@ -85,5 +85,10 @@
         android:name="com.example.partnersincode.optimedia.ui.CreateGame"
         android:label="@string/add_new_game"
         tools:layout="@layout/fragment_create_game" />
+    <fragment
+        android:id="@+id/nav_viewAllLibraries"
+        android:name="com.example.partnersincode.optimedia.ui.viewAllLibraries"
+        android:label="fragment_view_all_libraries"
+        tools:layout="@layout/fragment_view_all_libraries" />
 
 </navigation>

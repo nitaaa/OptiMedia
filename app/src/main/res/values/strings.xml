@@ -55,7 +55,7 @@
     <string name="add_new_book">Add New Book</string>
     <string name="add_new_series">Add New Series</string>
     <string name="add_new_movie">Add New Movie</string>
-    
+
     <!--Colin's use cases strings-->
     <string name="series_name">Series Name:</string>
     <string name="genre_type">Genre Type:</string>

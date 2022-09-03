@@ -41,5 +41,13 @@
             android:id="@+id/nav_addNewMedia"
             android:icon="@drawable/ic_add"
             android:title="@string/label_new_media" />
+
+
+        <item
+            android:id="@+id/nav_viewAllLibraries"
+            android:icon="@drawable/ic_library"
+            android:title="@string/label_new_media" />
+            
+
     </group>
 </menu>
