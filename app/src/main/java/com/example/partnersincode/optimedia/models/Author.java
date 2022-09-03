@@ -1,6 +1,11 @@
 package com.example.partnersincode.optimedia.models;
 
-public class Author {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Author implements Parcelable {
     private int authorID;
     private String authorName, authorSurname;
 
@@ -16,6 +21,10 @@ public class Author {
     @Override
     public String toString() {
         return authorID + "," + authorName + "," + authorSurname;
+    }
+
+    public String getFullName() {
+        return authorName + " " + authorSurname;
     }
 
     public int getAuthorID() {
@@ -42,4 +51,33 @@ public class Author {
         this.authorSurname = authorSurname;
     }
 
+    protected Author(Parcel in) {
+        authorID = in.readInt();
+        authorName = in.readString();
+        authorSurname = in.readString();
+    }
+
+    public static final Creator<Author> CREATOR = new Creator<Author>() {
+        @Override
+        public Author createFromParcel(Parcel in) {
+            return new Author(in);
+        }
+
+        @Override
+        public Author[] newArray(int size) {
+            return new Author[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeInt(authorID);
+        parcel.writeString(authorName);
+        parcel.writeString(authorSurname);
+    }
 }

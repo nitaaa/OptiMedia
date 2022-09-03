@@ -288,4 +288,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return (int) id;
     }
+
+    /**
+     * Update author in database.
+     * Alexandria
+     * @return void
+     */
+    public void updateAuthor(Author author) {
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            String query = "UPDATE Author SET authorName = '"+author.getAuthorName() +"', authorSurname = '"
+                    + author.getAuthorSurname() + "' WHERE authorID = "+author.getAuthorID();
+            db.execSQL(query);
+            Log.d("Update Author", "complete // " +author.getAuthorID());
+        } catch (Exception e){
+            Log.d("Update Author", "failed: " + e.getMessage());
+        }
+
+
+    }
 }

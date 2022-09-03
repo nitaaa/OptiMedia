@@ -35,8 +35,8 @@ public class createAuthor extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Author editAuthor;
+    private Boolean editing;
     private static final String TAG = "CreateAuthor";
 
     public createAuthor() {
@@ -48,7 +48,6 @@ public class createAuthor extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment createAuthor.
      */
     // TODO: Rename and change types and number of parameters
@@ -64,9 +63,13 @@ public class createAuthor extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            editAuthor = bundle.getParcelable("authorInfo");
+            editing = true;
+            Log.d(TAG, "onCreate: author passed: "+editAuthor.getFullName());
+        } else {
+            editing = false;
         }
     }
 
@@ -76,35 +79,47 @@ public class createAuthor extends Fragment {
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_create_author, container, false);
-
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
 
         TextView edtxtName = rootView.findViewById(R.id.edtxtName);
         TextView edtxtSurname = rootView.findViewById(R.id.edtxtSurname);
-
-
         Button btnAddNewAuthor = rootView.findViewById(R.id.btnAddNewAuthor);
-        btnAddNewAuthor.setOnClickListener(view -> {
-            Author newAuthor = new Author();
-            newAuthor.setAuthorName(edtxtName.getText().toString());
-            newAuthor.setAuthorSurname(edtxtSurname.getText().toString());
 
-            int i = dbHandler.createNewAuthor(newAuthor);
-            Log.d(TAG, "Author Added:" + newAuthor.getAuthorName() + " " + newAuthor.getAuthorSurname());
+        if (editing){
+            btnAddNewAuthor.setText("Update Author");
+            edtxtName.setText(editAuthor.getAuthorName());
+            edtxtSurname.setText(editAuthor.getAuthorSurname());
+            btnAddNewAuthor.setOnClickListener(view -> {
+                editAuthor.setAuthorName(edtxtName.getText().toString());
+                editAuthor.setAuthorSurname(edtxtSurname.getText().toString());
 
-            if (i > 0){
-                Toast.makeText(this.getContext(), "Author Added: " + newAuthor.getAuthorName()
-                        + " " + newAuthor.getAuthorSurname(), Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this.getContext(), "Unable to add author.", Toast.LENGTH_LONG).show();
-            }
+                //TODO: query is probably the problem here
+                dbHandler.updateAuthor(editAuthor);
+                Toast.makeText(this.getContext(), "Author Edited: " + editAuthor.getFullName(), Toast.LENGTH_LONG).show();
+            });
+        } else {
+            btnAddNewAuthor.setOnClickListener(view -> {
+                Author newAuthor = new Author();
+                newAuthor.setAuthorName(edtxtName.getText().toString());
+                newAuthor.setAuthorSurname(edtxtSurname.getText().toString());
 
-            edtxtName.setText("");
-            edtxtSurname.setText("");
+                int i = dbHandler.createNewAuthor(newAuthor);
+                Log.d(TAG, "Author Added:" + newAuthor.getAuthorName() + " " + newAuthor.getAuthorSurname());
 
-            edtxtName.requestFocus();
+                if (i > 0){
+                    Toast.makeText(this.getContext(), "Author Added: " + newAuthor.getAuthorName()
+                            + " " + newAuthor.getAuthorSurname(), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this.getContext(), "Unable to add author.", Toast.LENGTH_LONG).show();
+                }
 
-        });
+                edtxtName.setText("");
+                edtxtSurname.setText("");
+
+                edtxtName.requestFocus();
+
+            });
+        }
 
         return rootView;
     }

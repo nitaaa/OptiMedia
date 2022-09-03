@@ -5,11 +5,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.adapters.AuthorAdapter;
+import com.example.partnersincode.optimedia.models.Author;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,9 +73,28 @@ public class manageAuthors extends Fragment {
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_manage_authors, container, false);
-
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
 
+        List<Author> authors = dbHandler.getAuthors();
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerAuthors);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        AuthorAdapter adapter = new AuthorAdapter(authors);
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnClickListener( view -> {
+            AuthorAdapter.AuthorViewHolder viewHolder = (AuthorAdapter.AuthorViewHolder) recyclerView.findContainingViewHolder(view);
+            Author author = viewHolder.author;
+            //Toast.makeText(this.getContext(), author.getFullName(),Toast.LENGTH_LONG).show();
+            //TODO: Edit Author Navigation
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("authorInfo", author);
+            Navigation.findNavController(view).navigate(R.id.nav_createAuthor, bundle);
+        });
+
+        Button btnCreateAuthor = rootView.findViewById(R.id.btnCreateAuthor);
+        btnCreateAuthor.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_createAuthor));
         
 
         return rootView;

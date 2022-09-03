@@ -105,6 +105,7 @@ public class createBook extends Fragment {
             Genre curGenre = (Genre) spinGenre.getSelectedItem();
             newBook.setGenreID(curGenre.getGenreID());
             Author curAuthor = (Author) spinAuthor.getSelectedItem();
+            newBook.setAuthorID(curAuthor.getAuthorID());
             newBook.setFavourite(false);
             newBook.setStarted(false);
             newBook.setCompleted(false);
