@@ -50,7 +50,7 @@ public class AddToWatchLibraryAdaptor extends RecyclerView.Adapter<AddToWatchLib
 
         public void setHeldObject(WatchObject heldObject) {
             this.heldObject = heldObject;
-            mediaTitle.setText(heldObject.gettitle());
+            mediaTitle.setText(heldObject.getTitle());
             selected = false;
             if(heldObject instanceof Movie) mediaType.setText(R.string.movie);
             else mediaType.setText(R.string.series);

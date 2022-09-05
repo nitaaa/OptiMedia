@@ -76,6 +76,7 @@ public class AddNewMedia extends Fragment {
 
         btnNewBook.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_createBook));
         btnNewGame.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_create_game));
+        btnNewMovie.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_addNewMovie));
         btnNewSeries.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_createSeries));
 
 

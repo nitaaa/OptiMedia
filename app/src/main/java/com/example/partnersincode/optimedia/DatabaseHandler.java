@@ -481,7 +481,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Adriaan Benn
      * @param idFieldName Used to specify if the movie passed is a movieID or seriesID, no alternative. This is the field queried in WLI
      * @param objectID ID we are querying, which will either be a seriesID or a movieID
-     * @return
+     * @return int
      */
     @SuppressLint("Range")
     public int getWLI_ID(String idFieldName, int objectID)
@@ -511,7 +511,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
     public void addWLItoLibrary(Library library, int WLI_ID)
     {
-        String SQL = String.format("INSERT INTO WatchLibrary (libraryID, WLI_ID) VALUES (%d,%d);", library.getID(), WLI_ID);
+        String SQL = String.format("INSERT INTO WatchLibrary (libraryID, WLI_ID) VALUES (%d,%d);", library.getLibraryID(), WLI_ID);
 
         getReadableDatabase().execSQL(SQL);
     }
