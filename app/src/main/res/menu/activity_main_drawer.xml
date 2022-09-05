@@ -8,22 +8,38 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+<!--        <item-->
+<!--            android:id="@+id/nav_gallery"-->
+<!--            android:icon="@drawable/ic_menu_gallery"-->
+<!--            android:title="@string/menu_gallery" />-->
+<!--        <item-->
+<!--            android:id="@+id/nav_slideshow"-->
+<!--            android:icon="@drawable/ic_menu_slideshow"-->
+<!--            android:title="@string/menu_slideshow" />-->
 
         <item
             android:id="@+id/nav_createLibrary"
             android:icon="@drawable/ic_add"
             android:title="@string/createlabel" />
+
         <item
-            android:id="@+id/nav_addNewMovie"
+            android:id="@+id/nav_manageAuthors"
+            android:icon="@drawable/ic_author"
+            android:title="@string/manage_authors" />
+
+        <item
+            android:id="@+id/nav_addBookLog"
+            android:icon="@drawable/ic_book"
+            android:title="@string/add_booklog" />
+
+        <item
+            android:id="@+id/nav_shareLibrary"
+            android:icon="@drawable/ic_share"
+            android:title="@string/share_library" />
+
+        <item
+            android:id="@+id/nav_addNewMedia"
             android:icon="@drawable/ic_add"
-            android:title="@string/heading_addNewMovie" />
+            android:title="@string/label_new_media" />
     </group>
 </menu>

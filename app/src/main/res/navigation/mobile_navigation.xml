@@ -28,14 +28,62 @@
         android:name="com.example.partnersincode.optimedia.ui.createLibrary.CreateLibrary"
         android:label="@string/createlabel"
         tools:layout="@layout/create_library_fragment" />
+
     <fragment
         android:id="@+id/nav_addNewMovie"
         android:name="com.example.partnersincode.optimedia.ui.AddNewMovie"
         android:label="@string/heading_addNewMovie"
         tools:layout="@layout/add_new_movie_fragment" />
+        
     <fragment
         android:id="@+id/nav_addToWatchLibrary"
         android:name="com.example.partnersincode.optimedia.ui.AddToWatchLibrary"
         android:label="@string/addMediaToLibrary"
         tools:layout="@layout/fragment_add_to_watch_library" />
+
+
+    <fragment
+        android:id="@+id/nav_createAuthor"
+        android:name="com.example.partnersincode.optimedia.ui.createAuthor"
+        android:label="Author"
+        tools:layout="@layout/fragment_create_author" />
+    <fragment
+        android:id="@+id/nav_manageAuthors"
+        android:name="com.example.partnersincode.optimedia.ui.manageAuthors"
+        android:label="Manage Authors"
+        tools:layout="@layout/fragment_manage_authors" />
+    <fragment
+        android:id="@+id/nav_createBook"
+        android:name="com.example.partnersincode.optimedia.ui.createBook"
+        android:label="Create Book"
+        tools:layout="@layout/fragment_create_book" />
+
+
+    <!--Colin presented -->
+    <fragment
+        android:id="@+id/nav_addBookLog"
+        android:name="com.example.partnersincode.optimedia.ui.addBookLog.AddBookLog"
+        android:label="Add BookLog" />
+    <fragment
+        android:id="@+id/nav_shareLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.shareLibrary.ShareLibrary"
+        android:label="Share Library" />
+    <fragment
+        android:id="@+id/nav_createSeries"
+        android:name="com.example.partnersincode.optimedia.ui.createSeries.CreateSeries"
+        android:label="Add Series" />
+
+
+    <fragment
+        android:id="@+id/nav_addNewMedia"
+        android:name="com.example.partnersincode.optimedia.ui.AddNewMedia"
+        android:label="@string/label_new_media"
+        tools:layout="@layout/fragment_add_new_media" />
+
+    <fragment
+        android:id="@+id/nav_create_game"
+        android:name="com.example.partnersincode.optimedia.ui.CreateGame"
+        android:label="@string/add_new_game"
+        tools:layout="@layout/fragment_create_game" />
+
 </navigation>

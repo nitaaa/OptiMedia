@@ -1,40 +1,48 @@
 package com.example.partnersincode.optimedia.models;
 
+import com.example.partnersincode.optimedia.DatabaseHandler;
 
-import com.example.partnersincode.optimedia.Property;
+public class Library {
+    private int libraryID;
+    private String libraryName;
+    private String libraryType;
 
-public class Library
-{
-    Property<Integer> libraryID;
-    Property<String> libraryName;
-    Property<String> libraryType;
-
-    //This will be changed to match MVC principles
-
-    /**
-     * This constructor made with creating library objects with all the data fields in mind
-     *
-     * @param libraryID Database ID of library
-     * @param libraryName Database libraryName, as defined by users
-     * @param libraryType Database library type
-     */
     public Library(int libraryID, String libraryName, String libraryType) {
-        this.libraryID = new Property<>(libraryID);
-        this.libraryName = new Property<>(libraryName);
-        this.libraryType = new Property<>(libraryType);
+        this.libraryID = libraryID;
+        this.libraryName = libraryName;
+        this.libraryType = libraryType;
+    }
 
+    public Library() {
+    }
+
+    public int getLibraryID() {
+        return libraryID;
+    }
+
+    public void setLibraryID(int libraryID) {
+        this.libraryID = libraryID;
+    }
+
+    public String getLibraryName() {
+        return libraryName;
+    }
+
+    public void setLibraryName(String libraryName) {
+        this.libraryName = libraryName;
+    }
+
+    public String getLibraryType() {
+        return libraryType;
+    }
+
+    public void setLibraryType(String libraryType) {
+        this.libraryType = libraryType;
     }
 
     @Override
-    public String toString()
-    {
-        return libraryName.get();
+    public String toString() {
+        return libraryID + "," + libraryName + "," + libraryType;
     }
-
-    public int getID()
-    {
-        return libraryID.get();
-    }
-
-
+    
 }

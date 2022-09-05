@@ -1,46 +1,82 @@
 package com.example.partnersincode.optimedia.models;
 
-import com.example.partnersincode.optimedia.Property;
-
-
-
 public class Game {
-    //Properties
-    private Property<Integer> gameID = new Property<>();
-    private Property<Integer> genreID = new Property<>();
-    private Property<String> title = new Property<>();
-    private Property<String> type = new Property<>();
-    private Property<Boolean> favourite = new Property<>();
-    private Property<Boolean> started = new Property<>();
-    private Property<Boolean> complete = new Property<>();
+    private int gameID;
+    private int genreID;
+    private String gameTitle, gameType;
+    private boolean favourite, started, completed;
 
-    //Constructor
-    public Game(int gameID, int genreID, String title, String type, boolean favourite, boolean started, boolean complete) {
-        this.gameID.set(gameID);
-        this.genreID.set(genreID);
-        this.title.set(title);
-        this.type.set(type);
-        this.favourite.set(favourite);
-        this.started.set(started);
-        this.complete.set(complete);
+    public Game(int gameID, int genreID, String gameTitle, String gameType, boolean favourite, boolean started, boolean completed) {
+        this.gameID = gameID;
+        this.genreID = genreID;
+        this.gameTitle = gameTitle;
+        this.gameType = gameType;
+        this.favourite = favourite;
+        this.started = started;
+        this.completed = completed;
     }
 
-    //Accessors and Modifiers
+    public Game() {
+    }
 
+    @Override
+    public String toString() {
+        return gameID + "," + genreID + "," + gameTitle + "," + gameType + "," + favourite + "," + started + "," + completed;
+    }
 
-    /**
-     Writes the details of a game to the console.
-     @return Void
-     @throws Exception
-     */
-    //Other methods
-    public void logGame()
-    {
-        try{
-            System.out.println("GameID: "+gameID.get()+"\nGenreID: "+genreID.get()+"\nTitle: "+title.get()+"\nType: "+type.get()
-                    +"\nFavourite: "+favourite.get()+"\nStarted: "+started.get()+"\nComplete: "+complete.get());
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+    public int getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
+    }
+
+    public int getGenreID() {
+        return genreID;
+    }
+
+    public void setGenreID(int genreID) {
+        this.genreID = genreID;
+    }
+
+    public String getGameTitle() {
+        return gameTitle;
+    }
+
+    public void setGameTitle(String gameTitle) {
+        this.gameTitle = gameTitle;
+    }
+
+    public String getGameType() {
+        return gameType;
+    }
+
+    public void setGameType(String gameType) {
+        this.gameType = gameType;
+    }
+
+    public boolean isFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        this.favourite = favourite;
+    }
+
+    public boolean isStarted() {
+        return started;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }
