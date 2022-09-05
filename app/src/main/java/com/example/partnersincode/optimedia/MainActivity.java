@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.example.partnersincode.optimedia.ui.AddNewMovie;
+import com.example.partnersincode.optimedia.ui.AddToWatchLibrary;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -34,6 +35,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
+//        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.nav_host_fragment_content_main,new AddToWatchLibrary())
+//                        .addToBackStack(null)
+//                        .commit();
+//            }
+//        });
+
 //        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

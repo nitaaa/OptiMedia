@@ -12,6 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
+import com.example.partnersincode.optimedia.models.Genre;
+import com.example.partnersincode.optimedia.models.Library;
+import com.example.partnersincode.optimedia.models.Movie;
+import com.example.partnersincode.optimedia.models.Series;
+import com.example.partnersincode.optimedia.models.WatchObject;
+
 import com.example.partnersincode.optimedia.models.Author;
 import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Game;
@@ -20,7 +26,6 @@ import com.example.partnersincode.optimedia.models.Genre;
 import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.Genre;
 import com.example.partnersincode.optimedia.models.Library;
-
 
 
 import java.util.ArrayList;
@@ -340,6 +345,177 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         c.close();
         return authorArrayList;
     }
+
+    /**
+     * Gets all the Libraries of type watch from the database
+     * Adriaan Benn
+     * @return ArrayList<WatchLibrary> populated with watchLibraries
+     */
+    @SuppressLint("Range")
+    public ArrayList<Library> getWatchLibraries()
+    {
+        ArrayList<Library> watchLibraries = new ArrayList<>();
+
+        String SQL = "SELECT * FROM Library WHERE libraryType = \"Watch\"";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(SQL, null);
+
+        if(c.moveToFirst())
+        {
+            do{
+
+                int libraryID = c.getInt(c.getColumnIndex("libraryID"));
+                String libraryName = c.getString(c.getColumnIndex("libraryName"));
+                String libraryType = c.getString(c.getColumnIndex("libraryType"));
+                watchLibraries.add(new Library(libraryID,libraryName,libraryType));
+
+
+            } while (c.moveToNext());
+        }
+        return watchLibraries;
+    }
+
+
+    /**
+     * Database access to get a list of all movies and series that can be added to watch list, hopefully merged
+     *
+     * @return ArrayList containing all the movies and series
+     */
+    @SuppressLint("Range")
+    public ArrayList<WatchObject> getMoviesAndSeries()
+    {
+        ArrayList<WatchObject> moviesAndSeries = new ArrayList<>();
+
+        String SQLMovies = "SELECT * FROM Movie ORDER BY movieTitle";
+
+        String SQLSeries = "SELECT * FROM Series ORDER BY seriesTitle";
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor movies = db.rawQuery(SQLMovies, null);
+
+        Cursor series = db.rawQuery(SQLSeries, null);
+
+
+        if(movies.moveToFirst())
+        {
+            do
+            {
+                int movieID = movies.getInt(movies.getColumnIndex("movieID"));
+                int genreID = movies.getInt(movies.getColumnIndex("genreID"));
+                String movieTitle = movies.getString(movies.getColumnIndex("movieTitle"));
+                boolean favourite = movies.getInt(movies.getColumnIndex("favourite"))==1;
+                boolean started = movies.getInt(movies.getColumnIndex("started")) == 1;
+                boolean complete = movies.getInt(movies.getColumnIndex("complete"))==1;
+                
+                moviesAndSeries.add(new Movie(movieID,genreID,movieTitle,favourite,started,complete));
+
+            }while(movies.moveToNext());
+        }
+        
+        if(series.moveToFirst())
+        {
+            do
+            {
+                int seriesID = series.getInt(series.getColumnIndex("seriesID"));
+                int genreID = series.getInt(series.getColumnIndex("genreID"));
+                String seriesTitle = series.getString(series.getColumnIndex("seriesTitle"));
+                boolean favourite = series.getInt(series.getColumnIndex("favourite"))==1;
+                boolean started = series.getInt(series.getColumnIndex("started")) == 1;
+                boolean complete = series.getInt(series.getColumnIndex("complete"))==1;
+
+                moviesAndSeries.add(new Series(seriesID,genreID,seriesTitle,favourite,started,complete));
+
+            }while(series.moveToNext());
+        }
+
+
+        return moviesAndSeries;
+    }
+
+
+    /**
+     * Adds a new movie object to the database, also adds the related WatchListItem
+     * Adriaan
+     * @param title of movie
+     * @param link of where movie is found
+     * @param selGenre Genre object
+     */
+    public void addMovie(String title, String link, Genre selGenre)
+    {
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        ContentValues movie = new ContentValues();
+        movie.put("movieTitle",title);
+        movie.put("genreID",selGenre.getGenreID());
+        long id = db.insertWithOnConflict("Movie",null,movie, SQLiteDatabase.CONFLICT_IGNORE);
+
+        String SQL = String.format("INSERT INTO WatchListItem (movieID, link)" +
+                "\n VALUES (%d, \"%s\" )",id,link);
+
+        db.execSQL(SQL);
+    }
+
+
+    /**
+     * Checks to see if there is already a movie in db with the movieTitle = title
+     * Adriaan Benn
+     * @param title of movie we want to check
+     * @return true if movie is already in the DB
+     */
+    public boolean isMovieInDatabase(String title)
+    {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String SQL = String.format("SELECT * FROM Movie WHERE movieTitle = \"%s\"",title);
+        Cursor c = db.rawQuery(SQL,null);
+
+        return c.moveToFirst();
+    }
+
+
+    /**
+     * Get the WatchListItemID of a given movie/series
+     * SQL extract: WHERE idFieldName = objectID
+     * Adriaan Benn
+     * @param idFieldName Used to specify if the movie passed is a movieID or seriesID, no alternative. This is the field queried in WLI
+     * @param objectID ID we are querying, which will either be a seriesID or a movieID
+     * @return
+     */
+    @SuppressLint("Range")
+    public int getWLI_ID(String idFieldName, int objectID)
+    {
+        //Return the WLI if the field query field is specified correctly
+        if(idFieldName.equals("movieID")||idFieldName.equals("seriesID")) {
+            String SQL = String.format("SELECT WLI_ID FROM WatchListItem WHERE %s = %d", idFieldName, objectID);
+            SQLiteDatabase db = getReadableDatabase();
+
+            Cursor c = db.rawQuery(SQL, null);
+            int WLI_ID = -1;
+            if (c.moveToFirst()) {
+                WLI_ID = c.getInt(c.getColumnIndex("WLI_ID"));
+            }
+
+            return WLI_ID;
+        }
+        return -1; //return -1 if an invalid field is passed via idFieldName
+    }
+
+
+    /**
+     * Add watchlist item to library
+     * Adriaan Benn
+     * @param library To contain WLI
+     * @param WLI_ID pk of WLI
+     */
+    public void addWLItoLibrary(Library library, int WLI_ID)
+    {
+        String SQL = String.format("INSERT INTO WatchLibrary (libraryID, WLI_ID) VALUES (%d,%d);", library.getID(), WLI_ID);
+
+        getReadableDatabase().execSQL(SQL);
+    }
+
 
     /**
      * Create new book in database.

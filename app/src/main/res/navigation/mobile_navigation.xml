@@ -30,6 +30,19 @@
         tools:layout="@layout/create_library_fragment" />
 
     <fragment
+        android:id="@+id/nav_addNewMovie"
+        android:name="com.example.partnersincode.optimedia.ui.AddNewMovie"
+        android:label="@string/heading_addNewMovie"
+        tools:layout="@layout/add_new_movie_fragment" />
+        
+    <fragment
+        android:id="@+id/nav_addToWatchLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.AddToWatchLibrary"
+        android:label="@string/addMediaToLibrary"
+        tools:layout="@layout/fragment_add_to_watch_library" />
+
+
+    <fragment
         android:id="@+id/nav_createAuthor"
         android:name="com.example.partnersincode.optimedia.ui.createAuthor"
         android:label="Author"
