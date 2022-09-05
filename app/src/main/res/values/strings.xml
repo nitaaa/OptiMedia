@@ -44,5 +44,8 @@
     <string name="log_pgno">Page Number:</string>
     <string name="share_qr">Generate QR Code</string>
     <string name="share_xml">Create XML</string>
+    <string name="manage_authors">Manage Authors</string>
+    <string name="add_booklog">Add Booklog</string>
+    <string name="share_library">Share Library</string>
 
 </resources>

@@ -8,14 +8,14 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+<!--        <item-->
+<!--            android:id="@+id/nav_gallery"-->
+<!--            android:icon="@drawable/ic_menu_gallery"-->
+<!--            android:title="@string/menu_gallery" />-->
+<!--        <item-->
+<!--            android:id="@+id/nav_slideshow"-->
+<!--            android:icon="@drawable/ic_menu_slideshow"-->
+<!--            android:title="@string/menu_slideshow" />-->
 
         <item
             android:id="@+id/nav_createLibrary"
@@ -25,26 +25,17 @@
         <item
             android:id="@+id/nav_manageAuthors"
             android:icon="@drawable/ic_author"
-            android:title="Manage Authors" />
+            android:title="@string/manage_authors" />
 
         <item
-            android:id="@+id/nav_createBook"
-            android:icon="@drawable/ic_book"
-            android:title="Add New Book" />
-
             android:id="@+id/nav_addBookLog"
-            android:icon="@drawable/ic_add"
-            android:title="Add Booklog" />
+            android:icon="@drawable/ic_book"
+            android:title="@string/add_booklog" />
 
         <item
             android:id="@+id/nav_shareLibrary"
-            android:icon="@drawable/ic_add"
-            android:title="Share Library" />
-
-<!--        <item-->
-<!--            android:id="@+id/nav_createSeries"-->
-<!--            android:icon="@drawable/ic_add"-->
-<!--            android:title="Add Series" />-->
+            android:icon="@drawable/ic_share"
+            android:title="@string/share_library" />
 
         <item
             android:id="@+id/nav_addNewMedia"
