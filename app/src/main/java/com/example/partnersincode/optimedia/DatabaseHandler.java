@@ -11,9 +11,16 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+
+import com.example.partnersincode.optimedia.models.Author;
+import com.example.partnersincode.optimedia.models.Book;
+import com.example.partnersincode.optimedia.models.Game;
+import com.example.partnersincode.optimedia.models.Genre;
+
 import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.Genre;
 import com.example.partnersincode.optimedia.models.Library;
+
 
 
 import java.util.ArrayList;
@@ -304,6 +311,92 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         c.close();
         return genreArrayList;
+    }
+
+    /**
+     * Gets all authors from the database.
+     * Alexandria
+     * @return ArrayList<Author>
+     */
+    @SuppressLint("Range")
+    public ArrayList<Author> getAuthors() {
+        ArrayList<Author> authorArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Author";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                Author author = new Author();
+                author.setAuthorID(c.getInt(c.getColumnIndex("authorID")));
+                author.setAuthorName(c.getString(c.getColumnIndex("authorName")));
+                author.setAuthorSurname(c.getString(c.getColumnIndex("authorSurname")));
+
+                authorArrayList.add(author);
+                Log.d("DatabaseHandler", "getAllLibraries: " + author.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return authorArrayList;
+    }
+
+    /**
+     * Create new book in database.
+     * Alexandria
+     * @return int ID
+     */
+    public int createNewBook(Book book) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("authorID", book.getAuthorID());
+        values.put("genreID", book.getGenreID());
+        values.put("ISBN", book.getISBN());
+        values.put("bookTitle", book.getBookTitle());
+        values.put("favourite", book.isFavourite());
+        values.put("started", book.isStarted());
+        values.put("complete", book.isCompleted());
+        long id = db.insertWithOnConflict("Book", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        Log.d("createNewBook", "complete // " +id);
+
+        return (int) id;
+    }
+
+    /**
+     * Create new author in database.
+     * Alexandria
+     * @return int ID
+     */
+    public int createNewAuthor(Author author) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("authorName", author.getAuthorName());
+        values.put("authorSurname", author.getAuthorSurname());
+        long id = db.insertWithOnConflict("Author", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        Log.d("createNewAuthor", "complete // " +id);
+
+        return (int) id;
+    }
+
+    /**
+     * Update author in database.
+     * Alexandria
+     * @return void
+     */
+    public void updateAuthor(Author author) {
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            String query = "UPDATE Author SET authorName = '"+author.getAuthorName() +"', authorSurname = '"
+                    + author.getAuthorSurname() + "' WHERE authorID = "+author.getAuthorID();
+            db.execSQL(query);
+            Log.d("Update Author", "complete // " +author.getAuthorID());
+        } catch (Exception e){
+            Log.d("Update Author", "failed: " + e.getMessage());
+        }
+
+
     }
 
 }

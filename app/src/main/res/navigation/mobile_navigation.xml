@@ -29,6 +29,22 @@
         android:label="@string/createlabel"
         tools:layout="@layout/create_library_fragment" />
 
+    <fragment
+        android:id="@+id/nav_createAuthor"
+        android:name="com.example.partnersincode.optimedia.ui.createAuthor"
+        android:label="Author"
+        tools:layout="@layout/fragment_create_author" />
+    <fragment
+        android:id="@+id/nav_manageAuthors"
+        android:name="com.example.partnersincode.optimedia.ui.manageAuthors"
+        android:label="Manage Authors"
+        tools:layout="@layout/fragment_manage_authors" />
+    <fragment
+        android:id="@+id/nav_createBook"
+        android:name="com.example.partnersincode.optimedia.ui.createBook"
+        android:label="Create Book"
+        tools:layout="@layout/fragment_create_book" />
+
 
     <!--Colin presented -->
     <fragment

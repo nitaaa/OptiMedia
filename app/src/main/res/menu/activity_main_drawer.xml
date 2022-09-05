@@ -23,6 +23,15 @@
             android:title="@string/createlabel" />
 
         <item
+            android:id="@+id/nav_manageAuthors"
+            android:icon="@drawable/ic_author"
+            android:title="Manage Authors" />
+
+        <item
+            android:id="@+id/nav_createBook"
+            android:icon="@drawable/ic_book"
+            android:title="Add New Book" />
+
             android:id="@+id/nav_addBookLog"
             android:icon="@drawable/ic_add"
             android:title="Add Booklog" />
@@ -41,6 +50,6 @@
             android:id="@+id/nav_addNewMedia"
             android:icon="@drawable/ic_add"
             android:title="@string/label_new_media" />
-            
+
     </group>
 </menu>
