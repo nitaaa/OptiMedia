@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ShowQrCode">
+
+    <ImageView
+        android:id="@+id/A03200_qrImage"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:contentDescription="@string/contentDescription_QRImageView"
+        android:src="@mipmap/ic_launcher_round"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.49" />
+
+    <TextView
+        android:id="@+id/A03200_lblScanToAddLibrary"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/lbl_scanToAddLibrary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/A03200_qrImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/A03200_btnNext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:text="@string/btnNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/A03200_lblIndex"
+        app:layout_constraintTop_toTopOf="@+id/A03200_btnPrevious" />
+
+    <TextView
+        android:id="@+id/A03200_lblIndex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:text="@string/A03200_lblIndex"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/A03200_btnPrevious"
+        app:layout_constraintEnd_toStartOf="@+id/A03200_btnNext"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/A03200_btnPrevious"
+        app:layout_constraintTop_toTopOf="@+id/A03200_btnPrevious" />
+
+    <Button
+        android:id="@+id/A03200_btnPrevious"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="30dp"
+        android:text="@string/btnPrev"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/A03200_lblIndex"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
