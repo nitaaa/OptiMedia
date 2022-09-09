@@ -117,6 +117,10 @@ public class ShowQrCode extends Fragment {
         return root;
     }
 
+    /**
+     * Gets all of the UI elements, sets up binding and listeners
+     * @param root view of Fragment
+     */
     private void initialize(View root)
     {
         //Get UI elements
@@ -131,7 +135,7 @@ public class ShowQrCode extends Fragment {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        //Get width of screen
+        //Get width of screen to be used for sizing of QR (passed to external library.
         screenWidth = displayMetrics.widthPixels;
 
         //Initialize arraylist
@@ -150,8 +154,8 @@ public class ShowQrCode extends Fragment {
 
             //Set to disable button if at edge of array
             prev.setEnabled(!(newValue<=0));
-            next.setEnabled(!(newValue>=partitionedBitmaps.size()));
-            lblIndex.setText(getResources().getString(R.string.A03200_lblIndex,index.get(),partitionedBitmaps.size()));
+            next.setEnabled(!(newValue>=partitionedBitmaps.size()-1));
+            lblIndex.setText(getResources().getString(R.string.A03200_lblIndex,index.get()+1,partitionedBitmaps.size()));
         });
 
         //set on click listener for buttons
@@ -161,20 +165,29 @@ public class ShowQrCode extends Fragment {
 
     private void processInput()
     {
+        int limit = 1046;
         //Check to see if input contents would exceed the size limit for a version 18 QR code
-        if(QRContents.length()>1046)
+        if(QRContents.length()>limit)
         {
-            Toast.makeText(getContext(),"testing cheats enabled true", Toast.LENGTH_SHORT);
+            for(int x = 0; x< QRContents.length();x+=limit)
+            {
+                if(QRContents.length() - x<limit)addQRBitmap(QRContents.substring(x));
+                else addQRBitmap(QRContents.substring(x,limit+x));
+
+            }
         }
         else{
             //Just process one big QR code
             addQRBitmap(QRContents);
-            index.set(0);
+
         }
+        index.set(0);
     }
+
 
     private void addQRBitmap(String contents)
     {
+        //Create the bitmap and add it to the array of bitmaps
         try {
             encoder = new QRGEncoder(contents, null, QRGContents.Type.TEXT, screenWidth);
             partitionedBitmaps.add(encoder.encodeAsBitmap());
