@@ -68,7 +68,7 @@ public class viewBookLibrary extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            library = bundle.getParcelable("authorInfo");
+            library = bundle.getParcelable("libraryInfo");
             Log.d(TAG, "onCreate: library passed: "+library.getLibraryName());
         }
     }
@@ -92,12 +92,13 @@ public class viewBookLibrary extends Fragment {
             Toast.makeText(this.getContext(), book.toString(),Toast.LENGTH_LONG).show();
             Bundle bundle = new Bundle();
             bundle.putParcelable("bookInfo", book);
-     //       Navigation.findNavController(view).navigate(R.id., bundle); //navigate to A02111
+     // TODO:Navigation from view book library to A02111
+            //  Navigation.findNavController(view).navigate(R.id., bundle); //navigate to A02111
         });
 
-        //onclick for edit
+        //TODO: onclick for edit
 
-        //onclick for add to library
+        //TODO: onclick for add to library - open search for books
 
         //onclick for share
         Button imgBtnShareBLib = rootView.findViewById(R.id.imgBtnShareBLib);

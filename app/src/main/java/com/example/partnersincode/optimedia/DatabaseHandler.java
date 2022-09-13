@@ -658,7 +658,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @SuppressLint("Range")
     public Author getAuthorByID(int authorID) {
         Author author = new Author();
-        String selectQuery = "SELECT * FROM Author WHERE bookID = " + authorID;
+        String selectQuery = "SELECT * FROM Author WHERE authorID = " + authorID;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list

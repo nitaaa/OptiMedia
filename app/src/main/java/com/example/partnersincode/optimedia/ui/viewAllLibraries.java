@@ -90,7 +90,9 @@ public class viewAllLibraries extends Fragment {
 //            if (library.getLibraryType().equals("Book")) {
 //                dbHandler.getAllBooksLibrary(library.getLibraryID(),"");
 //            }
-            Navigation.findNavController(view).navigate(R.id.nav_viewBookLibrary, bundle); //navigate to view library
+            if (library.getLibraryType().equals("Book")) {
+                Navigation.findNavController(view).navigate(R.id.nav_viewBookLibrary, bundle); //navigate to view library
+            }
         });
 
         return rootView;
