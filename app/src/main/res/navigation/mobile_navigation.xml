@@ -94,7 +94,12 @@
     <fragment
         android:id="@+id/nav_viewBookLibrary"
         android:name="com.example.partnersincode.optimedia.ui.viewBookLibrary"
-        android:label="View Library"
+        android:label="View Book Library"
         tools:layout="@layout/fragment_view_book_library" />
+    <fragment
+        android:id="@+id/nav_viewGameLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.viewGameLibrary"
+        android:label="View Game Library"
+        tools:layout="@layout/fragment_view_game_library" />
 
 </navigation>

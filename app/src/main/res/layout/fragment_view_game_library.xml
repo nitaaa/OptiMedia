@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.viewBookLibrary" >
+    tools:context=".ui.viewGameLibrary" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtBookLibraryName"
+                android:id="@+id/txtGameLibraryName"
                 style="@style/txtHeading"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -33,7 +33,7 @@
                 app:autoSizeTextType="uniform" />
 
             <ImageButton
-                android:id="@+id/imgBtnEditBook"
+                android:id="@+id/imgBtnEditGame"
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -51,34 +51,34 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/imgBtnAddToBLib"
+                android:id="@+id/imgBtnAddToGLib"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:insetLeft="8dp"
                 android:insetRight="8dp"
                 android:text="Add to Library"
-                android:textColor="@color/black"
-                app:backgroundTint="@color/book_theme"
+                app:backgroundTint="@color/game_theme"
                 app:icon="@drawable/ic_add"
-                app:iconTint="@color/black" />
+                app:iconTint="@color/black"
+                android:textColor="@color/black"/>
 
             <Button
-                android:id="@+id/imgBtnShareBLib"
+                android:id="@+id/imgBtnShareGLib"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:insetLeft="8dp"
                 android:insetRight="8dp"
                 android:text="Share"
-                android:textColor="@color/black"
-                app:backgroundTint="@color/book_theme"
+                app:backgroundTint="@color/game_theme"
                 app:icon="@drawable/ic_share"
-                app:iconTint="@color/black" />
+                app:iconTint="@color/black"
+                android:textColor="@color/black"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerBookLibrary"
+            android:id="@+id/recyclerGameLibrary"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
