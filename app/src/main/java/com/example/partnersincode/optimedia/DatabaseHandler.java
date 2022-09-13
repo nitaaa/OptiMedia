@@ -8,9 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 
 import com.example.partnersincode.optimedia.models.Genre;
 import com.example.partnersincode.optimedia.models.Library;
@@ -21,11 +18,6 @@ import com.example.partnersincode.optimedia.models.WatchObject;
 import com.example.partnersincode.optimedia.models.Author;
 import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Game;
-import com.example.partnersincode.optimedia.models.Genre;
-
-import com.example.partnersincode.optimedia.models.Game;
-import com.example.partnersincode.optimedia.models.Genre;
-import com.example.partnersincode.optimedia.models.Library;
 
 
 import java.util.ArrayList;
@@ -571,8 +563,114 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         } catch (Exception e){
             Log.d("Update Author", "failed: " + e.getMessage());
         }
-
-
     }
 
+    /**
+     * Find all books in a library
+     * Qaanita Fataar
+     * @return ArrayList<Book>
+     * @param libraryID, searchTerm
+     */
+    @SuppressLint("Range")
+    public ArrayList<Book> getAllBooksLibrary(int libraryID, String searchTerm){
+        ArrayList<Book> bookArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM BookLibrary WHERE libraryID = " + libraryID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                int bookID = c.getInt(c.getColumnIndex("bookID"));
+                Book book = getBookByID(bookID);
+                if (book.getBookTitle() != null)  { //&& book.getBookTitle().contains(searchTerm)){
+                    bookArrayList.add(book);
+                    Log.d("DatabaseHandler", "getAllBooksLibrary: " + bookID);
+                }
+            } while (c.moveToNext());
+        }
+        c.close();
+        return bookArrayList;
+    }
+
+    /**
+     * Find a book by its ID
+     * Qaanita Fataar
+     * @return Book
+     * @param bookID
+     */
+    @SuppressLint("Range")
+    public Book getBookByID(int bookID){
+        Book book = new Book();
+        String selectQuery = "SELECT * FROM Book WHERE bookID = " + bookID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                book.setBookID(c.getInt(c.getColumnIndex("bookID")));
+                book.setAuthorID(c.getInt(c.getColumnIndex("authorID")));
+                book.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                book.setBookTitle(c.getString(c.getColumnIndex("bookTitle")));
+                book.setISBN(c.getString(c.getColumnIndex("ISBN")));
+                book.setFavourite(c.getInt(c.getColumnIndex("favourite")) > 0);
+                book.setStarted(c.getInt(c.getColumnIndex("started")) > 0);
+                book.setCompleted(c.getInt(c.getColumnIndex("complete")) > 0);
+                Log.d("DatabaseHandler", "getAllBooksLibrary: " + bookID);
+            } while (c.moveToNext());
+        }
+        c.close();
+        return book;
+    }
+
+    /**
+     * Find all games in a library
+     * Qaanita Fataar
+     * @return ArrayList<Game>
+     * @param libraryID, searchTerm
+     */
+    public ArrayList<Game> getAllGamesLibrary(int libraryID, String searchTerm){
+        ArrayList<Game> gameArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM GameLibrary WHERE libraryID = " + libraryID;
+        return new ArrayList<Game>();
+    }
+
+    /**
+     * Find all watchlist items  in a library
+     * Qaanita Fataar
+     * @return ArrayList<WatchObject>
+     * @param libraryID, searchTerm
+     */
+    public ArrayList<WatchObject> getAllWatchItemsLibrary(int libraryID, String searchTerm){
+        ArrayList<Game> gameArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM WatchLibrary WHERE libraryID = " + libraryID;
+        return new ArrayList<WatchObject>();
+    }
+
+    /**
+     * Find an author by ID
+     * Qaanita Fataar
+     * @return Author
+     * @param authorID
+     */
+    @SuppressLint("Range")
+    public Author getAuthorByID(int authorID) {
+        Author author = new Author();
+        String selectQuery = "SELECT * FROM Author WHERE bookID = " + authorID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                author.setAuthorID(c.getInt(c.getColumnIndex("authorID")));
+                author.setAuthorName(c.getString(c.getColumnIndex("authorName")));
+                author.setAuthorSurname(c.getString(c.getColumnIndex("authorSurname")));
+                Log.d("DatabaseHandler", "getAuthorByID: " + author.getFullName());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return author;
+    }
 }

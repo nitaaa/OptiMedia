@@ -39,7 +39,7 @@
     <string name="movie">Movie</string>
     <string name="series">Series</string>
     <string name="invalidMovieTitle">Please Enter a Valid Movie Title</string>
-    <string name="action_addMovie" >Add Movie</string>
+    <string name="action_addMovie">Add Movie</string>
     <string name="invalidSearchTerm">Please Enter a Valid Search Term</string>
     <string name="movieAlreadyInDB">Movie named %s already in database. Do you wish to continue adding?</string>
     <string name="yes">Yes</string>
@@ -68,9 +68,10 @@
     <string name="log_pgno">Page Number:</string>
     <string name="share_qr">Generate QR Code</string>
     <string name="share_xml">Create XML</string>
-    
+
     <string name="manage_authors">Manage Authors</string>
     <string name="add_booklog">Add Booklog</string>
     <string name="share_library">Share Library</string>
+    <string name="view_all_libraries">View All Libraries</string>
 
 </resources>

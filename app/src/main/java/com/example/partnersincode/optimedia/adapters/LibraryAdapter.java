@@ -30,9 +30,6 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.LibraryV
         this.onClickListener = onClickListener;
     }
 
-    /**
-     * TODO: Recycler View with library information
-     */
     public static class LibraryViewHolder extends RecyclerView.ViewHolder{
         public TextView txtRecyclerLibraryName;
         public TextView txtRecyclerLibraryType;
@@ -46,7 +43,6 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.LibraryV
         }
 
         public void setLibrary(Library library) {
-            // TODO: set which library is selected
             this.library = library;
 
             txtRecyclerLibraryName.setText(library.getLibraryName());
