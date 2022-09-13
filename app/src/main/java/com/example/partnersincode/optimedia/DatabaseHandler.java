@@ -629,11 +629,55 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @return ArrayList<Game>
      * @param libraryID, searchTerm
      */
+    @SuppressLint("Range")
     public ArrayList<Game> getAllGamesLibrary(int libraryID, String searchTerm){
         ArrayList<Game> gameArrayList = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM GameLibrary WHERE libraryID = " + libraryID;
-        return new ArrayList<Game>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                int gameID = c.getInt(c.getColumnIndex("gameID"));
+                Game game = getGameByID(gameID);
+                if (game.getGameTitle() != null)  { //&& book.getBookTitle().contains(searchTerm)){
+                    gameArrayList.add(game);
+                    Log.d("DatabaseHandler", "getAllGamesLibrary: " + gameID);
+                }
+            } while (c.moveToNext());
+        }
+        c.close();
+        return gameArrayList;
+    }
+
+    /**
+     * Find a book by its ID
+     * Qaanita Fataar
+     * @return Book
+     * @param gameID
+     */
+    @SuppressLint("Range")
+    public Game getGameByID(int gameID){
+        Game game = new Game();
+        String selectQuery = "SELECT * FROM Game WHERE bookID = " + gameID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                game.setGameID(c.getInt(c.getColumnIndex("gameID")));
+                game.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                game.setGameTitle(c.getString(c.getColumnIndex("gameTitle")));
+                game.setGameType(c.getString(c.getColumnIndex("gameType")));
+                game.setFavourite(c.getInt(c.getColumnIndex("favourite")) > 0);
+                game.setStarted(c.getInt(c.getColumnIndex("started")) > 0);
+                game.setCompleted(c.getInt(c.getColumnIndex("complete")) > 0);
+                Log.d("DatabaseHandler", "getAllBooksLibrary: " + gameID);
+            } while (c.moveToNext());
+        }
+        c.close();
+        return game;
     }
 
     /**
