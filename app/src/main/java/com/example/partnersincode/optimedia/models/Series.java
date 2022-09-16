@@ -17,9 +17,14 @@ public class Series extends WatchObject {
 
     }
 
+    public Series() {
+        super();
+    }
+
     //Accessors and Modifiers
-
-
+    public void setSeriesID(int seriesID) {
+        this.seriesID = seriesID;
+    }
 
     //Added getters for attributes used in use case A02310
     public int getSeriesID() {

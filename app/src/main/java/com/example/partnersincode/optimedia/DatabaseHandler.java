@@ -255,7 +255,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 library.setLibraryType(c.getString(c.getColumnIndex("libraryType")));
 
                 libraryArrayList.add(library);
-                Log.d("DatabaseHandler", "getAllLibraries: " + library.toString());
+                //Log.d("DatabaseHandler", "getAllLibraries: " + library.toString());
             } while (c.moveToNext());
         }
         c.close();
@@ -660,7 +660,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @SuppressLint("Range")
     public Game getGameByID(int gameID){
         Game game = new Game();
-        String selectQuery = "SELECT * FROM Game WHERE bookID = " + gameID;
+        String selectQuery = "SELECT * FROM Game WHERE gameID = " + gameID;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
@@ -686,11 +686,88 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @return ArrayList<WatchObject>
      * @param libraryID, searchTerm
      */
+    @SuppressLint("Range")
     public ArrayList<WatchObject> getAllWatchItemsLibrary(int libraryID, String searchTerm){
-        ArrayList<Game> gameArrayList = new ArrayList<>();
+        ArrayList<WatchObject> watchList = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM WatchLibrary WHERE libraryID = " + libraryID;
-        return new ArrayList<WatchObject>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                if (!c.isNull(c.getColumnIndex("movieID"))){
+                    int movieID = c.getInt(c.getColumnIndex("movieID"));
+                    Log.d("getAllWatchItemsLibrary:", "is movie, movieID"+movieID);
+                    Movie movie = getMovieByID(movieID);
+                    watchList.add(movie);
+                } else if (!c.isNull(c.getColumnIndex("seriesID"))){
+                    int seriesID = c.getInt(c.getColumnIndex("seriesID"));
+                    Log.d("getAllWatchItemsLibrary:", "is series, seriesID"+seriesID);
+                    Series series = getSeriesByID(seriesID);
+                    watchList.add(series);
+                }
+
+            } while (c.moveToNext());
+        }
+        c.close();
+        return watchList;
+    }
+
+    /**
+     * Find a movie by ID
+     * Qaanita Fataar
+     * @return Movie
+     * @param movieID
+     */
+    @SuppressLint("Range")
+    public Movie getMovieByID(int movieID) {
+        Movie movie = new Movie();
+        String selectQuery = "SELECT * FROM Movie WHERE movieID = " + movieID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                movie.setMovieID(c.getInt(c.getColumnIndex("movieID")));
+                movie.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                movie.setTitle(c.getString(c.getColumnIndex("movieTitle")));
+                movie.setFavourite(c.getInt(c.getColumnIndex("favourite")) > 0);
+                movie.setStarted(c.getInt(c.getColumnIndex("started")) > 0);
+                movie.setComplete(c.getInt(c.getColumnIndex("complete")) > 0);
+                Log.d("DatabaseHandler", "getAuthorByID: " + movie.getTitle());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return movie;
+    }
+
+    /**
+     * Find a series by ID
+     * Qaanita Fataar
+     * @return Series
+     * @param seriesID
+     */
+    @SuppressLint("Range")
+    public Series getSeriesByID(int seriesID) {
+        Series series = new Series();
+        String selectQuery = "SELECT * FROM Movie WHERE seriesID = " + seriesID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                series.setSeriesID(c.getInt(c.getColumnIndex("seriesID")));
+                series.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                series.setTitle(c.getString(c.getColumnIndex("seriesTitle")));
+                series.setFavourite(c.getInt(c.getColumnIndex("favourite")) > 0);
+                series.setStarted(c.getInt(c.getColumnIndex("started")) > 0);
+                series.setComplete(c.getInt(c.getColumnIndex("complete")) > 0);
+                Log.d("DatabaseHandler", "getAuthorByID: " + series.getTitle());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return new Series();
     }
 
     /**

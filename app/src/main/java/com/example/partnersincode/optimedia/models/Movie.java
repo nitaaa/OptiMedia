@@ -16,11 +16,17 @@ public class Movie extends WatchObject {
         this.movieID = movieID;
     }
 
+    public Movie() {
 
+    }
 
     //Added getters for attributes used in use case A02310
     public int getMovieID() {
         return movieID;
+    }
+
+    public void setMovieID(int movieID) {
+        this.movieID = movieID;
     }
 
     public String getTitle() {

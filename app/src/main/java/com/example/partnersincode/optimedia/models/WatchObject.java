@@ -17,6 +17,10 @@ public class WatchObject
         this.complete = complete;
     }
 
+    public WatchObject() {
+
+    }
+
     public int getWLI_ID() {
         return WLI_ID;
     }
