@@ -101,6 +101,12 @@ public class viewBookLibrary extends Fragment {
         });
 
         //TODO: onclick for edit
+        Button imgBtnEditBook = rootView.findViewById(R.id.imgBtnEditBook);
+        imgBtnEditBook.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("libraryInfo", library);
+            Navigation.findNavController(view).navigate(R.id.nav_editLibrary, bundle);
+        });
 
         //TODO: onclick for add to library - open search for books
 

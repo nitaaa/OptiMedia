@@ -32,14 +32,14 @@
                 android:text="[Library Name]"
                 app:autoSizeTextType="uniform" />
 
-            <ImageButton
-                android:id="@+id/imgBtnEditGame"
-                style="@style/Widget.AppCompat.ImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/ic_edit"
-                tools:ignore="SpeakableTextPresentCheck" />
+<!--            <ImageButton-->
+<!--                android:id="@+id/imgBtnEditGame"-->
+<!--                style="@style/Widget.AppCompat.ImageButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1"-->
+<!--                android:src="@drawable/ic_edit"-->
+<!--                tools:ignore="SpeakableTextPresentCheck" />-->
 
         </LinearLayout>
 
@@ -51,15 +51,15 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/imgBtnAddToGLib"
+                android:id="@+id/imgBtnEditGame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:insetLeft="8dp"
                 android:insetRight="8dp"
-                android:text="Add to Library"
+                android:text="Edit Library"
                 app:backgroundTint="@color/game_theme"
-                app:icon="@drawable/ic_add"
+                app:icon="@drawable/ic_edit"
                 app:iconTint="@color/black"
                 android:textColor="@color/black"/>
 

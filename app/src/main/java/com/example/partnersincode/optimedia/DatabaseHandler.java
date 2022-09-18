@@ -824,4 +824,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         c.close();
         return author;
     }
+
+    public void deleteLibrary(int libraryID, String libraryType){
+        String deleteLibQuery = "DELETE FROM Library WHERE libraryID = "+libraryID;
+        String deleteSubLibQuery = "";
+        switch (libraryType) {
+            case "Book":
+                deleteSubLibQuery = "DELETE FROM BookLibrary WHERE libraryID = " + libraryID;
+                break;
+            case "Game":
+                deleteSubLibQuery = "DELETE FROM GameLibrary WHERE libraryID = " + libraryID;
+                break;
+            case "Watch":
+                deleteSubLibQuery = "DELETE FROM WatchLibrary WHERE libraryID = " + libraryID;
+                break;
+        }
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            if (!deleteSubLibQuery.equals(""))
+                db.execSQL(deleteSubLibQuery);
+            db.execSQL(deleteLibQuery);
+
+            Log.d("deleteLibrary", "Deleted " + libraryID);
+        } catch(Exception e){
+            Log.d("deleteLibrary", "Error \n" + e.getMessage());
+        }
+    }
+
+    public void updateLibrary(int libraryID, String libraryName){
+        String updateQuery = "UPDATE Library SET libraryName = "+libraryName+"WHERE libraryID = "+libraryID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            db.execSQL(updateQuery);
+            Log.d("updateLibrary", "Updated " + libraryID+", "+libraryName);
+        } catch(Exception e){
+            Log.d("updateLibrary", "Error \n" + e.getMessage());
+        }
+    }
 }

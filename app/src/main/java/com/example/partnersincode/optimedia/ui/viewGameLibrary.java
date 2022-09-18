@@ -103,6 +103,12 @@ public class viewGameLibrary extends Fragment {
         });
 
         //TODO: onclick for edit
+        Button imgBtnEditGame = rootView.findViewById(R.id.imgBtnEditGame);
+        imgBtnEditGame.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("libraryInfo", library);
+            Navigation.findNavController(view).navigate(R.id.nav_editLibrary, bundle);
+        });
 
         //TODO: onclick for add to library - open search for books
 

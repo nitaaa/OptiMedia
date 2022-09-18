@@ -32,14 +32,14 @@
                 android:text="[Library Name]"
                 app:autoSizeTextType="uniform" />
 
-            <ImageButton
-                android:id="@+id/imgBtnEditBook"
-                style="@style/Widget.AppCompat.ImageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/ic_edit"
-                tools:ignore="SpeakableTextPresentCheck" />
+<!--            <ImageButton-->
+<!--                android:id="@+id/imgBtnEditBook"-->
+<!--                style="@style/Widget.AppCompat.ImageButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_weight="1"-->
+<!--                android:src="@drawable/ic_edit"-->
+<!--                tools:ignore="SpeakableTextPresentCheck" />-->
 
         </LinearLayout>
 
@@ -51,16 +51,16 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/imgBtnAddToBLib"
+                android:id="@+id/imgBtnEditBook"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:insetLeft="8dp"
                 android:insetRight="8dp"
-                android:text="Add to Library"
+                android:text="Edit Library"
                 android:textColor="@color/black"
                 app:backgroundTint="@color/book_theme"
-                app:icon="@drawable/ic_add"
+                app:icon="@drawable/ic_edit"
                 app:iconTint="@color/black" />
 
             <Button
