@@ -1,17 +1,25 @@
 package com.example.partnersincode.optimedia.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import com.example.partnersincode.optimedia.Property;
 
-public class WatchObject
+public class WatchObject implements Parcelable
 {
     protected int WLI_ID;
     protected int genreID;
     protected String title;
+    protected String link;
     protected Boolean favourite,started, complete;
+//    protected String type;
 
-    public WatchObject(int genreID, String title, Boolean favourite, Boolean started, Boolean complete) {
+    public WatchObject(int genreID, String title, String link, Boolean favourite, Boolean started, Boolean complete) {
         this.genreID = genreID;
         this.title = title;
+        this.link = link;
         this.favourite = favourite;
         this.started = started;
         this.complete = complete;
@@ -19,6 +27,49 @@ public class WatchObject
 
     public WatchObject() {
 
+    }
+
+    //TODO: Set type in watchObject instead of getting the subclass - easier for Adapter?
+//    public void setSeries(){
+//        this.type = "Series";
+//    }
+//
+//    public void setMovie(){
+//        this.type = "Movie";
+//    }
+
+    protected WatchObject(Parcel in) {
+        WLI_ID = in.readInt();
+        genreID = in.readInt();
+        title = in.readString();
+        link = in.readString();
+        byte tmpFavourite = in.readByte();
+        favourite = tmpFavourite == 0 ? null : tmpFavourite == 1;
+        byte tmpStarted = in.readByte();
+        started = tmpStarted == 0 ? null : tmpStarted == 1;
+        byte tmpComplete = in.readByte();
+        complete = tmpComplete == 0 ? null : tmpComplete == 1;
+    }
+
+    public static final Creator<WatchObject> CREATOR = new Creator<WatchObject>() {
+        @Override
+        public WatchObject createFromParcel(Parcel in) {
+            return new WatchObject(in);
+        }
+
+        @Override
+        public WatchObject[] newArray(int size) {
+            return new WatchObject[size];
+        }
+    };
+
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public int getWLI_ID() {
@@ -72,6 +123,22 @@ public class WatchObject
     public int getID()
     {
         return -1;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeInt(WLI_ID);
+        parcel.writeInt(genreID);
+        parcel.writeString(title);
+        parcel.writeString(link);
+        parcel.writeByte((byte) (favourite == null ? 0 : favourite ? 1 : 2));
+        parcel.writeByte((byte) (started == null ? 0 : started ? 1 : 2));
+        parcel.writeByte((byte) (complete == null ? 0 : complete ? 1 : 2));
     }
 
 //    public WatchObject(int genreID, String title, boolean favourite, boolean started, boolean complete) {

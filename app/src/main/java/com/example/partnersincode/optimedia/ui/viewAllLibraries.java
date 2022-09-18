@@ -94,6 +94,8 @@ public class viewAllLibraries extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.nav_viewBookLibrary, bundle); //navigate to view library
             } else if (library.getLibraryType().equals("Game")) {
                 Navigation.findNavController(view).navigate(R.id.nav_viewGameLibrary, bundle);
+            } else if (library.getLibraryType().equals("Watch")) {
+                Navigation.findNavController(view).navigate(R.id.nav_viewWatchLibrary, bundle);
             }
         });
 
