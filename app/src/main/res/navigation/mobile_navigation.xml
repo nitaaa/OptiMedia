@@ -96,20 +96,29 @@
         android:name="com.example.partnersincode.optimedia.ui.viewBookLibrary"
         android:label="View Book Library"
         tools:layout="@layout/fragment_view_book_library" />
+
     <fragment
         android:id="@+id/nav_viewGameLibrary"
         android:name="com.example.partnersincode.optimedia.ui.viewGameLibrary"
         android:label="View Game Library"
         tools:layout="@layout/fragment_view_game_library" />
+
     <fragment
         android:id="@+id/nav_viewWatchLibrary"
         android:name="com.example.partnersincode.optimedia.ui.viewWatchLibrary"
-        android:label="fragment_view_watch_library"
+        android:label="View Watch Library"
         tools:layout="@layout/fragment_view_watch_library" />
+
     <fragment
         android:id="@+id/nav_editLibrary"
         android:name="com.example.partnersincode.optimedia.ui.editLibrary"
-        android:label="fragment_edit_library"
+        android:label="Edit Library"
         tools:layout="@layout/fragment_edit_library" />
+
+    <fragment
+        android:id="@+id/nav_createSeriesLog"
+        android:name="com.example.partnersincode.optimedia.ui.createSeriesLog"
+        android:label="Series Log"
+        tools:layout="@layout/fragment_create_series_log" />
 
 </navigation>

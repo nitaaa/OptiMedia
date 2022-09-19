@@ -13,6 +13,7 @@ import com.example.partnersincode.optimedia.models.Genre;
 import com.example.partnersincode.optimedia.models.Library;
 import com.example.partnersincode.optimedia.models.Movie;
 import com.example.partnersincode.optimedia.models.Series;
+import com.example.partnersincode.optimedia.models.SeriesLog;
 import com.example.partnersincode.optimedia.models.WatchObject;
 
 import com.example.partnersincode.optimedia.models.Author;
@@ -110,21 +111,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         //add games
         query = " INSERT INTO Game (genreID,gameTitle,gameType,favourite,started,complete) VALUES "+
-                "('1','The Witcher 3: Wild Hunt','Open World, RPG','false','false','false'), "+
-                "('4','Counter-Strike: Global Offensive','FPS Multiplayer','false','false','false'), "+
-                "('6','Animal Crossing: New Horizons','Life simulation','false','false','false')";
+                "('1','The Witcher 3: Wild Hunt','Open World, RPG',0,0,0), "+
+                "('4','Counter-Strike: Global Offensive','FPS Multiplayer',0,0,0), "+
+                "('6','Animal Crossing: New Horizons','Life simulation',0,0,0)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add movies
-        query = "INSERT INTO Movie (genreID,movieTitle,favourite,started,complete) VALUES ('5','Paper Towns','false','false','false'),"+
-                " ('1','Fallen','false','false','false'), ('5','The perks of being a wallflower','false','false','false'), "+
-                " ('2','Ready Player One','false','false','false'), ('3','To all the Boys I''ve Loved Before','false','false','false')";
+        query = "INSERT INTO Movie (genreID,movieTitle,favourite,started,complete) VALUES ('5','Paper Towns',0,0,0),"+
+                " ('1','Fallen',0,0,0), ('5','The perks of being a wallflower',0,0,0), "+
+                " ('2','Ready Player One',0,0,0), ('3','To all the Boys I''ve Loved Before',0,0,0)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add series
-        query = "INSERT INTO Series (genreID,seriesTitle,favourite,started,complete) VALUES ('1','Fate: The Winx Saga','false','false','false'),"+
-                " ('2','The Umbrella Academy','false','false','false'), ('3','Bridgerton','false','false','false'), "+
-                " ('5','The Summer I Turned Pretty','false','false','false'), ('6','Lightyear','false','false','false')";
+        query = "INSERT INTO Series (genreID,seriesTitle,favourite,started,complete) VALUES ('1','Fate: The Winx Saga',0,0,0),"+
+                " ('2','The Umbrella Academy',0,0,0), ('3','Bridgerton',0,0,0), "+
+                " ('5','The Summer I Turned Pretty',0,0,0), ('6','Lightyear',0,0,0)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add watchlist item
@@ -825,6 +826,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return author;
     }
 
+    /**
+     * Delete a library
+     * Qaanita Fataar
+     * @return void
+     * @param libraryID,libraryType
+     */
     public void deleteLibrary(int libraryID, String libraryType){
         String deleteLibQuery = "DELETE FROM Library WHERE libraryID = "+libraryID;
         String deleteSubLibQuery = "";
@@ -851,6 +858,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Update a library (change name)
+     * Qaanita Fataar
+     * @return void
+     * @param libraryID,libraryName
+     */
     public void updateLibrary(int libraryID, String libraryName){
         String updateQuery = "UPDATE Library SET libraryName = "+libraryName+"WHERE libraryID = "+libraryID;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -860,5 +873,105 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         } catch(Exception e){
             Log.d("updateLibrary", "Error \n" + e.getMessage());
         }
+    }
+
+    /**
+     * Update a Series (favourite, started, complete)
+     * Qaanita Fataar
+     * @return void
+     * @param series
+     */
+    public void updateSeries(Series series){
+        int fav, start, complete;
+        fav = (series.getFavourite()) ? 1 : 0;
+        start = (series.getStarted()) ? 1 : 0;
+        complete = (series.getComplete()) ? 1 : 0;
+        String updateQuery = "UPDATE Series SET favourite = "+fav+", started = "+start
+                +", complete = "+complete+" WHERE seriesID = "+series.getSeriesID();
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            db.execSQL(updateQuery);
+            Log.d("updateLibrary", "Updated " + series.toString());
+        } catch(Exception e){
+            Log.d("updateLibrary", "Error \n" + e.getMessage());
+        }
+    }
+
+    /**
+     * Create a record/log for a series
+     * Qaanita Fataar
+     * @return int
+     */
+    public int createSeriesLog(SeriesLog seriesLog){
+        //INSERT INTO SeriesLog (seriesID,season,episode,s_note,s_timestamp)
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("seriesID",seriesLog.getSeriesID());
+        values.put("season", seriesLog.getSeason());
+        values.put("episode", seriesLog.getEpisode());
+        values.put("s_note", seriesLog.getS_note());
+        values.put("s_timestamp", seriesLog.getS_timestamp());
+        long id = db.insertWithOnConflict("SeriesLog", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        Log.d("createSeriesLog", "complete // " +id);
+
+        return (int) id;
+    }
+
+    /**
+     * Get all logs for a series (by ID)
+     * Qaanita Fataar
+     * @return ArrayList<SeriesLog>
+     * @param seriesID
+     */
+    @SuppressLint("Range")
+    public ArrayList<SeriesLog> getAllSeriesLogByID(int seriesID){
+        ArrayList<SeriesLog> seriesLogs = new ArrayList<>();
+        String selectQuery = "SELECT * FROM SeriesLog WHERE seriesID = " + seriesID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                SeriesLog seriesLog = new SeriesLog();
+                seriesLog.setSL_ID(c.getInt(c.getColumnIndex("SL_ID")));
+                seriesLog.setSeriesID(c.getInt(c.getColumnIndex("seriesID")));
+                seriesLog.setSeason(c.getString(c.getColumnIndex("season")));
+                seriesLog.setEpisode(c.getString(c.getColumnIndex("episode")));
+                seriesLog.setS_note(c.getString(c.getColumnIndex("s_note")));
+                seriesLog.setS_timestamp(c.getString(c.getColumnIndex("s_timestamp")));
+                seriesLogs.add(seriesLog);
+                Log.d("DatabaseHandler", "getAllSeriesLogByID: " + seriesLog.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return seriesLogs;
+    }
+
+    /**
+     * Get a single log for a series (by SL_ID)
+     * Qaanita Fataar
+     * @return ArrayList<SeriesLog>
+     * @param SL_ID
+     */
+    @SuppressLint("Range")
+    public SeriesLog getSeriesLogByID(int SL_ID){
+        SeriesLog seriesLog = new SeriesLog();
+        String selectQuery = "SELECT * FROM SeriesLog WHERE SL_ID = " + SL_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                seriesLog.setSL_ID(c.getInt(c.getColumnIndex("SL_ID")));
+                seriesLog.setSeriesID(c.getInt(c.getColumnIndex("seriesID")));
+                seriesLog.setSeason(c.getString(c.getColumnIndex("season")));
+                seriesLog.setEpisode(c.getString(c.getColumnIndex("episode")));
+                seriesLog.setS_note(c.getString(c.getColumnIndex("s_note")));
+                seriesLog.setS_timestamp(c.getString(c.getColumnIndex("s_timestamp")));
+                Log.d("DatabaseHandler", "getAllSeriesLogByID: " + seriesLog.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return seriesLog;
     }
 }

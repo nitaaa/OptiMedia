@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="opaque_white">#80FFFFFF</color>
 
     <color name="selectedColour">#4CAF50</color>
 
@@ -21,5 +22,6 @@
     <color name="book_theme">#FF88e48f</color>
     <color name="game_theme">#FFbde767</color>
     <color name="movie_series_theme">#FF53d1b9</color>
+    <color name="opaque_movie_series_theme">#6653D1B9</color>
 
 </resources>
