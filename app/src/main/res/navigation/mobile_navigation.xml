@@ -90,5 +90,15 @@
         android:name="com.example.partnersincode.optimedia.ui.ShowQrCode"
         android:label="@string/generateQRCode"
         tools:layout="@layout/fragment_show_qr_code" />
+    <fragment
+        android:id="@+id/nav_qrScanControl"
+        android:name="com.example.partnersincode.optimedia.ui.scanQRCode.qrScanControl"
+        android:label="@string/scanQR"
+        tools:layout="@layout/fragment_scan_qr_code" />
+    <fragment
+        android:id="@+id/nav_qrScanAction"
+        android:name="com.example.partnersincode.optimedia.ui.scanQRCode.qrScanAction"
+        android:label="@string/scanQR"
+        tools:layout="@layout/fragment_qr_scan_action" />
 
 </navigation>

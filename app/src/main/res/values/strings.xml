@@ -78,6 +78,12 @@
     <string name="btnNext">Next</string>
     <string name="btnPrev">Previous</string>
     <string name="A03200_lblIndex">%d of %d</string>
+    <string name="submit">Submit</string>
+    <string name="scanAnother">Scan More
+    </string>
+    <string name="scanNr">Scan Nr: %d</string>
+    <string name="A05000_instructions">Continue scanning (Scan More button) until the the last QR code has been scanned. Please take care not to scan anything other QR codes, and only scan what the sender has provided. Scans have to be done in order given by sender. When finished, click submit. Use the count below to ensure that number of QR codes scanned equates to the current QR code as show on the sender screen</string>
+    <string name="scanQR">Scan QR Code</string>
 
 
 </resources>
