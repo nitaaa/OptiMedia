@@ -41,5 +41,16 @@
             android:id="@+id/nav_addNewMedia"
             android:icon="@drawable/ic_add"
             android:title="@string/label_new_media" />
+
+        <item
+            android:id="@+id/nav_manageGenre"
+            android:icon="@drawable/ic_add"
+            android:title="Manage genres" />
+
+        <item
+            android:id="@+id/nav_viewBooklogs"
+            android:icon="@drawable/ic_add"
+            android:title="Manage Booklogs" />
+
     </group>
 </menu>

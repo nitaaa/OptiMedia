@@ -61,17 +61,14 @@
 
     <!--Colin presented -->
     <fragment
-        android:id="@+id/nav_addBookLog"
-        android:name="com.example.partnersincode.optimedia.ui.addBookLog.AddBookLog"
-        android:label="Add BookLog" />
-    <fragment
         android:id="@+id/nav_shareLibrary"
         android:name="com.example.partnersincode.optimedia.ui.shareLibrary.ShareLibrary"
         android:label="Share Library" />
     <fragment
         android:id="@+id/nav_createSeries"
         android:name="com.example.partnersincode.optimedia.ui.createSeries.CreateSeries"
-        android:label="Add Series" />
+        android:label="Add Series"
+        />
 
 
     <fragment
@@ -85,5 +82,28 @@
         android:name="com.example.partnersincode.optimedia.ui.CreateGame"
         android:label="@string/add_new_game"
         tools:layout="@layout/fragment_create_game" />
+    <fragment
+        android:id="@+id/nav_createGenre"
+        android:name="com.example.partnersincode.optimedia.ui.createGenre"
+        android:label="Show Genres"
+        tools:layout="@layout/fragment_create_genre" />
+
+    <fragment
+        android:id="@+id/nav_manageGenre"
+        android:name="com.example.partnersincode.optimedia.ui.manageGenres"
+        android:label="Create/Edit Genre"
+        tools:layout="@layout/fragment_manage_genres" />
+
+    <fragment
+        android:id="@+id/nav_viewBooklogs"
+        android:name="com.example.partnersincode.optimedia.ui.showBooklogs"
+        android:label="Show Booklogs"
+        tools:layout="@layout/fragment_show_booklogs" />
+
+    <fragment
+        android:id="@+id/nav_createBooklogs"
+        android:name="com.example.partnersincode.optimedia.ui.createBooklog"
+        android:label="Add/Edit Booklog"
+        tools:layout="@layout/add_logtobook_fragment" />
 
 </navigation>

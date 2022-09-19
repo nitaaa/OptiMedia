@@ -8,10 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-
+import com.example.partnersincode.optimedia.models.Booklog;
 import com.example.partnersincode.optimedia.models.Genre;
 import com.example.partnersincode.optimedia.models.Library;
 import com.example.partnersincode.optimedia.models.Movie;
@@ -21,11 +19,6 @@ import com.example.partnersincode.optimedia.models.WatchObject;
 import com.example.partnersincode.optimedia.models.Author;
 import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Game;
-import com.example.partnersincode.optimedia.models.Genre;
-
-import com.example.partnersincode.optimedia.models.Game;
-import com.example.partnersincode.optimedia.models.Genre;
-import com.example.partnersincode.optimedia.models.Library;
 
 
 import java.util.ArrayList;
@@ -573,6 +566,74 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
 
+    }
+
+    public void updateGenre(int id,String genre) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            String query = "UPDATE Genre SET genreName = '"+genre +"' WHERE genreID = "+id;
+            db.execSQL(query);
+    }
+
+    public void addGenre(String genre) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Insert into Genre (genreName) values ('"+genre +"')";
+        db.execSQL(query);
+    }
+
+    @SuppressLint("Range")
+    public ArrayList<Booklog> getBooklogsFromBook(int bookID) {
+        ArrayList<Booklog> blArrayList = new ArrayList<>();
+
+        if (bookID!=-1) {
+            String selectQuery = "SELECT * FROM Booklog where bookID = " + bookID;
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor c = db.rawQuery(selectQuery, null);
+            if (c.moveToFirst()) {
+                do {
+                    Booklog booklog = new Booklog();
+                    booklog.setBL_ID(c.getInt(c.getColumnIndex("BL_ID")));
+                    booklog.setBookID(bookID);
+                    booklog.setBlTitle(c.getString(c.getColumnIndex("blTitle")));
+                    booklog.setBlNote(c.getString(c.getColumnIndex("blNote")));
+                    booklog.setBlPageNumber(c.getInt(c.getColumnIndex("blPageNumber")));
+
+                    blArrayList.add(booklog);
+                } while (c.moveToNext());
+            }
+            c.close();
+        }else{
+            String selectQuery = "SELECT * FROM Booklog";
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor c = db.rawQuery(selectQuery, null);
+            if (c.moveToFirst()) {
+                do {
+                    Booklog booklog = new Booklog();
+                    booklog.setBL_ID(c.getInt(c.getColumnIndex("BL_ID")));
+                    booklog.setBookID(c.getInt(c.getColumnIndex("bookID")));
+                    booklog.setBlTitle(c.getString(c.getColumnIndex("blTitle")));
+                    booklog.setBlNote(c.getString(c.getColumnIndex("blNote")));
+                    booklog.setBlPageNumber(c.getInt(c.getColumnIndex("blPageNumber")));
+
+                    blArrayList.add(booklog);
+                } while (c.moveToNext());
+            }
+            c.close();
+
+        }
+        return blArrayList;
+    }
+
+    public void updateBooklog(int id,String Title, String Note,int PN) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE Booklog SET blTitle = '"+Title +"',blNote = '"+Note +"', blPageNumber= "+PN +"  WHERE BL_ID = "+id;
+        db.execSQL(query);
+    }
+
+    public void addBooklog(int bookID,String Title, String Note,int PN) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Insert into Booklog (bookID,blTitle,blNote,blPageNumber) " +
+                "values ("+bookID+",'"+Title+"', '"+Note+"', "+PN+")";
+        db.execSQL(query);
     }
 
 }
