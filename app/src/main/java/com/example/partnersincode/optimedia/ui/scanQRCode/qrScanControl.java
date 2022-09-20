@@ -40,6 +40,9 @@ public class qrScanControl extends Fragment {
     TextView lblScannedContents;
     TextView lblScanNr;
 
+    //Request key for result
+    String requestKey = "ScanQR";
+
 
 
     public qrScanControl() {
@@ -84,10 +87,27 @@ public class qrScanControl extends Fragment {
         setUpProperties();
 
         setOnClickActions(root);
+        setOnResultReturned();
 
 
 
         return root;
+    }
+
+    private void setOnResultReturned()
+    {
+        getParentFragmentManager().setFragmentResultListener(requestKey,this,(requestKey1, result) ->
+        {
+            String output = result.getString("result");
+
+            if(output!=null)
+            {
+                contentsScanned.set(contentsScanned.get()+output);
+                nrOfScans.set(nrOfScans.get()+1);
+            }
+
+
+        });
     }
 
     private void getUIReferences(View view)
@@ -130,8 +150,13 @@ public class qrScanControl extends Fragment {
 
     private void onScanMoreClicked(View view)
     {
-        Navigation.findNavController(view).navigate(R.id.nav_qrScanAction);
 
+
+//        Navigation.findNavController(view).navigate(R.id.nav_qrScanAction);
+
+        getChildFragmentManager()
+                .beginTransaction()
+                .add(new qrScanAction(),"QR");
 
 
 

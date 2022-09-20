@@ -45,7 +45,18 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="lbl_scanToAddLibrary">Scan this QR code to add %s</string>
-    <string name="addToWatchLibraryConfirmation">Media added to watch library</string>
+    <string name="contentDescription_QRImageView">QR code of items being shared</string>
+    <string name="generateQRCode">Generate QR Code</string>
+    <string name="btnNext">Next</string>
+    <string name="btnPrev">Previous</string>
+    <string name="A03200_lblIndex">%d of %d</string>
+    <string name="submit">Submit</string>
+    <string name="scanAnother">Scan More</string>
+    <string name="scanNr">Scan Nr: %d</string>
+    <string name="A05000_instructions">Continue scanning (Scan More button) until the the last QR code has been scanned. Please take care not to scan anything other QR codes, and only scan what the sender has provided. Scans have to be done in order given by sender. When finished, click submit. Use the count below to ensure that number of QR codes scanned equates to the current QR code as show on the sender screen</string>
+    <string name="scanQR">Scan QR Code</string>
+    <string name="ok">OK</string>
+    <string name="noCameraPermission">Cannot scan QR code without camera permissions. Try Again</string>
 
     <string name="label_new_media">Add New Media</string>
     <string name="add_new_game">Add New Game</string>
@@ -74,17 +85,7 @@
     <string name="manage_authors">Manage Authors</string>
     <string name="add_booklog">Add Booklog</string>
     <string name="share_library">Share Library</string>
-    <string name="contentDescription_QRImageView">QR code of items being shared</string>
-    <string name="generateQRCode">Generate QR Code</string>
-    <string name="btnNext">Next</string>
-    <string name="btnPrev">Previous</string>
-    <string name="A03200_lblIndex">%d of %d</string>
-    <string name="submit">Submit</string>
-    <string name="scanAnother">Scan More
-    </string>
-    <string name="scanNr">Scan Nr: %d</string>
-    <string name="A05000_instructions">Continue scanning (Scan More button) until the the last QR code has been scanned. Please take care not to scan anything other QR codes, and only scan what the sender has provided. Scans have to be done in order given by sender. When finished, click submit. Use the count below to ensure that number of QR codes scanned equates to the current QR code as show on the sender screen</string>
-    <string name="scanQR">Scan QR Code</string>
+
 
 
 </resources>

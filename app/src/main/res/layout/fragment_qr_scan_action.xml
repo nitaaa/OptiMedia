@@ -10,7 +10,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
-        android:id="@+id/decoratedBarcodeView"
+        android:id="@+id/A05000_barcodeView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
@@ -27,6 +27,7 @@
             android:layout_height="match_parent">
 
             <com.journeyapps.barcodescanner.ViewfinderView
+                android:id="@+id/A05000_viewFinderView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintDimensionRatio="1:1"
