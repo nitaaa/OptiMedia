@@ -9,13 +9,11 @@ public class Movie extends WatchObject {
     //Properties
     private int  movieID;
 
-
     //Constructor
     public Movie(int movieID, int genreID, String title, boolean favourite, boolean started, boolean complete) {
         super(genreID,title,favourite,started,complete);
         this.movieID = movieID;
     }
-
 
 
     //Added getters for attributes used in use case A02310

@@ -5,10 +5,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.adapters.AddGameAdapter;
+import com.example.partnersincode.optimedia.models.Game;
+import com.example.partnersincode.optimedia.models.Library;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +73,68 @@ public class addGameToLibrary extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_game_to_library, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_add_game_to_library, container, false);
+        DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
+
+        //get libraries for spinner
+        ArrayList<Library> libraries = dbHandler.getGameLibraries();
+        ArrayAdapter<Library> adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, libraries);
+        adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+
+        Spinner spinLibrary = (Spinner) rootView.findViewById(R.id.spinLibrary);
+        spinLibrary.setAdapter(adapter);
+
+        TextView edtxtSearch = rootView.findViewById(R.id.edtxtGame);
+
+        // recycler viewer
+        List<Game> games = dbHandler.getGames();
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerGames);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        AddGameAdapter gameAdapter = new AddGameAdapter(games);
+        recyclerView.setAdapter(gameAdapter);
+
+        gameAdapter.setOnClickListener( view -> {
+            AddGameAdapter.AddGameViewHolder viewHolder = (AddGameAdapter.AddGameViewHolder) recyclerView.findContainingViewHolder(view);
+            //Toast.makeText(this.getContext(), author.getFullName(),Toast.LENGTH_LONG).show();
+            //TODO:
+            if (viewHolder != null) {
+                viewHolder.setSelected();
+            }
+        });
+
+        Button btnSearch = rootView.findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(view ->
+                {
+                    //List<Game> games2 = dbHandler.getGames(edtxtSearch.toString());
+               //    recyclerView.setLayoutManager(layoutManager);
+                 //   recyclerView.setAdapter(gameAdapter);
+
+                    List<Game> games2 = dbHandler.getGames(edtxtSearch.getText().toString());
+                    RecyclerView recyclerView2 = rootView.findViewById(R.id.recyclerGames);
+
+                    RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(getContext());
+                    recyclerView2.setLayoutManager(layoutManager2);
+                    AddGameAdapter gameAdapter2 = new AddGameAdapter(games2);
+                    recyclerView2.setAdapter(gameAdapter2);
+                });
+
+        Button btnAdd = rootView.findViewById(R.id.btnAddMovieLog);
+        btnAdd.setOnClickListener(view ->
+        {
+            Library library = (Library) spinLibrary.getSelectedItem();
+
+            for (Game added :
+                   gameAdapter.getSelectedObjects()) {
+
+                dbHandler.createGameLibrary(added, library);
+            }
+
+        });
+
+        return rootView;
     }
 }

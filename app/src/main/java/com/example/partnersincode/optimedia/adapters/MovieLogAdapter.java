@@ -28,17 +28,17 @@ public class MovieLogAdapter extends RecyclerView.Adapter<MovieLogAdapter.MovieL
     }
 
     public static class MovieLogViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtRecyclerAuthorName;
+        public TextView txtRecyclerMovieLog;
         public MovieLog movieLog;
 
         public MovieLogViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtRecyclerAuthorName = itemView.findViewById(R.id.txtRecyclerAuthorName);
+            txtRecyclerMovieLog = itemView.findViewById(R.id.txtRecylerMovieLog);
         }
 
         public void setMovieLog(MovieLog movieLog) {
             this.movieLog = movieLog;
-            //txtRecyclerGameName.setText(movieLog.getDetails());
+            txtRecyclerMovieLog.setText(movieLog.getM_note() + "/n" + movieLog.getM_timestamp());
         }
     }
 
@@ -51,15 +51,15 @@ public class MovieLogAdapter extends RecyclerView.Adapter<MovieLogAdapter.MovieL
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AuthorAdapter.AuthorViewHolder holder, int position) {
-        MovieLog movieLog = movieLog.get(position);
-        holder.setAuthor(author);
+    public void onBindViewHolder(@NonNull MovieLogAdapter.MovieLogViewHolder holder, int position) {
+        MovieLog log = movieLog.get(position);
+        holder.setMovieLog(log);
         holder.itemView.setOnClickListener(onClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return authorList.size();
+        return movieLog.size();
     }
 
 }

@@ -86,4 +86,21 @@
         android:label="@string/add_new_game"
         tools:layout="@layout/fragment_create_game" />
 
+    <fragment
+        android:id="@+id/nav_addGameToLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.addGameToLibrary"
+        android:label="@string/addGameLibrary"
+        tools:layout="@layout/fragment_add_game_to_library" />
+
+    <fragment
+        android:id="@+id/nav_createMovieLog"
+        android:name="com.example.partnersincode.optimedia.ui.createMovieLog"
+        android:label="createMovieLog"
+        tools:layout="@layout/fragment_create_movie_log" />
+
+    <fragment
+        android:id="@+id/nav_manageMovieLog"
+        android:name="com.example.partnersincode.optimedia.ui.manageMovieLog"
+        android:label="manageMovieLog"
+        tools:layout="@layout/fragment_manage_movie_log" />
 </navigation>

@@ -72,5 +72,6 @@
     <string name="manage_authors">Manage Authors</string>
     <string name="add_booklog">Add Booklog</string>
     <string name="share_library">Share Library</string>
+    <string name="addGameLibrary">Add Game to Library</string>
 
 </resources>
