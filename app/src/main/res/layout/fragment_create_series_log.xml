@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:insetLeft="16dp"
                 android:insetRight="16dp"
-                android:text="@string/btn_add_seriesLog"
+                android:text="@string/addbtn"
                 app:backgroundTint="@color/movie_series_theme"
                 android:textColor="@color/black" />
 

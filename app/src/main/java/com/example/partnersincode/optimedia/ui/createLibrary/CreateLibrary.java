@@ -46,11 +46,6 @@ public class CreateLibrary extends Fragment {
 
             dbHandler.createLibrary(libName, libType);
         });
-
-        FloatingActionButton fabTemp = view.findViewById(R.id.fabTemp);
-        fabTemp.setOnClickListener(view1 -> {
-            dbHandler.getAllLibraries();
-        });
         return view;
     }
 
