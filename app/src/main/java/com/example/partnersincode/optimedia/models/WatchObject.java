@@ -2,7 +2,9 @@ package com.example.partnersincode.optimedia.models;
 
 import com.example.partnersincode.optimedia.Property;
 
-public class WatchObject
+import java.io.Serializable;
+
+public class WatchObject implements Serializable
 {
     protected int WLI_ID;
     protected int genreID;
