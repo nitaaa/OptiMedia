@@ -150,7 +150,7 @@ public class AddToWatchLibrary extends Fragment {
         }
 
         //Do some thing with this text to call another use case
-        Toast.makeText(getContext(), "This is where A07000 will be called to search for "+searchTerm,Toast.LENGTH_SHORT).show();
+        adaptor.changeDataSet(searchTerm);
 
     }
 
@@ -181,6 +181,7 @@ public class AddToWatchLibrary extends Fragment {
 
         }
     }
+
 
 
 }

@@ -124,7 +124,7 @@ public class AddToWatchLibraryAdaptor extends RecyclerView.Adapter<AddToWatchLib
     private void getWatchObjects()
     {
 
-        watchObjects = db.getMoviesAndSeries();
+        watchObjects = db.getMoviesAndSeries("");
         notifyDataSetChanged();
     }
 
@@ -135,6 +135,14 @@ public class AddToWatchLibraryAdaptor extends RecyclerView.Adapter<AddToWatchLib
     public ArrayList<WatchObject> getSelectedWatchObjects()
     {
         return selectedObjects;
+    }
+
+
+    public void changeDataSet(String search)
+    {
+        watchObjects= db.getMoviesAndSeries(search);
+
+        notifyDataSetChanged();
     }
 
 
