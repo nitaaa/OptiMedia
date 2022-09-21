@@ -385,10 +385,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<WatchObject> getMoviesAndSeries(String search)
     {
         ArrayList<WatchObject> moviesAndSeries = new ArrayList<>();
+        String SQLMovies = "";
+        String SQLSeries = "";
 
-        String SQLMovies = String.format("SELECT * FROM Movie WHERE movieTitle LIKE \"%%s\"%\" ORDER BY movieTitle",search);
+        if(search.equals( ""))
+        {
+             SQLMovies = "SELECT * FROM Movie ORDER BY movieTitle";
 
-        String SQLSeries = String.format("SELECT * FROM Series WHERE movieTitle LIKE \"%%s%\" ORDER BY seriesTitle",search);
+             SQLSeries = "SELECT * FROM Series ORDER BY seriesTitle";
+        }
+        else{
+
+         SQLMovies = String.format("SELECT * FROM Movie WHERE movieTitle LIKE %s ORDER BY movieTitle","\'"+search+"\'");
+
+         SQLSeries = String.format("SELECT * FROM Series WHERE seriesTitle LIKE %s ORDER BY seriesTitle","\'"+search+"\'");
+        }
+
 
         SQLiteDatabase db = getReadableDatabase();
 
