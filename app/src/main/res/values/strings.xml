@@ -21,4 +21,56 @@
     <string name="movieseriestxt">Movie/Series</string>
     <string name="createbtn">Create</string>
     <string name="createlabel">Create Library</string>
+
+    <!-- Adriaan -->
+    <string name="addMediaToLibrary">Add Movie/Series to library</string>
+    <string name="selLibrary">Select a Library</string>
+    <string name="action_search">Search</string>
+    <string name="action_addSelected">Add Selected</string>
+    <string name="label_SelectLibrary">Select a Library</string>
+    <string name="selectMedia">Select Movies/Series (max %d)</string>
+    <string name="heading_addNewMovie">Add new movie to database</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="lbl_movie_title">Movie title:</string>
+    <string name="lbl_movie_link">Movie URL or Source Name:</string>
+    <string name="message_movieAdded">Movie (%s) was added</string>
+    <string name="lbl_genre">Select Genre</string>
+    <string name="movie">Movie</string>
+    <string name="series">Series</string>
+    <string name="invalidMovieTitle">Please Enter a Valid Movie Title</string>
+    <string name="action_addMovie" >Add Movie</string>
+    <string name="invalidSearchTerm">Please Enter a Valid Search Term</string>
+    <string name="movieAlreadyInDB">Movie named %s already in database. Do you wish to continue adding?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="label_new_media">Add New Media</string>
+    <string name="add_new_game">Add New Game</string>
+    <string name="game_name">Game Name:</string>
+    <string name="game_type">Game Type:</string>
+    <string name="select_genre">Select Genre:</string>
+
+    <!-- Temp: might be replaced by other people's strings-->
+    <string name="add_new_book">Add New Book</string>
+    <string name="add_new_series">Add New Series</string>
+    <string name="add_new_movie">Add New Movie</string>
+    
+    <!--Colin's use cases strings-->
+    <string name="series_name">Series Name:</string>
+    <string name="genre_type">Genre Type:</string>
+    <string name="favourite">Favourite:</string>
+    <string name="started">Started:</string>
+    <string name="completed">Completed:</string>
+    <string name="addbtn">Add</string>
+    <string name="log_title">Log Title:</string>
+    <string name="log_note">Note:</string>
+    <string name="log_pgno">Page Number:</string>
+    <string name="share_qr">Generate QR Code</string>
+    <string name="share_xml">Create XML</string>
+    
+    <string name="manage_authors">Manage Authors</string>
+    <string name="add_booklog">Add Booklog</string>
+    <string name="share_library">Share Library</string>
+
 </resources>

@@ -7,4 +7,19 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="selectedColour">#4CAF50</color>
+
+    <!-- TODO: Update Colors -->
+    <color name="main_blue">#448AFF</color>
+    <color name="darker_blue">#1147A1</color>
+    <color name="lighter_blue">#94BCFF</color>
+    <color name="secondary_red">#FF5252</color>
+    <color name="darker_red">#A30A0A</color>
+    <color name="lighter_red">#D39494</color>
+
+    <color name="book_theme">#FF88e48f</color>
+    <color name="game_theme">#FFbde767</color>
+    <color name="movie_series_theme">#FF53d1b9</color>
+
 </resources>
