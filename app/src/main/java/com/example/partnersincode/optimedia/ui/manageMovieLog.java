@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -86,8 +87,8 @@ public class manageMovieLog extends Fragment {
         adapter.setOnClickListener( view -> {
             MovieLogAdapter.MovieLogViewHolder viewHolder = (MovieLogAdapter.MovieLogViewHolder) recyclerView.findContainingViewHolder(view);
             MovieLog movieLog = viewHolder.movieLog;
-            //Toast.makeText(this.getContext(), movieLog.getFullName(),Toast.LENGTH_LONG).show();
-            //TODO: Edit Author Navigation
+            //Toast.makeText(this.getContext(), movieLog.getMovieID()),Toast.LENGTH_LONG).show();
+
             Bundle bundle = new Bundle();
             bundle.putParcelable("movieLogInfo", (Parcelable) movieLog);
             Navigation.findNavController(view).navigate(R.id.nav_createMovieLog, bundle);

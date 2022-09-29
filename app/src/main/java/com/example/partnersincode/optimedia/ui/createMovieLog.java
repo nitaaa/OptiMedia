@@ -6,9 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +14,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
-import com.example.partnersincode.optimedia.models.Library;
 import com.example.partnersincode.optimedia.models.MovieLog;
 
 import java.util.ArrayList;
@@ -86,18 +83,34 @@ public class createMovieLog extends Fragment {
         TextView edtxtNote = rootView.findViewById(R.id.edtxtNote);
         Button btnAddMovieLog = rootView.findViewById(R.id.btnAddMovieLog);
 
-        //edtxtMovieID.setText(movieLog.getMovieID());
-        edtxtTime.setText(movieLog.getM_timestamp());
-        edtxtNote.setText(movieLog.getM_note());
-        btnAddMovieLog.setOnClickListener(view -> {
-            //movieLog.setMovieID(Integer.parseInt(edtxtMovieID.getText().toString()));
-            movieLog.setM_timestamp(edtxtTime.getText().toString());
-            movieLog.setM_note(edtxtNote.getText().toString());
+        if (editing){
+            btnAddMovieLog.setText("Edit Movie Log");
+            edtxtTime.setText(movieLog.getM_timestamp());
+            edtxtNote.setText(movieLog.getM_note());
+            btnAddMovieLog.setOnClickListener(view -> {
+                String time=edtxtTime.getText().toString();
+                String note=edtxtNote.getText().toString();
+                dbHandler.updateMovieLog(movieLog.getML_ID(),note,time);
 
-            //TODO: query is probably the problem here
-            dbHandler.createNewMovieLog(movieLog);
-            Toast.makeText(this.getContext(), "Movie Log added: " + movieLog.toString(), Toast.LENGTH_LONG).show();
-        });
+                Toast.makeText(this.getContext(), "Movie Log Edited " , Toast.LENGTH_LONG).show();
+                edtxtNote.setText("");
+                edtxtTime.setText("");
+                getActivity().onBackPressed();
+                //  Navigation.findNavController(rootView).navigate(R.id.nav_manageGenre);
+            });
+        } else {
+            btnAddMovieLog.setOnClickListener(view -> {
+                MovieLog log = new MovieLog();
+                log.setM_timestamp(edtxtTime.getText().toString());
+                log.setM_note(edtxtNote.getText().toString());
+                dbHandler.addMovieLog(log);
+
+                Toast.makeText(this.getContext(), "Movie log added" + movieLog.toString(), Toast.LENGTH_LONG).show();
+                edtxtTime.setText("");
+                edtxtNote.setText("");
+                getActivity().onBackPressed();
+            });
+        }
 
         return rootView;
     }
