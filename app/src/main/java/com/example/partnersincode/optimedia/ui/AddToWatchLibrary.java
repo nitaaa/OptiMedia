@@ -135,6 +135,7 @@ public class AddToWatchLibrary extends Fragment {
     private void onAddSelectedClicked(View view)
     {
         addObjectsToLibrary();
+        Toast.makeText(getContext(),R.string.addToWatchLibraryConfirmation,Toast.LENGTH_SHORT).show();
         getActivity().onBackPressed();
     }
 
