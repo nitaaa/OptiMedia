@@ -45,6 +45,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="lbl_scanToAddLibrary">Scan this QR code to add %s</string>
+    <string name="addToWatchLibraryConfirmation">Media added to watch library</string>
 
     <string name="label_new_media">Add New Media</string>
     <string name="add_new_game">Add New Game</string>

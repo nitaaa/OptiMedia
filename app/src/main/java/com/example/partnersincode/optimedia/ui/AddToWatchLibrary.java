@@ -1,12 +1,9 @@
 package com.example.partnersincode.optimedia.ui;
 
 import android.annotation.SuppressLint;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +23,6 @@ import com.example.partnersincode.optimedia.models.Library;
 import com.example.partnersincode.optimedia.models.Movie;
 import com.example.partnersincode.optimedia.models.WatchObject;
 
-import java.sql.SQLData;
 import java.util.ArrayList;
 
 /**
@@ -135,6 +131,7 @@ public class AddToWatchLibrary extends Fragment {
     private void onAddSelectedClicked(View view)
     {
         addObjectsToLibrary();
+        Toast.makeText(getContext(),R.string.addToWatchLibraryConfirmation,Toast.LENGTH_SHORT).show();
         getActivity().onBackPressed();
     }
 
