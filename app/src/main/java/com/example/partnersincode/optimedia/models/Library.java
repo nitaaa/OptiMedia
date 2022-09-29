@@ -1,8 +1,11 @@
 package com.example.partnersincode.optimedia.models;
 
-import com.example.partnersincode.optimedia.DatabaseHandler;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Library {
+import androidx.annotation.NonNull;
+
+public class Library implements Parcelable {
     private int libraryID;
     private String libraryName;
     private String libraryType;
@@ -15,6 +18,24 @@ public class Library {
 
     public Library() {
     }
+
+    protected Library(Parcel in) {
+        libraryID = in.readInt();
+        libraryName = in.readString();
+        libraryType = in.readString();
+    }
+
+    public static final Creator<Library> CREATOR = new Creator<Library>() {
+        @Override
+        public Library createFromParcel(Parcel in) {
+            return new Library(in);
+        }
+
+        @Override
+        public Library[] newArray(int size) {
+            return new Library[size];
+        }
+    };
 
     public int getLibraryID() {
         return libraryID;
@@ -44,5 +65,16 @@ public class Library {
     public String toString() {
         return libraryID + "," + libraryName + "," + libraryType;
     }
-    
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeInt(libraryID);
+        parcel.writeString(libraryName);
+        parcel.writeString(libraryType);
+    }
 }
