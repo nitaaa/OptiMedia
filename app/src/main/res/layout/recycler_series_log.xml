@@ -11,13 +11,14 @@
         style="@style/txtHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="[Season - Episode]" />
+        android:text="[Season - Episode]"
+        android:layout_marginStart="4dp"/>
 
     <LinearLayout
         android:id="@+id/linLayoutSLogRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         android:orientation="vertical"
         android:visibility="gone">
 

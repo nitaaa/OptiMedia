@@ -137,7 +137,13 @@ public class createSeriesLog extends Fragment {
                      edtTxtSLogNote.getText().toString(), edtTxtSLogTime.getText().toString());
             int id = dbHandler.createSeriesLog(seriesLog);
             seriesLog.setSL_ID(id);
-            seriesLogs.add(seriesLog);
+            adapter.addSeriesLog(seriesLog);
+
+            recyclerSeriesLog.scrollToPosition(0);
+            edtTxtSLSeason.setText("");
+            edtTxtSLogEpisode.setText("");
+            edtTxtSLogNote.setText("");
+            edtTxtSLogTime.setText("");
         });
 
         //view the log content

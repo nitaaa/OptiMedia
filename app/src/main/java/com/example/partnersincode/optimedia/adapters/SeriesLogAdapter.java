@@ -68,4 +68,8 @@ public class SeriesLogAdapter extends RecyclerView.Adapter<SeriesLogAdapter.Seri
     public int getItemCount() {
         return seriesLogList.size();
     }
+
+    public void addSeriesLog(SeriesLog seriesLog){
+        seriesLogList.add(seriesLog);
+    }
 }

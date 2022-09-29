@@ -865,7 +865,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @param libraryID,libraryName
      */
     public void updateLibrary(int libraryID, String libraryName){
-        String updateQuery = "UPDATE Library SET libraryName = "+libraryName+"WHERE libraryID = "+libraryID;
+        String updateQuery = "UPDATE Library SET libraryName = '"+libraryName.replace("'", "''")
+                +"' WHERE libraryID = "+libraryID;
         SQLiteDatabase db = this.getReadableDatabase();
         try {
             db.execSQL(updateQuery);
