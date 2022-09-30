@@ -1,7 +1,10 @@
 package com.example.partnersincode.optimedia.ui.scanQRCode;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -10,9 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.partnersincode.optimedia.Property;
 import com.example.partnersincode.optimedia.R;
+import com.google.zxing.client.android.Intents;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 /**
  * This is the Fragment that initated the qrScanAction, as well as stores and make use of
@@ -40,9 +47,27 @@ public class qrScanControl extends Fragment {
     TextView lblScannedContents;
     TextView lblScanNr;
 
-    //Request key for result
-    String requestKey = "ScanQR";
+//    //Request key for result
+//    String requestKey = "ScanQR";
 
+    private ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(new ScanContract(),
+            result ->
+            {
+                if(result.getContents()!=null) {
+                    Intent origInent = result.getOriginalIntent();
+                    if(origInent==null)
+                    {
+                        Toast.makeText(getContext(),R.string.scanFailed,Toast.LENGTH_SHORT).show();
+                    }
+                    else if(origInent.hasExtra(Intents.Scan.MISSING_CAMERA_PERMISSION)) {
+                        Toast.makeText(getContext(),R.string.noCameraPermission,Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        contentsScanned.set(contentsScanned.get()+result.getContents());
+                        nrOfScans.set(nrOfScans.get()+1);
+                    }
+                }
+            });
 
 
     public qrScanControl() {
@@ -87,28 +112,26 @@ public class qrScanControl extends Fragment {
         setUpProperties();
 
         setOnClickActions(root);
-        setOnResultReturned();
+//        setOnResultReturned();
 
 
 
         return root;
     }
 
-    private void setOnResultReturned()
-    {
-        getParentFragmentManager().setFragmentResultListener(requestKey,this,(requestKey1, result) ->
-        {
-            String output = result.getString("result");
-
-            if(output!=null)
-            {
-                contentsScanned.set(contentsScanned.get()+output);
-                nrOfScans.set(nrOfScans.get()+1);
-            }
-
-
-        });
-    }
+//    private void setOnResultReturned()
+//    {
+//        getParentFragmentManager().setFragmentResultListener(requestKey,this,(requestKey1, result) ->
+//        {
+//            String output = result.getString("result");
+//
+//            if(output!=null)
+//            {
+//                contentsScanned.set(contentsScanned.get()+output);
+//                nrOfScans.set(nrOfScans.get()+1);
+//            }
+//        });
+//    }
 
     private void getUIReferences(View view)
     {
@@ -150,14 +173,16 @@ public class qrScanControl extends Fragment {
 
     private void onScanMoreClicked(View view)
     {
-
-
 //        Navigation.findNavController(view).navigate(R.id.nav_qrScanAction);
+//
+//        getChildFragmentManager()
+//                .beginTransaction()
+//                .add(new qrScanAction(),"QR");
 
-        getChildFragmentManager()
-                .beginTransaction()
-                .add(new qrScanAction(),"QR");
+        ScanOptions scan = new ScanOptions();
+        scan.setOrientationLocked(false);
 
+        barcodeLauncher.launch(scan);
 
 
     }

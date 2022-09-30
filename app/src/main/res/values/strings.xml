@@ -57,6 +57,8 @@
     <string name="scanQR">Scan QR Code</string>
     <string name="ok">OK</string>
     <string name="noCameraPermission">Cannot scan QR code without camera permissions. Try Again</string>
+    <string name ="scanFailed">Scanning Failed/Cancelled</string>
+    <string name="addToWatchLibraryConfirmation">Media added to watch library</string>
 
     <string name="label_new_media">Add New Media</string>
     <string name="add_new_game">Add New Game</string>
