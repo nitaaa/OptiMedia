@@ -690,17 +690,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Alexandria
      * @return int ID
      */
-    public int addMovieLog(MovieLog log) {
-
+    public void addMovieLog(MovieLog log) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        //values.put("movieID", log.getMovieID());
-        values.put("m_note", log.getM_note());
-        values.put("m_timestamp", log.getM_timestamp());
-        long id = db.insertWithOnConflict("Movie Log", null, values, SQLiteDatabase.CONFLICT_IGNORE);
-        Log.d("addMovieLog", "complete // " +id);
+        String query = "Insert into Movielog (movieID,m_note,m_timestamp) " +
+                "values ("+log.getMovieID()+",'"+log.getM_note()+"', '"+log.getM_timestamp()+"')";
+        db.execSQL(query);
 
-        return (int) id;
     }
 
     /**
@@ -736,7 +731,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public void updateMovieLog(int id, String note,String time) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "UPDATE Booklog SET m_note = '"+ note +"',m_timestamp = '"+ time +"' WHERE ML_ID = "+id;
+        String query = "UPDATE Movielog SET m_note = '"+ note +"',m_timestamp = '"+ time +"' WHERE ML_ID = "+id;
         db.execSQL(query);
     }
 

@@ -24,7 +24,6 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class createMovieLog extends Fragment {
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,6 +31,7 @@ public class createMovieLog extends Fragment {
 
     // TODO: Rename and change types of parameters
     private MovieLog movieLog;
+    private int MovieID;
     private Boolean editing;
     private static final String TAG = "CreateMovieLog";
 
@@ -61,11 +61,11 @@ public class createMovieLog extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            movieLog = bundle.getParcelable("movieLogInfo");
+        if (bundle.getString("Intent") == "Edit") {
+            movieLog = (MovieLog) bundle.getSerializable("movieLogInfo");
             editing = true;
-            Log.d(TAG, "onCreate: movieLog passed: "+movieLog.toString());
         } else {
+            MovieID =bundle.getInt("MovieID");
             editing = false;
         }
     }
@@ -73,7 +73,6 @@ public class createMovieLog extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_create_movie_log, container, false);
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
@@ -101,11 +100,12 @@ public class createMovieLog extends Fragment {
         } else {
             btnAddMovieLog.setOnClickListener(view -> {
                 MovieLog log = new MovieLog();
-                log.setM_timestamp(edtxtTime.getText().toString());
+                log.setMovieID(MovieID);
                 log.setM_note(edtxtNote.getText().toString());
+                log.setM_timestamp(edtxtTime.getText().toString());
                 dbHandler.addMovieLog(log);
 
-                Toast.makeText(this.getContext(), "Movie log added" + movieLog.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this.getContext(), "Movie log added", Toast.LENGTH_LONG).show();
                 edtxtTime.setText("");
                 edtxtNote.setText("");
                 getActivity().onBackPressed();

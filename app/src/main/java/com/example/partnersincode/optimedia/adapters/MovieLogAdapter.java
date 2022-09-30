@@ -38,14 +38,14 @@ public class MovieLogAdapter extends RecyclerView.Adapter<MovieLogAdapter.MovieL
 
         public void setMovieLog(MovieLog movieLog) {
             this.movieLog = movieLog;
-            txtRecyclerMovieLog.setText(movieLog.getM_note() + "/n" + movieLog.getM_timestamp());
+            txtRecyclerMovieLog.setText(movieLog.getM_note() + " " + movieLog.getM_timestamp());
         }
     }
 
     @NonNull
     @Override
     public MovieLogAdapter.MovieLogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_authors,parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_movie_log,parent, false);
         MovieLogAdapter.MovieLogViewHolder viewHolder = new MovieLogAdapter.MovieLogViewHolder(view);
         return viewHolder;
     }

@@ -1,6 +1,10 @@
 package com.example.partnersincode.optimedia.models;
 
-public class MovieLog {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class MovieLog implements Serializable {
     private int ML_ID;
     private int movieID;
     //private String m_title;
