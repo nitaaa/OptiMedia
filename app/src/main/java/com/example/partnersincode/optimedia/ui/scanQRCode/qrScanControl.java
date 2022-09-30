@@ -42,6 +42,7 @@ public class qrScanControl extends Fragment {
     //Property Attributes
     Property<String> contentsScanned;
     Property<Integer> nrOfScans;
+    String lastScan;
 
     //UI References
     TextView lblScannedContents;
@@ -65,6 +66,7 @@ public class qrScanControl extends Fragment {
                     else{
                         contentsScanned.set(contentsScanned.get()+result.getContents());
                         nrOfScans.set(nrOfScans.get()+1);
+                        lastScan = result.getContents();
                     }
                 }
             });
@@ -146,6 +148,9 @@ public class qrScanControl extends Fragment {
 
         Button submit = view.findViewById(R.id.A05000_btnSubmit);
         submit.setOnClickListener(this::onSubmitClicked);
+
+        Button undo = view.findViewById(R.id.A05000_undo);
+        undo.setOnClickListener(this::onUndoClicked);
     }
 
     private void setUpProperties()
@@ -166,6 +171,7 @@ public class qrScanControl extends Fragment {
         //set initial values (notify)
         contentsScanned.set("");
         nrOfScans.set(0);
+        lastScan="";
 
 
     }
@@ -192,6 +198,13 @@ public class qrScanControl extends Fragment {
         //TODO: Integration
 
 
+    }
+
+    private void onUndoClicked(View view)
+    {
+        String last =  contentsScanned.get().replace(lastScan,"");
+        contentsScanned.set(last);
+        nrOfScans.set(nrOfScans.get()-1);
     }
 
 
