@@ -49,7 +49,8 @@
     <string name="movieAlreadyInDB">Movie named %s already in database. Do you wish to continue adding?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-
+    <string name="lbl_scanToAddLibrary">Scan this QR code to add %s</string>
+    <string name="addToWatchLibraryConfirmation">Media added to watch library</string>
     <string name="label_new_media">Add New Media</string>
     <string name="add_new_game">Add New Game</string>
     <string name="game_name">Game Name:</string>
@@ -77,7 +78,16 @@
     <string name="manage_authors">Manage Authors</string>
     <string name="add_booklog">Add Booklog</string>
     <string name="share_library">Share Library</string>
+
+    <string name="contentDescription_QRImageView">QR code of items being shared</string>
+    <string name="generateQRCode">Generate QR Code</string>
+    <string name="btnNext">Next</string>
+    <string name="btnPrev">Previous</string>
+    <string name="A03200_lblIndex">%d of %d</string>
+
+
     <string name="view_all_libraries">View All Libraries</string>
     <string name="record_season_and_episode">Record Season and Episode</string>
+
 
 </resources>

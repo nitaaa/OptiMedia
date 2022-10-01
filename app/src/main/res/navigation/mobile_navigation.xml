@@ -58,8 +58,6 @@
         android:label="Create Book"
         tools:layout="@layout/fragment_create_book" />
 
-
-    <!--Colin presented -->
     <fragment
         android:id="@+id/nav_addBookLog"
         android:name="com.example.partnersincode.optimedia.ui.addBookLog.AddBookLog"
@@ -85,7 +83,13 @@
         android:name="com.example.partnersincode.optimedia.ui.CreateGame"
         android:label="@string/add_new_game"
         tools:layout="@layout/fragment_create_game" />
+        
     <fragment
+        android:id="@+id/nav_showQrCode"
+        android:name="com.example.partnersincode.optimedia.ui.ShowQrCode"
+        android:label="@string/generateQRCode"
+        tools:layout="@layout/fragment_show_qr_code" />
+
         android:id="@+id/nav_viewAllLibraries"
         android:name="com.example.partnersincode.optimedia.ui.viewAllLibraries"
         android:label="View All Libraries"
@@ -120,5 +124,6 @@
         android:name="com.example.partnersincode.optimedia.ui.createSeriesLog"
         android:label="Series Log"
         tools:layout="@layout/fragment_create_series_log" />
+
 
 </navigation>
