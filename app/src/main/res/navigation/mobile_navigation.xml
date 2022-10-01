@@ -34,12 +34,6 @@
         android:name="com.example.partnersincode.optimedia.ui.AddNewMovie"
         android:label="@string/heading_addNewMovie"
         tools:layout="@layout/add_new_movie_fragment" />
-        
-    <fragment
-        android:id="@+id/nav_addToWatchLibrary"
-        android:name="com.example.partnersincode.optimedia.ui.AddToWatchLibrary"
-        android:label="@string/addMediaToLibrary"
-        tools:layout="@layout/fragment_add_to_watch_library" />
 
 
     <fragment
@@ -100,5 +94,10 @@
         android:name="com.example.partnersincode.optimedia.ui.scanQRCode.qrScanAction"
         android:label="@string/scanQR"
         tools:layout="@layout/fragment_qr_scan_action" />
+    <fragment
+        android:id="@+id/nav_addToWatchLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.AddToWatchLibrary"
+        android:label="fragment_add_to_watch_library"
+        tools:layout="@layout/fragment_add_to_watch_library" />
 
 </navigation>

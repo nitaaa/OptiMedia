@@ -587,4 +587,48 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * Adriaan
+     * SQL to remove an media object from the library
+     * @param library from which object is being removed from
+     * @param object Media object being removed
+     */
+    public void removeFromLibrary(Library library, Object object)
+    {
+        int libraryID=library.getLibraryID();
+        ;
+        SQLiteDatabase db = getReadableDatabase();
+
+        if(object instanceof Book)
+        {
+            Book cur = (Book) object;
+            int bookID = cur.getBookID();
+            String SQL = String.format("DELETE FROM BookLibrary WHERE \n bookIO = %d AND libraryID = %d",
+                    bookID, libraryID);
+            db.execSQL(SQL);
+
+
+        }
+        else if(object instanceof Game)
+        {
+            Game cur = (Game) object;
+            int gameID = cur.getGameID();
+            String SQL = String.format("DELETE FROM GameLibrary WHERE \n gameIO = %d AND libraryID = %d",
+                    gameID, libraryID);
+            db.execSQL(SQL);
+
+        }
+        else if(object instanceof WatchObject) {
+            WatchObject cur = (WatchObject) object;
+            int objectID = cur.getID();
+
+            String SQL = String.format(
+                    "DELETE FROM WatchLibrary WHERE libraryID = %d AND" +
+                            "WLI_ID = (SELECT WLI_ID FROM WatchListItem WHERE seriesID = %d or movieID = %d )"
+                    , libraryID, objectID, objectID);
+
+            db.execSQL(SQL);
+        }
+    }
+
 }

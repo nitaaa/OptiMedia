@@ -29,10 +29,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * This is the fragment which  scans a QR code
- * A simple {@link Fragment} subclass.
- * Use the {@link qrScanAction#newInstance} factory method to
- * create an instance of this fragment.
+ * Deprecated Code
  */
 public class qrScanAction extends Fragment {
 
