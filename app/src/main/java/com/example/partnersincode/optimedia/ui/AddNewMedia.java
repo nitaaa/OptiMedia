@@ -79,7 +79,6 @@ public class AddNewMedia extends Fragment {
         btnNewMovie.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_addNewMovie));
         btnNewSeries.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_createSeries));
 
-
         return rootView;
     }
 }

@@ -52,18 +52,18 @@
         android:name="com.example.partnersincode.optimedia.ui.manageAuthors"
         android:label="Manage Authors"
         tools:layout="@layout/fragment_manage_authors" />
+
     <fragment
         android:id="@+id/nav_createBook"
         android:name="com.example.partnersincode.optimedia.ui.createBook"
         android:label="Create Book"
         tools:layout="@layout/fragment_create_book" />
 
-
-    <!--Colin presented -->
     <fragment
         android:id="@+id/nav_shareLibrary"
         android:name="com.example.partnersincode.optimedia.ui.shareLibrary.ShareLibrary"
         android:label="Share Library" />
+
     <fragment
         android:id="@+id/nav_createSeries"
         android:name="com.example.partnersincode.optimedia.ui.createSeries.CreateSeries"
@@ -82,6 +82,7 @@
         android:name="com.example.partnersincode.optimedia.ui.CreateGame"
         android:label="@string/add_new_game"
         tools:layout="@layout/fragment_create_game" />
+
     <fragment
         android:id="@+id/nav_createGenre"
         android:name="com.example.partnersincode.optimedia.ui.createGenre"
@@ -105,5 +106,66 @@
         android:name="com.example.partnersincode.optimedia.ui.createBooklog"
         android:label="Add/Edit Booklog"
         tools:layout="@layout/add_logtobook_fragment" />
+        
+    <fragment
+        android:id="@+id/nav_showQrCode"
+        android:name="com.example.partnersincode.optimedia.ui.ShowQrCode"
+        android:label="@string/generateQRCode"
+        tools:layout="@layout/fragment_show_qr_code" />
 
+    <fragment
+        android:id="@+id/nav_viewAllLibraries"
+        android:name="com.example.partnersincode.optimedia.ui.viewAllLibraries"
+        android:label="View All Libraries"
+        tools:layout="@layout/fragment_view_all_libraries" />
+
+    <fragment
+        android:id="@+id/nav_viewBookLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.viewBookLibrary"
+        android:label="View Book Library"
+        tools:layout="@layout/fragment_view_book_library" />
+
+
+    <fragment
+        android:id="@+id/nav_viewGameLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.viewGameLibrary"
+        android:label="View Game Library"
+        tools:layout="@layout/fragment_view_game_library" />
+
+    <fragment
+        android:id="@+id/nav_viewWatchLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.viewWatchLibrary"
+        android:label="View Watch Library"
+        tools:layout="@layout/fragment_view_watch_library" />
+
+    <fragment
+        android:id="@+id/nav_editLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.editLibrary"
+        android:label="Edit Library"
+        tools:layout="@layout/fragment_edit_library" />
+
+    <fragment
+        android:id="@+id/nav_createSeriesLog"
+        android:name="com.example.partnersincode.optimedia.ui.createSeriesLog"
+        android:label="Series Log"
+        tools:layout="@layout/fragment_create_series_log" />
+
+
+    <fragment
+        android:id="@+id/nav_addGameToLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.addGameToLibrary"
+        android:label="@string/addGameLibrary"
+        tools:layout="@layout/fragment_add_game_to_library" />
+
+    <fragment
+        android:id="@+id/nav_createMovieLog"
+        android:name="com.example.partnersincode.optimedia.ui.createMovieLog"
+        android:label="createMovieLog"
+        tools:layout="@layout/fragment_create_movie_log" />
+
+    <fragment
+        android:id="@+id/nav_manageMovieLog"
+        android:name="com.example.partnersincode.optimedia.ui.manageMovieLog"
+        android:label="manageMovieLog"
+        tools:layout="@layout/fragment_manage_movie_log" />
 </navigation>
