@@ -20,11 +20,6 @@
             android:title="@string/manage_authors" />
 
         <item
-            android:id="@+id/nav_addBookLog"
-            android:icon="@drawable/ic_book"
-            android:title="@string/add_booklog" />
-
-        <item
             android:id="@+id/nav_shareLibrary"
             android:icon="@drawable/ic_share"
             android:title="@string/share_library" />
