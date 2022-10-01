@@ -25,7 +25,7 @@ public class Property<T> {
      * Update the value to result in changes being notified.
      * @param newValue
      */
-    public void update(T newValue)
+    public void set(T newValue)
     {
         T oldValue = value;
         value = newValue;
@@ -36,7 +36,7 @@ public class Property<T> {
      * Set without updating
      * @param newValue
      */
-    public void set(T newValue)
+    public void reset(T newValue)
     {
         value = newValue;
     }
