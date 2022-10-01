@@ -52,6 +52,7 @@
         android:name="com.example.partnersincode.optimedia.ui.manageAuthors"
         android:label="Manage Authors"
         tools:layout="@layout/fragment_manage_authors" />
+
     <fragment
         android:id="@+id/nav_createBook"
         android:name="com.example.partnersincode.optimedia.ui.createBook"
@@ -66,6 +67,7 @@
         android:id="@+id/nav_shareLibrary"
         android:name="com.example.partnersincode.optimedia.ui.shareLibrary.ShareLibrary"
         android:label="Share Library" />
+
     <fragment
         android:id="@+id/nav_createSeries"
         android:name="com.example.partnersincode.optimedia.ui.createSeries.CreateSeries"
@@ -90,6 +92,7 @@
         android:label="@string/generateQRCode"
         tools:layout="@layout/fragment_show_qr_code" />
 
+    <fragment
         android:id="@+id/nav_viewAllLibraries"
         android:name="com.example.partnersincode.optimedia.ui.viewAllLibraries"
         android:label="View All Libraries"

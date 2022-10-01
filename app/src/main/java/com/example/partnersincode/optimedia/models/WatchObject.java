@@ -7,13 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.example.partnersincode.optimedia.Property;
 
-
-//import java.io.Serializable;
-
-//public class WatchObject implements Serializable
-
 public class WatchObject implements Parcelable
-
 {
     protected int WLI_ID;
     protected int genreID;
@@ -35,14 +29,6 @@ public class WatchObject implements Parcelable
 
     }
 
-    //TODO: Set type in watchObject instead of getting the subclass - easier for Adapter?
-//    public void setSeries(){
-//        this.type = "Series";
-//    }
-//
-//    public void setMovie(){
-//        this.type = "Movie";
-//    }
 
     protected WatchObject(Parcel in) {
         WLI_ID = in.readInt();
