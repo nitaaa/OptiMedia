@@ -34,6 +34,15 @@
             android:icon="@drawable/ic_add"
             android:title="@string/label_new_media" />
 
+        <item
+            android:id="@+id/nav_addGameToLibrary"
+            android:icon="@drawable/ic_add"
+            android:title="Add Game To Library" />
+
+        <item
+            android:id="@+id/nav_manageMovieLog"
+            android:icon="@drawable/ic_author"
+            android:title="Manage Movie Log" />
 
         <item
             android:id="@+id/nav_viewAllLibraries"

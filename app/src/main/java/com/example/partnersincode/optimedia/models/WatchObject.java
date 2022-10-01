@@ -7,7 +7,13 @@ import androidx.annotation.NonNull;
 
 import com.example.partnersincode.optimedia.Property;
 
+
+//import java.io.Serializable;
+
+//public class WatchObject implements Serializable
+
 public class WatchObject implements Parcelable
+
 {
     protected int WLI_ID;
     protected int genreID;

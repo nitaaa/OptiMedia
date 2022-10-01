@@ -14,7 +14,6 @@ public class Movie extends WatchObject implements Parcelable {
     //Properties
     private int  movieID;
 
-
     //Constructor
     public Movie(int movieID, int genreID, String title, String link, boolean favourite, boolean started, boolean complete) {
         super(genreID,title,link,favourite,started,complete);
@@ -35,6 +34,7 @@ public class Movie extends WatchObject implements Parcelable {
         public Movie createFromParcel(Parcel in) {
             return new Movie(in);
         }
+
 
         @Override
         public Movie[] newArray(int size) {
