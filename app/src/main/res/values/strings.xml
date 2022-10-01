@@ -21,6 +21,11 @@
     <string name="movieseriestxt">Movie/Series</string>
     <string name="createbtn">Create</string>
     <string name="createlabel">Create Library</string>
+    <string name="lbl_season">Season</string>
+    <string name="lbl_episode">Episode</string>
+    <string name="lbl_timestamp">Time (hh:mm)</string>
+    <string name="lbl_note">Note</string>
+    <string name="btn_add_seriesLog">Add Series Log</string>
 
     <!-- Adriaan -->
     <string name="addMediaToLibrary">Add Movie/Series to library</string>
@@ -73,11 +78,16 @@
     <string name="manage_authors">Manage Authors</string>
     <string name="add_booklog">Add Booklog</string>
     <string name="share_library">Share Library</string>
+
     <string name="contentDescription_QRImageView">QR code of items being shared</string>
     <string name="generateQRCode">Generate QR Code</string>
     <string name="btnNext">Next</string>
     <string name="btnPrev">Previous</string>
     <string name="A03200_lblIndex">%d of %d</string>
+
+
+    <string name="view_all_libraries">View All Libraries</string>
+    <string name="record_season_and_episode">Record Season and Episode</string>
 
 
 </resources>
