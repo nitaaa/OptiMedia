@@ -368,6 +368,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             } while (c.moveToNext());
         }
+        c.close();
         return watchLibraries;
     }
 
@@ -408,6 +409,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             }while(movies.moveToNext());
         }
+        movies.close();
         
         if(series.moveToFirst())
         {
@@ -424,6 +426,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             }while(series.moveToNext());
         }
+        series.close();
 
 
         return moviesAndSeries;
@@ -466,8 +469,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String SQL = String.format("SELECT * FROM Movie WHERE movieTitle = \"%s\"",title);
         Cursor c = db.rawQuery(SQL,null);
-
-        return c.moveToFirst();
+        Boolean inDatabase = c.moveToFirst();
+        c.close();
+        return inDatabase;
     }
 
 
@@ -492,7 +496,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (c.moveToFirst()) {
                 WLI_ID = c.getInt(c.getColumnIndex("WLI_ID"));
             }
-
+            c.close();
             return WLI_ID;
         }
         return -1; //return -1 if an invalid field is passed via idFieldName
@@ -1073,6 +1077,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             } while (c.moveToNext());
         }
+        c.close();
         return gameLibraries;
     }
 
@@ -1234,5 +1239,49 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //        c.close();
 //        return authorArrayList;
 //    }
+
+    /**
+     * Adriaan
+     * SQL to remove an media object from the library
+     * @param library from which object is being removed from
+     * @param object Media object being removed
+     */
+    public void removeFromLibrary(Library library, Object object)
+    {
+        int libraryID=library.getLibraryID();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        if(object instanceof Book)
+        {
+            Book cur = (Book) object;
+            int bookID = cur.getBookID();
+            String SQL = String.format("DELETE FROM BookLibrary WHERE \n bookIO = %d AND libraryID = %d",
+                    bookID, libraryID);
+            db.execSQL(SQL);
+
+
+        }
+        else if(object instanceof Game)
+        {
+            Game cur = (Game) object;
+            int gameID = cur.getGameID();
+            String SQL = String.format("DELETE FROM GameLibrary WHERE \n gameIO = %d AND libraryID = %d",
+                    gameID, libraryID);
+            db.execSQL(SQL);
+
+        }
+        else if(object instanceof WatchObject) {
+            WatchObject cur = (WatchObject) object;
+            int objectID = cur.getID();
+
+            String SQL = String.format(
+                    "DELETE FROM WatchLibrary WHERE libraryID = %d AND" +
+                            "WLI_ID = (SELECT WLI_ID FROM WatchListItem WHERE seriesID = %d or movieID = %d )"
+                    , libraryID, objectID, objectID);
+
+            db.execSQL(SQL);
+        }
+    }
 
 }
