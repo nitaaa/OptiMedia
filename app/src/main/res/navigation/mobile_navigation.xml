@@ -169,4 +169,9 @@
         android:name="com.example.partnersincode.optimedia.ui.manageMovieLog"
         android:label="manageMovieLog"
         tools:layout="@layout/fragment_manage_movie_log" />
+    <fragment
+        android:id="@+id/nav_xmlExport"
+        android:name="com.example.partnersincode.optimedia.ui.xmlExport"
+        android:label="fragment_xml_export"
+        tools:layout="@layout/fragment_xml_export" />
 </navigation>

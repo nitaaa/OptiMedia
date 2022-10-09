@@ -89,6 +89,8 @@
 
     <string name="view_all_libraries">View All Libraries</string>
     <string name="record_season_and_episode">Record Season and Episode</string>
+    <string name="copy">Copy</string>
+    <string name="exportXML">Export XML</string>
 
 
 </resources>

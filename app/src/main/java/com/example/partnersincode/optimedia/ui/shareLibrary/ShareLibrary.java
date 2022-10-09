@@ -11,7 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.models.Library;
 
 public class ShareLibrary extends Fragment {
 
@@ -52,6 +54,11 @@ public class ShareLibrary extends Fragment {
         btnXML.setOnClickListener(v->
         {
             // Navigation.findNavController(view).navigate(R.id.); takes to generate xml
+            DatabaseHandler db = new DatabaseHandler(getContext());
+            Library lib = db.getAllLibraries().get(3);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("library",lib);
+            Navigation.findNavController(view).navigate(R.id.nav_xmlExport,bundle);
         });
 
         return view;

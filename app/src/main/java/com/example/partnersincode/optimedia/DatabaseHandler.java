@@ -1206,6 +1206,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    @SuppressLint("Range")
+    public Genre getGenre(int id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = String.format("SELECT * FROM GENRE WHERE genreID = %d",id);
+
+        Genre genre = null;
+        Cursor c = db.rawQuery(sql,null);
+        if(c.moveToFirst())
+        {
+            do {
+                String genreName = c.getString(c.getColumnIndex("genreName"));
+
+                genre = new Genre(id,genreName);
+
+            } while (c.moveToNext());
+        }
+        return genre;
+    }
+
+
+
 
     /**
      * Gets all movies from the database.
