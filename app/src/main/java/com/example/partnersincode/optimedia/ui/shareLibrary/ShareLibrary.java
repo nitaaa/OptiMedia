@@ -1,5 +1,8 @@
 package com.example.partnersincode.optimedia.ui.shareLibrary;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +66,9 @@ public class ShareLibrary extends Fragment {
 
         return view;
     }
+
+
+
 
 
 

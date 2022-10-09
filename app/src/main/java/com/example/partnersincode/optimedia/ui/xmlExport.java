@@ -1,5 +1,8 @@
 package com.example.partnersincode.optimedia.ui;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
@@ -98,7 +102,7 @@ public class xmlExport extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root =  inflater.inflate(R.layout.fragment_xml_export, container, false);
-
+        root.findViewById(R.id.button2).setOnClickListener(this::onCopyClicked);
         generateXML();
         TextView view = root.findViewById(R.id.xmlView);
         xmlToString();
@@ -207,5 +211,13 @@ public class xmlExport extends Fragment {
 
         }
         catch (Exception e) {}
+    }
+
+    private void onCopyClicked(View view)
+    {
+        ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("XML", output);
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(getContext(),"Copied to clipboard",Toast.LENGTH_SHORT).show();
     }
 }
