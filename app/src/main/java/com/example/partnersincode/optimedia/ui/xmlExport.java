@@ -1,15 +1,19 @@
 package com.example.partnersincode.optimedia.ui;
 
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,12 +25,15 @@ import com.example.partnersincode.optimedia.models.Library;
 import com.example.partnersincode.optimedia.models.Series;
 import com.example.partnersincode.optimedia.models.WatchObject;
 
+import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Text;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSOutput;
+import org.w3c.dom.ls.LSSerializer;
 
+import java.io.FileOutputStream;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -57,6 +64,7 @@ public class xmlExport extends Fragment {
     private Library library;
     private Document document;
     private String output;
+    private String filename;
 
     public xmlExport() {
         // Required empty public constructor
@@ -102,7 +110,9 @@ public class xmlExport extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root =  inflater.inflate(R.layout.fragment_xml_export, container, false);
-        root.findViewById(R.id.button2).setOnClickListener(this::onCopyClicked);
+        root.findViewById(R.id.copy).setOnClickListener(this::onCopyClicked);
+        root.findViewById(R.id.save).setOnClickListener(this::onSaveClicked);
+        root.findViewById(R.id.share).setOnClickListener(this::onShareQR);
         generateXML();
         TextView view = root.findViewById(R.id.xmlView);
         xmlToString();
@@ -219,5 +229,67 @@ public class xmlExport extends Fragment {
         ClipData clip = ClipData.newPlainText("XML", output);
         clipboard.setPrimaryClip(clip);
         Toast.makeText(getContext(),"Copied to clipboard",Toast.LENGTH_SHORT).show();
+    }
+
+    private void onShareQR(View view)
+    {
+        Bundle bundle = new Bundle();
+        bundle.putString("XML",output);
+        Navigation.findNavController(view).navigate(R.id.nav_showQrCode,bundle);
+    }
+
+    private void onSaveClicked(View view)
+    {
+        try {
+            DOMImplementation impl = document.getImplementation();
+            DOMImplementationLS implLS = (DOMImplementationLS) impl.getFeature("LS", "3.0");
+            LSSerializer ser = implLS.createLSSerializer();
+
+            getFileName(view);
+
+            FileOutputStream fout = new FileOutputStream(filename);
+
+            LSOutput lsOutput = implLS.createLSOutput();
+            lsOutput.setEncoding("UTF-8");
+
+            lsOutput.setByteStream(fout);
+
+            ser.write(document, lsOutput);
+            fout.close();
+        }
+        catch(Exception e) { e.printStackTrace();}
+    }
+
+    private void getFileName(View view)
+    {
+
+        LayoutInflater li = LayoutInflater.from(getContext());
+        View promptsView = li.inflate(R.layout.prompt_xml_file_name, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                getContext());
+
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // get user input and set it to result
+                                // edit text
+                                filename = userInput.getText().toString();
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
     }
 }
