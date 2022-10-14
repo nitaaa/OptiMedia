@@ -827,6 +827,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         c.close();
         return author;
     }
+    @SuppressLint("Range")
+    public Author getAuthorByName(String fName,String lName) {
+        Author author = new Author();
+        String selectQuery = "SELECT * FROM Author WHERE name = \' " + fName+"\' and surname = \'"+lName+"\'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                author.setAuthorID(c.getInt(c.getColumnIndex("authorID")));
+                author.setAuthorName(c.getString(c.getColumnIndex("authorName")));
+                author.setAuthorSurname(c.getString(c.getColumnIndex("authorSurname")));
+                Log.d("DatabaseHandler", "getAuthorByID: " + author.getFullName());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return author;
+    }
 
     /**
      * Delete a library
@@ -1226,7 +1244,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return genre;
     }
 
+    @SuppressLint("Range")
+    public Genre getGenre(String Name)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = String.format("SELECT * FROM GENRE WHERE genreName = %d",Name);
 
+        Genre genre = null;
+        Cursor c = db.rawQuery(sql,null);
+        if(c.moveToFirst())
+        {
+            do {
+                int id = c.getInt(c.getColumnIndex("genreID"));
+
+                genre = new Genre(id,Name);
+
+            } while (c.moveToNext());
+        }
+        return genre;
+    }
 
 
     /**

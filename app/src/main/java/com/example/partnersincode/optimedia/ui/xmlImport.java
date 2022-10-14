@@ -15,6 +15,8 @@ import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
 import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Game;
+import com.example.partnersincode.optimedia.models.Genre;
+import com.example.partnersincode.optimedia.models.Movie;
 import com.example.partnersincode.optimedia.models.Series;
 import com.example.partnersincode.optimedia.models.WatchObject;
 
@@ -25,6 +27,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -112,7 +115,7 @@ public class xmlImport extends Fragment {
     {
 
         //TODO db handler
-
+        DatabaseHandler db = new DatabaseHandler(getContext());
         XPathFactory xPathFactory = XPathFactory.newInstance();
         XPath path = xPathFactory.newXPath();
 
@@ -124,6 +127,7 @@ public class xmlImport extends Fragment {
 
 
             String libraryName = node.getNodeName();
+            ArrayList<Object> library = new ArralyList<>();
 
             NodeList set1 = node.getChildNodes();
 
@@ -137,10 +141,90 @@ public class xmlImport extends Fragment {
                     NamedNodeMap map  = node.getAttributes();
                     String title = map.getNamedItem("title").getNodeValue();
                     String genre = map.getNamedItem("genre").getNodeValue();
+                    Series series;
                     //TODO everything
+                    try{
+                        Genre dbGenre = db.getGenre(genre);
+                        series = new Series(-1,dbGenre.getGenreID(),title,"", false,false,false);
+
+                    }catch(Exception e)
+                    {
+                        Genre dbGenre = new Genre(-1,genre);
+                        db.addGenre(dbGenre.getGenreName());
+                        series = new Series(-1,dbGenre.getGenreID(),title,"", false,false,false);
+
+                    }
+                    library.add(series);
 
                 }
 
+                if(nodeName.equals("movie"))
+                {
+                    NamedNodeMap map  = node.getAttributes();
+                    String title = map.getNamedItem("title").getNodeValue();
+                    String genre = map.getNamedItem("genre").getNodeValue();
+                    Movie movie;
+                    //TODO everything
+                    try{
+                        Genre dbGenre = db.getGenre(genre);
+                        movie = new Movie(-1,dbGenre.getGenreID(),title,"", false,false,false);
+
+                    }catch(Exception e)
+                    {
+                        Genre dbGenre = new Genre(-1,genre);
+                        db.addGenre(dbGenre.getGenreName());
+                        movie = new Movie(-1,dbGenre.getGenreID(),title,"", false,false,false);
+
+                    }
+                    library.add(movie);
+                }
+
+                if(nodeName.equals("game"))
+                {
+                    NamedNodeMap map  = node.getAttributes();
+                    String title = map.getNamedItem("title").getNodeValue();
+                    String type = map.getNamedItem("type").getNodeValue();
+                    String genre = map.getNamedItem("genre").getNodeValue();
+                    Game game;
+                    //TODO everything
+                    try{
+                        Genre dbGenre = db.getGenre(genre);
+                        game = new Game(-1,dbGenre.getGenreID(),title,type, false,false,false);
+
+                    }catch(Exception e)
+                    {
+                        Genre dbGenre = new Genre(-1,genre);
+                        db.addGenre(dbGenre.getGenreName());
+                        game = new Game(-1,dbGenre.getGenreID(),title,type, false,false,false);
+
+                    }
+                    library.add(game);
+                }
+
+                if(nodeName.equals("book"))
+                {
+                    NamedNodeMap map  = node.getAttributes();
+                    String authorName = map.getNamedItem("authorName").getNodeValue();
+                    String authorSurname = map.getNamedItem("authorSurname").getNodeValue();
+                    String title = map.getNamedItem("title").getNodeValue();
+                    String type = map.getNamedItem("ISBN").getNodeValue();
+                    String genre = map.getNamedItem("genre").getNodeValue();
+                    Book book;
+                    //TODO everything
+                    try{
+                        Genre dbGenre = db.getGenre(genre);
+
+                        book = new Book(-1,dbGenre.getGenreID(),title,type, false,false,false);
+
+                    }catch(Exception e)
+                    {
+                        Genre dbGenre = new Genre(-1,genre);
+                        db.addGenre(dbGenre.getGenreName());
+                        book = new Book(-1,dbGenre.getGenreID(),title,type, false,false,false);
+
+                    }
+                    library.add(book);
+                }
 
             }
 
