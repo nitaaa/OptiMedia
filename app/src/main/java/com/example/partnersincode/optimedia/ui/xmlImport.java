@@ -1,8 +1,10 @@
 package com.example.partnersincode.optimedia.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +59,8 @@ public class xmlImport extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    String libraryName;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -98,27 +103,20 @@ public class xmlImport extends Fragment {
         // Inflate the layout for this fragment
         View root =  inflater.inflate(R.layout.fragment_xml_export, container, false);
 
-        EditText view = root.findViewById(R.id.edtxtXML);
-        Button btnImport = root.findViewById(R.id.btnImport);
-
-
-        Document doc = stringToXML(view.getText().toString());
-
-        convertXML(doc);
-
-
-
+        root.findViewById(R.id.btnImport).setOnClickListener(this::onImportClicked);
 
         return root;
     }
 
-    private void convertXML(Document doc)
+
+    private ArrayList<Object> convertXML(Document doc)
     {
 
         //TODO db handler
         DatabaseHandler db = new DatabaseHandler(getContext());
         XPathFactory xPathFactory = XPathFactory.newInstance();
         XPath path = xPathFactory.newXPath();
+        ArrayList<Object> library = new ArrayList<>();
 
         try {
             XPathExpression expr = path.compile("//library/");
@@ -127,8 +125,8 @@ public class xmlImport extends Fragment {
             Node node = resultSet.item(0).cloneNode(true);
 
 
-            String libraryName = node.getNodeName();
-            ArrayList<Object> library = new ArrayList<>();
+             libraryName = node.getNodeName();
+
 
             NodeList set1 = node.getChildNodes();
 
@@ -243,89 +241,9 @@ public class xmlImport extends Fragment {
         }
 
 
-
-//        DatabaseHandler db = new DatabaseHandler(this.getContext());
-//        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//        try {
-//            DocumentBuilder builder = factory.newDocumentBuilder();
-//            document = builder.newDocument();
-//            Element rootNode = document.createElement("library");
-//            document.appendChild(rootNode);
-//            rootNode.setAttribute("libraryName", library.getLibraryName());
-//            rootNode.setAttribute("libraryType", library.getLibraryType());
-//
-//
-//            if(library.getLibraryType().equals("Watch"))
-//            {
-//                List<WatchObject> watch = db.getAllWatchItemsLibrary(library.getLibraryID(), "");
-//                for (WatchObject object:
-//                        watch) {
-//
-//                    Element child = null;
-//                    if(object instanceof Series)
-//                    {
-//                        child = document.createElement("series");
-//
-//                    }
-//                    else
-//                    {
-//                        child = document.createElement("movie");
-//
-//                    }
-//                    try {
-//                        String genre = db.getGenre(object.getGenreID()).getGenreName();
-//                        child.setAttribute("genre",genre);
-//                    }catch (Exception e) {}
-//
-//                    child.setAttribute("title", object.getTitle());
-//                    rootNode.appendChild(child);
-//
-//                }
-//
-//            }
-//
-//            if(library.getLibraryType().equals("Game"))
-//            {
-//                List<Game> game = db.getAllGamesLibrary(library.getLibraryID(),"");
-//                for (Game object: game) {
-//
-//                    Element child = document.createElement("game");
-//                    try {
-//                        String genre = db.getGenre(object.getGenreID()).getGenreName();
-//                        child.setAttribute("genre",genre);
-//                    }catch (Exception e) {}
-//                    child.setAttribute("title", object.getGameTitle());
-//                    child.setAttribute("gameType", object.getGameType());
-//                    rootNode.appendChild(child);
-//                }
-//
-//            }
-//            if(library.getLibraryType().equals("Book"))
-//            {
-//                List<Book> book = db.getAllBooksLibrary(library.getLibraryID(),"");
-//
-//                for (Book object:
-//                        book) {
-//                    Element child = document.createElement("book");
-//
-//                    String authorName = db.getAuthorByID(object.getAuthorID()).getAuthorName();
-//                    String authorSurname = db.getAuthorByID(object.getAuthorID()).getAuthorSurname();
-//                    child.setAttribute("authorName", authorName );
-//                    child.setAttribute("authorSurname", authorSurname );
-//                    try {
-//                        String genre = db.getGenre(object.getGenreID()).getGenreName();
-//                        child.setAttribute("genre",genre);
-//                    }catch (Exception e) {}
-//                    child.setAttribute("title", object.getBookTitle());
-//                    child.setAttribute("ISBN", object.getISBN());
-//                    rootNode.appendChild(child);
-//                }
-//
-//            }
-//        } catch (ParserConfigurationException e) {
-//            e.printStackTrace();
-//        }
+        return library;
     }
+
 
     private Document stringToXML(String contents)
     {
@@ -341,4 +259,22 @@ public class xmlImport extends Fragment {
 
         return doc;
     }
+
+    private void onImportClicked(View view)
+    {
+        EditText text = view.findViewById(R.id.edtxtXML);
+
+        Document doc = stringToXML(text.getText().toString());
+
+        ArrayList<Object>  list = convertXML(doc);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("libraryName",libraryName);
+        bundle.putSerializable("XML", list);
+
+        //TODO: Integration Colin's View List
+        //Navigation.findNavController(view).navigate(R.id.  ,bundle);
+    }
+
+
 }
