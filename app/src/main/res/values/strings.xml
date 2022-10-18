@@ -26,6 +26,8 @@
     <string name="lbl_timestamp">Time (hh:mm)</string>
     <string name="lbl_note">Note</string>
     <string name="btn_add_seriesLog">Add Series Log</string>
+    <string name="lbl_delete">Delete</string>
+    <string name="lbl_share">Share</string>
 
     <!-- Adriaan -->
     <string name="addMediaToLibrary">Add Movie/Series to library</string>

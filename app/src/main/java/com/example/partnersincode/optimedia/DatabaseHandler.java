@@ -131,8 +131,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         sqLiteDatabaseDB.execSQL(query);
 
         //add watchlist item
-        query = "INSERT INTO WatchListItem (seriesID,movieID, link) VALUES ('1',NULL,''), (NULL,'3',''), ('3',NULL,'')" +
-                ", ('2',NULL,''), (NULL,'2',''), (NULL,'5','')";
+        query = "INSERT INTO WatchListItem (seriesID,movieID, link) VALUES ('1',NULL,'https://www.imdb.com/title/tt8179402/'), " +
+                "(NULL,'3','https://www.imdb.com/title/tt1659337/'), ('3',NULL,'https://www.imdb.com/title/tt8740790/'), " +
+                "('2',NULL,'https://www.imdb.com/title/tt1312171/'), (NULL,'2','https://www.imdb.com/title/tt1564777/'), " +
+                "(NULL,'5','https://www.imdb.com/title/tt3846674/')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add library

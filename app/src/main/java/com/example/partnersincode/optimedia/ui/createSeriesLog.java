@@ -1,9 +1,9 @@
 package com.example.partnersincode.optimedia.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
 import com.example.partnersincode.optimedia.adapters.SeriesLogAdapter;
-import com.example.partnersincode.optimedia.adapters.WatchObjectAdapter;
 import com.example.partnersincode.optimedia.models.Genre;
 import com.example.partnersincode.optimedia.models.Series;
 import com.example.partnersincode.optimedia.models.SeriesLog;
@@ -144,6 +143,18 @@ public class createSeriesLog extends Fragment {
             edtTxtSLogEpisode.setText("");
             edtTxtSLogNote.setText("");
             edtTxtSLogTime.setText("");
+        });
+
+        Button btnShareSeries = rootView.findViewById(R.id.btnShareSeries);
+        btnShareSeries.setOnClickListener(view -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("seriesInfo", series);
+            Navigation.findNavController(view).navigate(R.id.nav_shareLibrary, bundle);
+        });
+
+        Button btnDeleteSeries = rootView.findViewById(R.id.btnDeleteSeries);
+        btnDeleteSeries.setOnClickListener(view -> {
+            //TODO ADRIAAN - method for deleting series from library
         });
 
         //view the log content
