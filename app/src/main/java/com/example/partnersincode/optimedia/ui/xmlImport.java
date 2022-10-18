@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.models.Author;
 import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.Genre;
@@ -127,7 +128,7 @@ public class xmlImport extends Fragment {
 
 
             String libraryName = node.getNodeName();
-            ArrayList<Object> library = new ArralyList<>();
+            ArrayList<Object> library = new ArrayList<>();
 
             NodeList set1 = node.getChildNodes();
 
@@ -207,22 +208,30 @@ public class xmlImport extends Fragment {
                     String authorName = map.getNamedItem("authorName").getNodeValue();
                     String authorSurname = map.getNamedItem("authorSurname").getNodeValue();
                     String title = map.getNamedItem("title").getNodeValue();
-                    String type = map.getNamedItem("ISBN").getNodeValue();
+                    String ISBN = map.getNamedItem("ISBN").getNodeValue();
                     String genre = map.getNamedItem("genre").getNodeValue();
                     Book book;
                     //TODO everything
+                    Genre dbGenre = null;
+                    Author dbAuthor = null;
                     try{
-                        Genre dbGenre = db.getGenre(genre);
-
-                        book = new Book(-1,dbGenre.getGenreID(),title,type, false,false,false);
+                        dbGenre =  db.getGenre(genre);
 
                     }catch(Exception e)
                     {
-                        Genre dbGenre = new Genre(-1,genre);
+                        dbGenre = new Genre(-1,genre);
                         db.addGenre(dbGenre.getGenreName());
-                        book = new Book(-1,dbGenre.getGenreID(),title,type, false,false,false);
-
                     }
+
+                    try{
+                        dbAuthor = db.getAuthorByName(authorSurname,authorName);
+                    }catch (Exception e)
+                    {
+                        Author author = new Author(-1,authorName,authorSurname);
+                        db.createNewAuthor(author);
+                    }
+
+                    book = new Book(-1,dbAuthor.getAuthorID(),dbGenre.getGenreID(),ISBN,title, false,false,false);
                     library.add(book);
                 }
 
@@ -320,7 +329,7 @@ public class xmlImport extends Fragment {
 
     private Document stringToXML(String contents)
     {
-        Document doc;
+        Document doc = null;
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
