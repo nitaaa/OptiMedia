@@ -28,6 +28,10 @@
     <string name="btn_add_seriesLog">Add Series Log</string>
     <string name="lbl_delete">Delete</string>
     <string name="lbl_share">Share</string>
+    <string name="lbl_keyword">Enter search term</string>
+    <string name="lbl_showFavourites">Show Favourites</string>
+    <string name="lbl_mediaTypes">Select Media (Optional)</string>
+    <string name="lbl_all">Search All</string>
 
     <!-- Adriaan -->
     <string name="addMediaToLibrary">Add Movie/Series to library</string>

@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.example.partnersincode.optimedia.Property;
 
-public class WatchObject implements Parcelable
+public class WatchObject extends MediaObject implements Parcelable
 {
     protected int WLI_ID;
     protected int genreID;
@@ -17,6 +17,7 @@ public class WatchObject implements Parcelable
 //    protected String type;
 
     public WatchObject(int genreID, String title, String link, Boolean favourite, Boolean started, Boolean complete) {
+        super();
         this.genreID = genreID;
         this.title = title;
         this.link = link;

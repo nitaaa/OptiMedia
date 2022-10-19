@@ -12,6 +12,7 @@ import android.util.Log;
 import com.example.partnersincode.optimedia.models.Booklog;
 import com.example.partnersincode.optimedia.models.Genre;
 import com.example.partnersincode.optimedia.models.Library;
+import com.example.partnersincode.optimedia.models.MediaObject;
 import com.example.partnersincode.optimedia.models.Movie;
 import com.example.partnersincode.optimedia.models.MovieLog;
 import com.example.partnersincode.optimedia.models.Series;
@@ -24,6 +25,7 @@ import com.example.partnersincode.optimedia.models.Game;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DB_NAME = "optimediadb";
@@ -597,6 +599,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     bookArrayList.add(book);
                     Log.d("DatabaseHandler", "getAllBooksLibrary: " + bookID);
                 }
+//                if (searchTerm != null){
+//                    if (book.getBookTitle() != null && book.getBookTitle().toLowerCase().contains(searchTerm.toLowerCase())){
+//                        bookArrayList.add(book);
+//                        Log.d("DatabaseHandler", "getAllBooksLibrary: " + bookID);
+//                    }
+//                } else {
+//                    bookArrayList.add(book);
+//                    Log.d("DatabaseHandler", "getAllBooksLibrary: " + bookID);
+//                }
             } while (c.moveToNext());
         }
         c.close();
@@ -651,10 +662,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
                 int gameID = c.getInt(c.getColumnIndex("gameID"));
                 Game game = getGameByID(gameID);
-                if (game.getGameTitle() != null)  { //&& book.getBookTitle().contains(searchTerm)){
-                    gameArrayList.add(game);
-                    Log.d("DatabaseHandler", "getAllGamesLibrary: " + gameID);
-                }
+                gameArrayList.add(game);
+                Log.d("DatabaseHandler", "getAllGamesLibrary: " + gameID);
+//                if (searchTerm != null){
+//                    if (game.getGameTitle() != null && game.getGameTitle().toLowerCase().contains(searchTerm.toLowerCase())){
+//                        gameArrayList.add(game);
+//                        Log.d("DatabaseHandler", "getAllGamesLibrary: " + gameID);
+//                    }
+//                } else {
+//                    gameArrayList.add(game);
+//                    Log.d("DatabaseHandler", "getAllGamesLibrary: " + gameID);
+//                }
             } while (c.moveToNext());
         }
         c.close();
@@ -710,7 +728,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Log.d("getAllWatchItemsLibrary - ", "wli_id: " + watchListItemID);
                 watchList.add(getWatchItemByID(watchListItemID));
 //                WatchObject watchItem = getWatchItemByID(watchListItemID);
-//                if (watchItem.getTitle() != null)  { //&& book.getBookTitle().contains(searchTerm)){
+//                if (searchTerm != null){
+//                    if (watchItem.getTitle() != null && watchItem.getTitle().toLowerCase().contains(searchTerm.toLowerCase())){
+//                        watchList.add(watchItem);
+//                        Log.d("DatabaseHandler", "getAllWatchItemsLibrary: " + watchListItemID);
+//                    }
+//                } else {
 //                    watchList.add(watchItem);
 //                    Log.d("DatabaseHandler", "getAllWatchItemsLibrary: " + watchListItemID);
 //                }
@@ -1286,4 +1309,59 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    @SuppressLint("Range")
+    public Collection<Book> getBooks(String keyword) {
+        ArrayList<Book> bookArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Book WHERE bookTitle LIKE '%" + keyword +"%'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                Book book = new Book();
+                book.setBookID(c.getInt(c.getColumnIndex("bookID")));
+                book.setAuthorID(c.getInt(c.getColumnIndex("authorID")));
+                book.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                book.setBookTitle(c.getString(c.getColumnIndex("bookTitle")));
+                book.setISBN(c.getString(c.getColumnIndex("ISBN")));
+                book.setFavourite(c.getInt(c.getColumnIndex("favourite")) > 0);
+                book.setStarted(c.getInt(c.getColumnIndex("started")) > 0);
+                book.setCompleted(c.getInt(c.getColumnIndex("complete")) > 0);
+
+                bookArrayList.add(book);
+                Log.d("DatabaseHandler", "getBooks: " + book.getBookTitle());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return bookArrayList;
+    }
+
+    public Collection<WatchObject> getWatchItems(String keyword) {
+        ArrayList<WatchObject> watchList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM WatchLibrary";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                @SuppressLint("Range") int watchListItemID = c.getInt(c.getColumnIndex("WLI_ID"));
+                Log.d("getAllWatchItemsLibrary - ", "wli_id: " + watchListItemID);
+                WatchObject watchItem = getWatchItemByID(watchListItemID);
+                if (keyword != null){
+                    if (watchItem.getTitle() != null && watchItem.getTitle().toLowerCase().contains(keyword.toLowerCase())){
+                        watchList.add(watchItem);
+                        Log.d("DatabaseHandler", "getWatchItems: " + watchItem.getTitle());
+                    }
+                } else {
+                    watchList.add(watchItem);
+                    Log.d("DatabaseHandler", "getWatchItems: " + watchItem.getTitle());
+                }
+
+            } while (c.moveToNext());
+        }
+        c.close();
+        return watchList;
+    }
 }
