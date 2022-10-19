@@ -1094,6 +1094,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gameLibraries;
     }
 
+    @SuppressLint("Range")
+    public ArrayList<Library> getBookLibraries()
+    {
+        ArrayList<Library> BookLibraries = new ArrayList<>();
+
+        String SQL = "SELECT * FROM Library WHERE libraryType = \"Book\"";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(SQL, null);
+
+        if(c.moveToFirst())
+        {
+            do{
+
+                int libraryID = c.getInt(c.getColumnIndex("libraryID"));
+                String libraryName = c.getString(c.getColumnIndex("libraryName"));
+                String libraryType = c.getString(c.getColumnIndex("libraryType"));
+                BookLibraries.add(new Library(libraryID,libraryName,libraryType));
+
+
+            } while (c.moveToNext());
+        }
+        return BookLibraries;
+    }
+
     /**
      * Gets all authors from the database.
      * Alexandria
@@ -1104,11 +1128,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ArrayList<Game> gameArrayList = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM Game";
-        Game game = new Game();
+
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
             do {
+                Game game = new Game();
                 game.setGameID(c.getInt(c.getColumnIndex("gameID")));
                 game.setGenreID(c.getInt(c.getColumnIndex("genreID")));
                 game.setGameTitle(c.getString(c.getColumnIndex("gameTitle")));
@@ -1157,6 +1182,62 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return gameArrayList;
     }
 
+    @SuppressLint("Range")
+    public ArrayList<Book> getBooks(String string) {
+        ArrayList<Book> bookArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Book WHERE bookTitle LIKE '%" + string +"%'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                Book book = new Book();
+                book.setBookID(c.getInt(c.getColumnIndex("bookID")));
+                book.setAuthorID(c.getInt(c.getColumnIndex("authorID")));
+                book.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                book.setISBN(c.getString(c.getColumnIndex("ISBN")));
+                book.setBookTitle(c.getString(c.getColumnIndex("bookTitle")));
+                book.setFavourite(c.getInt(c.getColumnIndex("favourite"))==1);
+                book.setStarted(c.getInt(c.getColumnIndex("started")) == 1);
+                book.setCompleted(c.getInt(c.getColumnIndex("complete"))==1);
+
+                bookArrayList.add(book);
+                Log.d("DatabaseHandler", "getBookLibraries: " + book.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return bookArrayList;
+    }
+
+    @SuppressLint("Range")
+    public ArrayList<Book> getBooks() {
+        ArrayList<Book> bookArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Book";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                Book book = new Book();
+                book.setBookID(c.getInt(c.getColumnIndex("bookID")));
+                book.setAuthorID(c.getInt(c.getColumnIndex("authorID")));
+                book.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                book.setISBN(c.getString(c.getColumnIndex("ISBN")));
+                book.setBookTitle(c.getString(c.getColumnIndex("bookTitle")));
+                book.setFavourite(c.getInt(c.getColumnIndex("favourite"))==1);
+                book.setStarted(c.getInt(c.getColumnIndex("started")) == 1);
+                book.setCompleted(c.getInt(c.getColumnIndex("complete"))==1);
+
+                bookArrayList.add(book);
+                Log.d("DatabaseHandler", "getBookLibraries: " + book.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return bookArrayList;
+    }
+
     /**
      * Create new author in database.
      * Alexandria
@@ -1170,6 +1251,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put("gameID", game.getGameID());
         long id = db.insertWithOnConflict("GameLibrary", null, values, SQLiteDatabase.CONFLICT_IGNORE);
         Log.d("createGameLibrary", "complete // " +id);
+
+        return (int) id;
+    }
+
+    public int createBookLibrary(Book book, Library library) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("libraryID", library.getLibraryID());
+        values.put("bookID", book.getBookID());
+        long id = db.insertWithOnConflict("BookLibrary", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        Log.d("createBookLibrary", "complete // " +id);
 
         return (int) id;
     }

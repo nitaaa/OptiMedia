@@ -174,4 +174,8 @@
         android:name="com.example.partnersincode.optimedia.ui.xmlExport"
         android:label="fragment_xml_export"
         tools:layout="@layout/fragment_xml_export" />
+    <fragment
+        android:id="@+id/nav_addBookToLib"
+        android:name="com.example.partnersincode.optimedia.addBookToLib.addBookToLibrary"
+        android:label="addBookToLibrary" />
 </navigation>

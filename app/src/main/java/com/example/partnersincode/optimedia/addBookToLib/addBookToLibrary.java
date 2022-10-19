@@ -17,9 +17,9 @@ import android.widget.TextView;
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
 import com.example.partnersincode.optimedia.adapters.AddGameAdapter;
+import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.Library;
-import com.example.partnersincode.optimedia.ui.addGameToLibrary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,6 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class addBookToLibrary extends Fragment {
-
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,28 +80,27 @@ public class addBookToLibrary extends Fragment {
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
 
         //get libraries for spinner
-        ArrayList<Library> libraries = dbHandler.getGameLibraries();//todo
+        ArrayList<Library> libraries = dbHandler.getBookLibraries();
         ArrayAdapter<Library> adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, libraries);
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
 
         Spinner spinLibrary = (Spinner) rootView.findViewById(R.id.spinLibrary);
         spinLibrary.setAdapter(adapter);
 
-        TextView edtxtSearch = rootView.findViewById(R.id.edtxtGame);
+        TextView edtxtSearch = rootView.findViewById(R.id.edtxtBook);
 
         // recycler viewer
-        List<Game> games = dbHandler.getGames();
-        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerGames);
+        List<Book> books = dbHandler.getBooks();
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerBook);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        AddGameAdapter gameAdapter = new AddGameAdapter(games);
-        recyclerView.setAdapter(gameAdapter);
+        AddBookAdapter bookAdapter = new AddBookAdapter(books);
+        recyclerView.setAdapter(bookAdapter);
 
-        gameAdapter.setOnClickListener( view -> {
-            AddGameAdapter.AddGameViewHolder viewHolder = (AddGameAdapter.AddGameViewHolder) recyclerView.findContainingViewHolder(view);
-            //Toast.makeText(this.getContext(), author.getFullName(),Toast.LENGTH_LONG).show();
-            //TODO:
+        bookAdapter.setOnClickListener( view -> {
+            AddBookAdapter.AddBookViewHolder viewHolder = (AddBookAdapter.AddBookViewHolder) recyclerView.findContainingViewHolder(view);
+
             if (viewHolder != null) {
                 viewHolder.setSelected();
             }
@@ -111,28 +109,24 @@ public class addBookToLibrary extends Fragment {
         Button btnSearch = rootView.findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(view ->
         {
-            //List<Game> games2 = dbHandler.getGames(edtxtSearch.toString());
-            //    recyclerView.setLayoutManager(layoutManager);
-            //   recyclerView.setAdapter(gameAdapter);
-
-            List<Game> games2 = dbHandler.getGames(edtxtSearch.getText().toString());
-            RecyclerView recyclerView2 = rootView.findViewById(R.id.recyclerGames);
+            List<Book> books1 = dbHandler.getBooks(edtxtSearch.getText().toString());
+            RecyclerView recyclerView2 = rootView.findViewById(R.id.recyclerBook);
 
             RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(getContext());
             recyclerView2.setLayoutManager(layoutManager2);
-            AddGameAdapter gameAdapter2 = new AddGameAdapter(games2);
-            recyclerView2.setAdapter(gameAdapter2);
+            AddBookAdapter bookAdapter2 = new AddBookAdapter(books1);
+            recyclerView2.setAdapter(bookAdapter2);
         });
 
-        Button btnAdd = rootView.findViewById(R.id.btnAddMovieLog);
+        Button btnAdd = rootView.findViewById(R.id.btnBooktoLib);
         btnAdd.setOnClickListener(view ->
         {
             Library library = (Library) spinLibrary.getSelectedItem();
 
-            for (Game added :
-                    gameAdapter.getSelectedObjects()) {
+            for (Book added :
+                    bookAdapter.getSelectedObjects()) {
 
-                dbHandler.createGameLibrary(added, library);
+                dbHandler.createBookLibrary(added, library);
             }
 
         });
