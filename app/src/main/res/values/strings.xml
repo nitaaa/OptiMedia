@@ -56,6 +56,7 @@
     <string name="game_name">Game Name:</string>
     <string name="game_type">Game Type:</string>
     <string name="select_genre">Select Genre:</string>
+    <string name="fileName">Set File Name</string>
 
     <!-- Temp: might be replaced by other people's strings-->
     <string name="add_new_book">Add New Book</string>
