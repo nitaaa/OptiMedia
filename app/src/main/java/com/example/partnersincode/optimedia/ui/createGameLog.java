@@ -7,8 +7,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.models.GameLog;
+import com.example.partnersincode.optimedia.models.MovieLog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,8 +29,10 @@ public class createGameLog extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private GameLog gameLog;
+    private int GameID;
+    private Boolean editing;
+    private static final String TAG = "CreateGameLog";
 
     public createGameLog() {
         // Required empty public constructor
@@ -51,9 +59,13 @@ public class createGameLog extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        Bundle bundle = this.getArguments();
+        if (bundle.getString("Intent") == "Edit") {
+            gameLog = (GameLog) bundle.getSerializable("gameLogInfo");
+            editing = true;
+        } else {
+            GameID =bundle.getInt("GameID");
+            editing = false;
         }
     }
 
@@ -61,6 +73,42 @@ public class createGameLog extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_game_log, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_create_game_log, container, false);
+        DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
+
+        TextView edtxtTitle = rootView.findViewById(R.id.edtxtTitle);
+        TextView edtxtNote = rootView.findViewById(R.id.edtxtNote);
+        Button btnAddGameLog = rootView.findViewById(R.id.btnAddGameLog);
+
+        if (editing){
+            btnAddGameLog.setText("Edit Game Log");
+            edtxtTitle.setText(gameLog.getGLTitle());
+            edtxtNote.setText(gameLog.getGLNote());
+            btnAddGameLog.setOnClickListener(view -> {
+                String title=edtxtTitle.getText().toString();
+                String note=edtxtNote.getText().toString();
+                dbHandler.updateGameLog(gameLog.getGL_ID(),title, note);
+
+                Toast.makeText(this.getContext(), "Game Log Edited " , Toast.LENGTH_LONG).show();
+                edtxtNote.setText("");
+                edtxtTitle.setText("");
+                getActivity().onBackPressed();
+            });
+        } else {
+            btnAddGameLog.setOnClickListener(view -> {
+                GameLog log = new GameLog();
+                log.setGameID(GameID);
+                log.setGLTitle(edtxtTitle.getText().toString());
+                log.setGLNote(edtxtNote.getText().toString());
+                dbHandler.addGameLog(log);
+
+                Toast.makeText(this.getContext(), "Game Log Added", Toast.LENGTH_LONG).show();
+                edtxtTitle.setText("");
+                edtxtNote.setText("");
+                getActivity().onBackPressed();
+            });
+        }
+
+        return rootView;
     }
 }

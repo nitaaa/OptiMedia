@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.adapters.GameLogAdapter;
 import com.example.partnersincode.optimedia.adapters.MovieLogAdapter;
 import com.example.partnersincode.optimedia.models.GameLog;
 import com.example.partnersincode.optimedia.models.MovieLog;
@@ -86,26 +87,26 @@ public class manageGameLog extends Fragment {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        MovieLogAdapter adapter = new MovieLogAdapter(logs);
+        GameLogAdapter adapter = new GameLogAdapter(logs);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnClickListener( view -> {
-            MovieLogAdapter.MovieLogViewHolder viewHolder = (MovieLogAdapter.MovieLogViewHolder) recyclerView.findContainingViewHolder(view);
-            MovieLog movieLog = viewHolder.movieLog;
-            //Toast.makeText(this.getContext(), movieLog.getMovieID()),Toast.LENGTH_LONG).show();
+            GameLogAdapter.GameLogViewHolder viewHolder = (GameLogAdapter.GameLogViewHolder) recyclerView.findContainingViewHolder(view);
+            GameLog gameLog = viewHolder.gameLog;
+            //Toast.makeText(this.getContext(), gameLog.getGameID()),Toast.LENGTH_LONG).show();
 
             Bundle bundle = new Bundle();
-            bundle.putSerializable("movieLogInfo",movieLog);
+            bundle.putSerializable("gameLogInfo",gameLog);
             bundle.putString("Intent", "Edit");
-            Navigation.findNavController(view).navigate(R.id.nav_createMovieLog, bundle);
+            Navigation.findNavController(view).navigate(R.id.nav_createGameLog, bundle);
         });
 
-        Button btnCreateMovieLog = rootView.findViewById(R.id.btnCreateGameLog);
-        btnCreateMovieLog.setOnClickListener(view ->{
+        Button btnCreateGameLog = rootView.findViewById(R.id.btnCreateGameLog);
+        btnCreateGameLog.setOnClickListener(view ->{
             Bundle bundle = new Bundle();
             bundle.putInt("GameID",GameID);
             bundle.putString("Intent", "Add");
-            Navigation.findNavController(view).navigate(R.id.nav_createMovieLog,bundle);
+            Navigation.findNavController(view).navigate(R.id.nav_createGameLog,bundle);
         });
 
         return rootView;

@@ -174,4 +174,14 @@
         android:name="com.example.partnersincode.optimedia.ui.xmlExport"
         android:label="fragment_xml_export"
         tools:layout="@layout/fragment_xml_export" />
+    <fragment
+        android:id="@+id/nav_createGameLog"
+        android:name="com.example.partnersincode.optimedia.ui.createGameLog"
+        android:label="fragment_create_game_log"
+        tools:layout="@layout/fragment_create_game_log" />
+    <fragment
+        android:id="@+id/nav_manageGameLog"
+        android:name="com.example.partnersincode.optimedia.ui.manageGameLog"
+        android:label="fragment_manage_game_log"
+        tools:layout="@layout/fragment_manage_game_log" />
 </navigation>
