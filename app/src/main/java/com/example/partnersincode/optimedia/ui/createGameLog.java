@@ -13,8 +13,8 @@ import android.widget.Toast;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.GameLog;
-import com.example.partnersincode.optimedia.models.MovieLog;
 
 /**
  * A simple {@link Fragment} subclass.

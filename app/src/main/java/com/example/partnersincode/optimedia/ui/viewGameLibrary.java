@@ -98,8 +98,7 @@ public class viewGameLibrary extends Fragment {
             Toast.makeText(this.getContext(), game.toString(),Toast.LENGTH_LONG).show();
             Bundle bundle = new Bundle();
             bundle.putParcelable("gameInfo", game);
-            // TODO:Navigation from view book library to A02211
-            //Navigation.findNavController(view).navigate(R.id., bundle); //navigate to A02111
+            Navigation.findNavController(view).navigate(R.id.nav_manageGameLog, bundle); //navigate to A02111
         });
 
         //TODO: onclick for edit
