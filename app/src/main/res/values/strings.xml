@@ -57,6 +57,8 @@
     <string name="game_type">Game Type:</string>
     <string name="select_genre">Select Genre:</string>
     <string name="fileName">Set File Name</string>
+    <string name="newGenreBtn">Add Genre</string>
+    <string name="invalidGenre">Please enter a valid genre</string>
 
     <!-- Temp: might be replaced by other people's strings-->
     <string name="add_new_book">Add New Book</string>
@@ -92,6 +94,7 @@
     <string name="record_season_and_episode">Record Season and Episode</string>
     <string name="copy">Copy</string>
     <string name="exportXML">Export XML</string>
+    <string name="enterGenreName">Enter Genre</string>
 
 
 </resources>

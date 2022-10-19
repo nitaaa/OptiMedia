@@ -22,6 +22,7 @@ import com.example.partnersincode.optimedia.R;
 import com.example.partnersincode.optimedia.models.Genre;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddNewMovie extends Fragment {
 
@@ -37,6 +38,8 @@ public class AddNewMovie extends Fragment {
     String title;
     String link;
     Genre selGenre;
+    List<Genre> genres;
+    ArrayAdapter<Genre> adapter;
 
 
 
@@ -55,13 +58,14 @@ public class AddNewMovie extends Fragment {
         //setting the onclick listeners manually, because XML did not want to find methods, idk why
         Button setting = root.findViewById(R.id.A08400_btnSave);
         setting.setOnClickListener(this::onSaveClicked);
+        root.findViewById(R.id.A08400_btnAddGenre).setOnClickListener(this::getNewGenreName);
 
         //Set up code for setting Genre
         handler = new DatabaseHandler(this.getContext());
 
 
-        ArrayList<Genre> genres = handler.getGenres();
-        ArrayAdapter<Genre> adapter = new ArrayAdapter<>(this.getContext(),android.R.layout.simple_spinner_dropdown_item,genres);
+        genres = handler.getGenres();
+        adapter = new ArrayAdapter<>(this.getContext(),android.R.layout.simple_spinner_dropdown_item,genres);
         spinGenre = root.findViewById(R.id.A04800_spinGenre);
         spinGenre.setAdapter(adapter);
 
@@ -135,6 +139,49 @@ public class AddNewMovie extends Fragment {
         Toast.makeText(getActivity(),getResources().getString(R.string.message_movieAdded,title),Toast.LENGTH_SHORT).show();
         //Close the window
         getActivity().onBackPressed();
+    }
+
+    private void getNewGenreName(View view)
+    {
+        LayoutInflater li = LayoutInflater.from(getContext());
+        View promptsView = li.inflate(R.layout.prompt_new_genre, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                getContext());
+
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // get user input and set it to result
+                                // edit text
+
+                                if(userInput.getText().toString().equals(""))
+                                {
+                                    Toast.makeText(getContext(),getString(R.string.invalidGenre), Toast.LENGTH_SHORT).show();
+                                    dialog.cancel();
+                                }
+                                handler.addGenre(userInput.getText().toString());
+                                Genre genre = handler.getGenre(userInput.getText().toString());
+                                genres.add(genre);
+                                adapter.notifyDataSetChanged();
+
+
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        }).show();
     }
 
 

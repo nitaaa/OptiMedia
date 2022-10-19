@@ -291,6 +291,6 @@ public class xmlExport extends Fragment {
                             public void onClick(DialogInterface dialog,int id) {
                                 dialog.cancel();
                             }
-                        });
+                        }).show();
     }
 }
