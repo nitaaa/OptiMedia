@@ -158,6 +158,7 @@ public class xmlExport extends Fragment {
                 }catch (Exception e) {}
 
                 child.setAttribute("title", object.getTitle());
+                child.setAttribute("link",object.getLink());
                 rootNode.appendChild(child);
 
             }
