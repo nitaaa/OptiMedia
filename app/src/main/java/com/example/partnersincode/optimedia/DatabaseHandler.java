@@ -10,10 +10,11 @@ import android.util.Log;
 
 
 import com.example.partnersincode.optimedia.models.Booklog;
+import com.example.partnersincode.optimedia.models.GameLog;
 import com.example.partnersincode.optimedia.models.Genre;
 import com.example.partnersincode.optimedia.models.Library;
 import com.example.partnersincode.optimedia.models.Movie;
-import com.example.partnersincode.optimedia.models.MovieLog;
+import com.example.partnersincode.optimedia.models.Log;
 import com.example.partnersincode.optimedia.models.Series;
 import com.example.partnersincode.optimedia.models.SeriesLog;
 import com.example.partnersincode.optimedia.models.WatchObject;
@@ -1179,7 +1180,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Alexandria
      * @return int ID
      */
-    public void addMovieLog(MovieLog log) {
+    public void addMovieLog(Log log) {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "Insert into Movielog (movieID,m_note,m_timestamp) " +
                 "values ("+log.getMovieID()+",'"+log.getM_note()+"', '"+log.getM_timestamp()+"')";
@@ -1193,9 +1194,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @return ArrayList<MovieLog> populated with list
      */
     @SuppressLint("Range")
-    public ArrayList<MovieLog> getMovieLog()
+    public ArrayList<Log> getMovieLog()
     {
-        ArrayList<MovieLog> logs = new ArrayList<>();
+        ArrayList<Log> logs = new ArrayList<>();
 
         String SQL = "SELECT * FROM MovieLog";
         SQLiteDatabase db = this.getReadableDatabase();
@@ -1204,7 +1205,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (c.moveToFirst()) {
             do {
-                MovieLog movieLog = new MovieLog();
+                Log movieLog = new Log();
                 movieLog.setML_ID(c.getInt(c.getColumnIndex("ML_ID")));
                 movieLog.setMovieID(c.getInt(c.getColumnIndex("movieID")));
                 movieLog.setM_note(c.getString(c.getColumnIndex("m_note")));
@@ -1224,6 +1225,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    /**
+     * Gets all genres from the database.
+     * Alexandria
+     * @return ArrayList<Genre>
+     */
     @SuppressLint("Range")
     public Genre getGenre(int id)
     {
@@ -1244,6 +1250,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return genre;
     }
 
+    /**
+     * Gets a specific genre from the database.
+     * Alexandria
+     * @return genre
+     */
     @SuppressLint("Range")
     public Genre getGenre(String Name)
     {
@@ -1264,6 +1275,45 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return genre;
     }
 
+    /**
+     * Gets all the movie logs from the database
+     * Alexandria
+     * @return ArrayList<MovieLog> populated with list
+     */
+    @SuppressLint("Range")
+    public ArrayList<GameLog> getGameLog()
+    {
+        ArrayList<Log> logs = new ArrayList<>();
+
+        //TODO EVERYTHING FROM HERE ONWARDS
+
+        String SQL = "SELECT * FROM MovieLog";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(SQL, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+
+                //Log movieLog = new Log();
+                //movieLog.setML_ID(c.getInt(c.getColumnIndex("ML_ID")));
+                //movieLog.setMovieID(c.getInt(c.getColumnIndex("movieID")));
+                //movieLog.setM_note(c.getString(c.getColumnIndex("m_note")));
+                //movieLog.setM_timestamp(c.getString(c.getColumnIndex("m_timestamp")));
+
+                logs.add(movieLog);
+                Log.d("DatabaseHandler", "getMovieLogs: " + movieLog.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return logs;
+    }
+
+    public void updateMovieLog(int id, String note,String time) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE Movielog SET m_note = '"+ note +"',m_timestamp = '"+ time +"' WHERE ML_ID = "+id;
+        db.execSQL(query);
+    }
 
     /**
      * Gets all movies from the database.

@@ -2,29 +2,30 @@ package com.example.partnersincode.optimedia.ui;
 
 import android.os.Bundle;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
-import com.example.partnersincode.optimedia.adapters.AuthorAdapter;
-import com.example.partnersincode.optimedia.models.Author;
+import com.example.partnersincode.optimedia.adapters.MovieLogAdapter;
+import com.example.partnersincode.optimedia.models.GameLog;
+import com.example.partnersincode.optimedia.models.MovieLog;
 
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link manageAuthors#newInstance} factory method to
+ * Use the {@link manageGameLog#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class manageAuthors extends Fragment {
+public class manageGameLog extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +36,7 @@ public class manageAuthors extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public manageAuthors() {
+    public manageGameLog() {
         // Required empty public constructor
     }
 
@@ -45,11 +46,11 @@ public class manageAuthors extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment manageAuthors.
-     */
+     * @return A new instance of fragment manageGameLog.
+     */ /*
     // TODO: Rename and change types and number of parameters
-    public static manageAuthors newInstance(String param1, String param2) {
-        manageAuthors fragment = new manageAuthors();
+    public static manageGameLog newInstance(String param1, String param2) {
+        manageGameLog fragment = new manageGameLog();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,36 +65,48 @@ public class manageAuthors extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-    }
+    } */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        int GameID;
+        Bundle getBundle = this.getArguments();
+        if (getBundle != null) {
+            GameID = getBundle.getInt("getGameID");
+        }else
+            GameID=-1;
 
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_manage_authors, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_manage_game_log, container, false);
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
 
-        List<Author> authors = dbHandler.getAuthors();
+        List<GameLog> logs = dbHandler.getGameLog();
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerGameLog);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        AuthorAdapter adapter = new AuthorAdapter(authors);
+        MovieLogAdapter adapter = new MovieLogAdapter(logs);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnClickListener( view -> {
-            AuthorAdapter.AuthorViewHolder viewHolder = (AuthorAdapter.AuthorViewHolder) recyclerView.findContainingViewHolder(view);
-            Author author = viewHolder.author;
-            //Toast.makeText(this.getContext(), author.getFullName(),Toast.LENGTH_LONG).show();
-            //TODO: Edit Author Navigation
+            MovieLogAdapter.MovieLogViewHolder viewHolder = (MovieLogAdapter.MovieLogViewHolder) recyclerView.findContainingViewHolder(view);
+            MovieLog movieLog = viewHolder.movieLog;
+            //Toast.makeText(this.getContext(), movieLog.getMovieID()),Toast.LENGTH_LONG).show();
+
             Bundle bundle = new Bundle();
-            bundle.putParcelable("authorInfo", author);
-            Navigation.findNavController(view).navigate(R.id.nav_createAuthor, bundle);
+            bundle.putSerializable("movieLogInfo",movieLog);
+            bundle.putString("Intent", "Edit");
+            Navigation.findNavController(view).navigate(R.id.nav_createMovieLog, bundle);
         });
 
-        Button btnCreateAuthor = rootView.findViewById(R.id.btnCreateGameLog);
-        btnCreateAuthor.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_createAuthor));
+        Button btnCreateMovieLog = rootView.findViewById(R.id.btnCreateGameLog);
+        btnCreateMovieLog.setOnClickListener(view ->{
+            Bundle bundle = new Bundle();
+            bundle.putInt("GameID",GameID);
+            bundle.putString("Intent", "Add");
+            Navigation.findNavController(view).navigate(R.id.nav_createMovieLog,bundle);
+        });
 
         return rootView;
     }
