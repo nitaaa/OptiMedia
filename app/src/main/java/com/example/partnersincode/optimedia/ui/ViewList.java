@@ -3,12 +3,30 @@ package com.example.partnersincode.optimedia.ui;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.adapters.AddGameAdapter;
+import com.example.partnersincode.optimedia.adapters.BookAdapter;
+import com.example.partnersincode.optimedia.adapters.GameAdapter;
+import com.example.partnersincode.optimedia.adapters.WatchObjectAdapter;
+import com.example.partnersincode.optimedia.addBookToLib.AddBookAdapter;
+import com.example.partnersincode.optimedia.models.Book;
+import com.example.partnersincode.optimedia.models.Game;
+import com.example.partnersincode.optimedia.models.Library;
+import com.example.partnersincode.optimedia.models.WatchObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +78,32 @@ public class ViewList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_view_list, container, false);
+
+        Bundle bundle = this.getArguments();
+        ArrayList list = (ArrayList)bundle.getSerializable("List");
+        String name = bundle.getString("libraryName");
+
+       TextView lblName = rootView.findViewById(R.id.lblName);
+        lblName.setText(name);
+
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerItems);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        if (list.get(0) instanceof Book) {
+            BookAdapter bookAdapter = new BookAdapter(list);
+            recyclerView.setAdapter(bookAdapter);
+        }
+
+        if (list.get(0) instanceof WatchObject){
+            WatchObjectAdapter watchAdapter = new  WatchObjectAdapter (list);
+            recyclerView.setAdapter(watchAdapter);
+        }
+            if (list.get(0) instanceof Game){
+              GameAdapter gameAdapter = new GameAdapter(list);
+                recyclerView.setAdapter(gameAdapter);
+            }
+
+        return rootView;
     }
 }
