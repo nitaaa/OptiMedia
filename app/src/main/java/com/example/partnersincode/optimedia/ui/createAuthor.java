@@ -6,9 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,10 +15,6 @@ import androidx.fragment.app.Fragment;
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
 import com.example.partnersincode.optimedia.models.Author;
-import com.example.partnersincode.optimedia.models.Book;
-import com.example.partnersincode.optimedia.models.Genre;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,7 +77,7 @@ public class createAuthor extends Fragment {
 
         TextView edtxtName = rootView.findViewById(R.id.edtxtName);
         TextView edtxtSurname = rootView.findViewById(R.id.edtxtSurname);
-        Button btnAddNewAuthor = rootView.findViewById(R.id.btnAddNewAuthor);
+        Button btnAddNewAuthor = rootView.findViewById(R.id.btnSave);
 
         if (editing){
             btnAddNewAuthor.setText("Update Author");
