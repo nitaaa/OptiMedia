@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
 
 /**
@@ -60,7 +62,28 @@ public class ViewStatistics extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_statistics, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_view_statistics, container, false);
+        DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
+
+        TextView txtFS = rootView.findViewById(R.id.txtFS);
+        txtFS.setText(txtFS.getText() + Integer.toString(dbHandler.statsFinishedSeries()));
+
+
+
+
+
+        TextView txtSLC = rootView.findViewById(R.id.txtSLC);
+        txtSLC.setText(txtSLC.getText() + Integer.toString(dbHandler.statsSeriesLogCount()));
+
+        TextView txtMLC = rootView.findViewById(R.id.txtMLC);
+        txtMLC.setText(txtMLC.getText() + Integer.toString(dbHandler.statsMovieLogCount()));
+
+        TextView txtGLC = rootView.findViewById(R.id.txtGLC);
+        txtGLC.setText(txtGLC.getText() + Integer.toString(dbHandler.statsGameLogCount()));
+
+        TextView txtBLC = rootView.findViewById(R.id.txtBLC);
+        txtBLC.setText(txtBLC.getText() + Integer.toString(dbHandler.statsBookLogCount()));
+
+        return rootView;
     }
 }

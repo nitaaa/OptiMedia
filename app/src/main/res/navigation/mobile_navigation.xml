@@ -183,5 +183,10 @@
         android:name="com.example.partnersincode.optimedia.ui.ViewList"
         android:label="fragment_view_list"
         tools:layout="@layout/fragment_view_list" />
+    <fragment
+        android:id="@+id/nav_viewStatistics"
+        android:name="com.example.partnersincode.optimedia.ui.ViewStatistics"
+        android:label="fragment_view_statistics"
+        tools:layout="@layout/fragment_view_statistics" />
 
 </navigation>

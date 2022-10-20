@@ -233,8 +233,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @return void
      */
     public void createSeries(String seriesTitle,int genreID, boolean favourite, boolean started,boolean completed) {
+        int fav, start, complete;
+        fav = (favourite) ? 1 : 0;
+        start = (started) ? 1 : 0;
+        complete = (completed) ? 1 : 0;
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO Series (seriesTitle,genreID,favourite,started,complete) VALUES ('"+seriesTitle+"',"+genreID+",'"+favourite+"','"+started+"','"+completed+"')";
+        String query = "INSERT INTO Series (seriesTitle,genreID,favourite,started,complete) VALUES ('"+seriesTitle+"',"+genreID+","+fav+","+start+","+complete+")";
         db.execSQL(query);
     }
 
@@ -1354,6 +1358,46 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } while (c.moveToNext());
         }
         return genre;
+    }
+
+    public int statsSeriesLogCount() {
+            SQLiteDatabase db = this.getWritableDatabase();
+            String sql = String.format("Select count(SL_ID) From SeriesLog");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+            return  c.getInt(0);
+    }
+
+    public int statsMovieLogCount() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = String.format("Select count(ML_ID) From MovieLog");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getInt(0);
+    }
+
+    public int statsGameLogCount() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = String.format("Select count(GL_ID) From GameLog");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getInt(0);
+    }
+
+    public int statsBookLogCount() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = String.format("Select count(BL_ID) From BookLog");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getInt(0);
+    }
+
+    public int statsFinishedSeries() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = String.format("Select count(seriesID) From Series where complete=1");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getInt(0);
     }
 
 

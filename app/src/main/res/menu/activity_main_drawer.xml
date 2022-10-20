@@ -57,6 +57,10 @@
         <item
             android:id="@+id/nav_addBookToLib"
             android:title="Add Book To Library" />
+        <item
+            android:id="@+id/nav_viewStatistics"
+            android:icon="@drawable/stats"
+            android:title="Statistics" />
 
     </group>
 </menu>
