@@ -1400,6 +1400,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return  c.getInt(0);
     }
 
+    public int statsFinishedMovies() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = String.format("Select count(movieID) From Movie where complete=1");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getInt(0);
+    }
+
+    public int statsFinishedGames() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = String.format("Select count(gameID) From Game where complete=1");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getInt(0);
+    }
+
+    public int statsFinishedBooks() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = String.format("Select count(bookID) From Book where complete=1");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getInt(0);
+    }
+
 
     /**
      * Gets all movies from the database.

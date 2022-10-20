@@ -68,9 +68,14 @@ public class ViewStatistics extends Fragment {
         TextView txtFS = rootView.findViewById(R.id.txtFS);
         txtFS.setText(txtFS.getText() + Integer.toString(dbHandler.statsFinishedSeries()));
 
+        TextView txtFM = rootView.findViewById(R.id.txtFM);
+        txtFM.setText(txtFM.getText() + Integer.toString(dbHandler.statsFinishedMovies()));
 
+        TextView txtFG = rootView.findViewById(R.id.txtFG);
+        txtFG.setText(txtFG.getText() + Integer.toString(dbHandler.statsFinishedGames()));
 
-
+        TextView txtFB = rootView.findViewById(R.id.txtFB);
+        txtFB.setText(txtFB.getText() + Integer.toString(dbHandler.statsFinishedBooks()));
 
         TextView txtSLC = rootView.findViewById(R.id.txtSLC);
         txtSLC.setText(txtSLC.getText() + Integer.toString(dbHandler.statsSeriesLogCount()));
