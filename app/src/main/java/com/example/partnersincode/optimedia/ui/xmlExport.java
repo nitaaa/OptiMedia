@@ -272,7 +272,7 @@ public class xmlExport extends Fragment {
 
         alertDialogBuilder.setView(promptsView);
 
-        final EditText userInput = (EditText) promptsView
+        final EditText userInput =  promptsView
                 .findViewById(R.id.editTextDialogUserInput);
 
 
@@ -291,6 +291,6 @@ public class xmlExport extends Fragment {
                             public void onClick(DialogInterface dialog,int id) {
                                 dialog.cancel();
                             }
-                        });
+                        }).show();
     }
 }
