@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,6 @@ import com.example.partnersincode.optimedia.models.Author;
 import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Genre;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -93,16 +93,16 @@ public class createBook extends Fragment {
         TextView edtxtBookTitle = rootView.findViewById(R.id.edtxtSurname);
 
         //get genre for spinner
-        ArrayList<Genre> genres = dbHandler.getGenres();
-        ArrayAdapter<Genre> adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, genres);
+        genres = dbHandler.getGenres();
+        adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, genres);
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
 
         Spinner spinGenre = (Spinner) rootView.findViewById(R.id.spinGenre);
         spinGenre.setAdapter(adapter);
 
         //get author for spinner
-        ArrayList<Author> authors = dbHandler.getAuthors();
-        ArrayAdapter<Author> adapter2 = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, authors);
+        authors = dbHandler.getAuthors();
+        adapter2 = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, authors);
         adapter2.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
 
         Spinner spinAuthor = (Spinner) rootView.findViewById(R.id.spinAuthor);
@@ -110,9 +110,9 @@ public class createBook extends Fragment {
 
         //add new genre or author
         rootView.findViewById(R.id.btnAddGenre).setOnClickListener(this::getNewGenreName);
-        rootView.findViewById(R.id.btnSave).setOnClickListener(this::getNewAuthorName);
+        rootView.findViewById(R.id.btnAddAuthor).setOnClickListener(this::getNewAuthorName);
 
-        Button btnAddNewBook = rootView.findViewById(R.id.btnSave);
+        Button btnAddNewBook = rootView.findViewById(R.id.btnSaveBook);
         btnAddNewBook.setOnClickListener(view -> {
             Book newBook = new Book();
             newBook.setISBN(edtxtBookISBN.getText().toString());
@@ -121,9 +121,13 @@ public class createBook extends Fragment {
             newBook.setGenreID(curGenre.getGenreID());
             Author curAuthor = (Author) spinAuthor.getSelectedItem();
             newBook.setAuthorID(curAuthor.getAuthorID());
-            newBook.setFavourite(false);
-            newBook.setStarted(false);
-            newBook.setCompleted(false);
+
+            boolean bFav = ((Switch)view.findViewById((R.id.A08400_favourite))).isChecked();
+            boolean bStarted = ((Switch)view.findViewById((R.id.A08400_started))).isChecked();
+            boolean bCom = ((Switch)view.findViewById((R.id.A08400_completed))).isChecked();
+            newBook.setFavourite(bFav);
+            newBook.setStarted(bStarted);
+            newBook.setCompleted(bCom);
 
             int i = dbHandler.createNewBook(newBook);
             Log.d(TAG, "Book Added:" + newBook.getBookTitle());

@@ -15,11 +15,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
 import com.example.partnersincode.optimedia.models.Genre;
+import com.example.partnersincode.optimedia.models.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,9 @@ public class AddNewMovie extends Fragment {
     private EditText movieTitle;
     private EditText movieLink;
     private Spinner spinGenre;
+    private Switch favourite;
+    private Switch started;
+    private Switch complete;
 
 
     //Variables saved and used when adding a new movie
@@ -55,6 +60,10 @@ public class AddNewMovie extends Fragment {
         //UI elements
         movieTitle = root.findViewById(R.id.A08400_txtMovieTitle);
         movieLink = root.findViewById(R.id.A08400_txtMovieLink);
+        favourite = root.findViewById(R.id.A08400_favourite);
+        started = root.findViewById(R.id.A08400_started);
+        complete = root.findViewById(R.id.A08400_completed);
+
         //setting the onclick listeners manually, because XML did not want to find methods, idk why
         Button setting = root.findViewById(R.id.A08400_btnSave);
         setting.setOnClickListener(this::onSaveClicked);
@@ -95,10 +104,6 @@ public class AddNewMovie extends Fragment {
          selGenre =  (Genre) spinGenre.getSelectedItem();
 
 
-
-
-
-
         if(title.equals(""))
         {Toast.makeText(this.getContext(), getResources().getString(R.string.invalidMovieTitle),Toast.LENGTH_SHORT).show();
             return;}
@@ -133,7 +138,7 @@ public class AddNewMovie extends Fragment {
     private void addMovie()
     {
         //Add movie if not in the list
-        handler.addMovie(title, link, selGenre);
+        handler.addMovie(new Movie(-1,selGenre.getGenreID(),title,link,favourite.isChecked(),started.isChecked(),complete.isChecked()));
 
 
         Toast.makeText(getActivity(),getResources().getString(R.string.message_movieAdded,title),Toast.LENGTH_SHORT).show();

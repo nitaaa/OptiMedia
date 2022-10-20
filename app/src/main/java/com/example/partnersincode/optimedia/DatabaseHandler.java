@@ -434,22 +434,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     /**
      * Adds a new movie object to the database, also adds the related WatchListItem
      * Adriaan
-     * @param title of movie
-     * @param link of where movie is found
-     * @param selGenre Genre object
+
      */
-    public void addMovie(String title, String link, Genre selGenre)
+    public void addMovie(Movie movie)
     {
+
+        int fav, start, complete;
+        fav = (movie.getFavourite()) ? 1 : 0;
+        start = (movie.getStarted()) ? 1 : 0;
+        complete = (movie.getComplete()) ? 1 : 0;
 
         SQLiteDatabase db = getReadableDatabase();
 
-        ContentValues movie = new ContentValues();
-        movie.put("movieTitle",title);
-        movie.put("genreID",selGenre.getGenreID());
-        long id = db.insertWithOnConflict("Movie",null,movie, SQLiteDatabase.CONFLICT_IGNORE);
+        ContentValues adding = new ContentValues();
+        adding.put("movieTitle",movie.getTitle());
+        adding.put("genreID",movie.getGenreID());
+        adding.put("favourite",fav);
+        adding.put("started",start);
+        adding.put("complete",complete);
+        long id = db.insertWithOnConflict("Movie",null,adding, SQLiteDatabase.CONFLICT_IGNORE);
 
         String SQL = String.format("INSERT INTO WatchListItem (movieID, link)" +
-                "\n VALUES (%d, \"%s\" )",id,link);
+                "\n VALUES (%d, \"%s\" )",id,movie.getLink());
 
         db.execSQL(SQL);
     }
@@ -521,15 +527,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
     public int createNewBook(Book book) {
 
+        int fav, start, complete;
+        fav = (book.isFavourite()) ? 1 : 0;
+        start = (book.isStarted()) ? 1 : 0;
+        complete = (book.isCompleted()) ? 1 : 0;
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("authorID", book.getAuthorID());
         values.put("genreID", book.getGenreID());
         values.put("ISBN", book.getISBN());
         values.put("bookTitle", book.getBookTitle());
-        values.put("favourite", book.isFavourite());
-        values.put("started", book.isStarted());
-        values.put("complete", book.isCompleted());
+        values.put("favourite", fav);
+        values.put("started", start);
+        values.put("complete", complete);
         long id = db.insertWithOnConflict("Book", null, values, SQLiteDatabase.CONFLICT_IGNORE);
         Log.d("createNewBook", "complete // " +id);
 
@@ -831,7 +842,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @SuppressLint("Range")
     public Author getAuthorByName(String fName,String lName) {
         Author author = new Author();
-        String selectQuery = "SELECT * FROM Author WHERE name = \' " + fName+"\' and surname = \'"+lName+"\'";
+        String selectQuery = "SELECT * FROM Author WHERE authorName = \'" + fName+"\' and authorSurname = \'"+lName+"\'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list

@@ -8,11 +8,11 @@
     tools:context=".ui.createBook" >
 
     <LinearLayout
-        android:layout_width="397dp"
+        android:layout_width="0dp"
         android:layout_height="716dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,13 +70,14 @@
             <Spinner
                 android:id="@+id/spinGenre"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp" />
+                android:layout_height="40dp"
+                android:layout_weight="2"/>
 
             <Button
                 android:id="@+id/btnAddGenre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add" />
+                android:text="Add Genre" />
         </LinearLayout>
 
         <TextView
@@ -95,41 +96,44 @@
                 android:id="@+id/spinAuthor"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_weight="2"/>
 
             <Button
-                android:id="@+id/btnSave"
+                android:id="@+id/btnAddAuthor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add" />
+                android:text="Add Author" />
+
         </LinearLayout>
 
         <Switch
-            android:id="@+id/sFavourite"
+            android:id="@+id/A08400_favourite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:text="@string/favourite" />
 
         <Switch
-            android:id="@+id/sStarted"
+            android:id="@+id/A08400_started"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:text="@string/started" />
 
         <Switch
-            android:id="@+id/sCompleted"
+            android:id="@+id/A08400_completed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:text="@string/completed" />
 
         <Button
-            android:id="@+id/btnSave"
+            android:id="@+id/btnSaveBook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save" />
+            android:text="Button" />
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
