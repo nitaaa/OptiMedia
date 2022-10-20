@@ -65,6 +65,9 @@ public class ViewStatistics extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_view_statistics, container, false);
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
 
+        TextView txtSPG = rootView.findViewById(R.id.txtSPG);
+        txtSPG.setText(txtSPG.getText() + dbHandler.statsSeriesPopGenre());
+
         TextView txtFS = rootView.findViewById(R.id.txtFS);
         txtFS.setText(txtFS.getText() + Integer.toString(dbHandler.statsFinishedSeries()));
 

@@ -1424,6 +1424,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return  c.getInt(0);
     }
 
+    public String statsSeriesPopGenre() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "Select genreName,count(genreID) From Book inner join Genre" +
+                " on Book.genreID=Genre.genreID group by genreName order by count(genreID) desc";
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getString(0);
+    }
 
     /**
      * Gets all movies from the database.
