@@ -169,4 +169,14 @@
         android:name="com.example.partnersincode.optimedia.ui.manageMovieLog"
         android:label="manageMovieLog"
         tools:layout="@layout/fragment_manage_movie_log" />
+    <fragment
+        android:id="@+id/nav_search_media_items"
+        android:name="com.example.partnersincode.optimedia.ui.search_media_items"
+        android:label="Search Media"
+        tools:layout="@layout/fragment_search_media_items" />
+    <fragment
+        android:id="@+id/nav_viewSearch"
+        android:name="com.example.partnersincode.optimedia.ui.viewSearch"
+        android:label="Search Results"
+        tools:layout="@layout/fragment_view_search" />
 </navigation>

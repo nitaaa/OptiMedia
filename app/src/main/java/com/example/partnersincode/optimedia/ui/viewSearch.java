@@ -3,12 +3,26 @@ package com.example.partnersincode.optimedia.ui;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.adapters.SearchAdapter;
+import com.example.partnersincode.optimedia.adapters.WatchObjectAdapter;
+import com.example.partnersincode.optimedia.models.Book;
+import com.example.partnersincode.optimedia.models.Game;
+import com.example.partnersincode.optimedia.models.MediaObject;
+import com.example.partnersincode.optimedia.models.Movie;
+import com.example.partnersincode.optimedia.models.Series;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +35,9 @@ public class viewSearch extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private ArrayList<MediaObject> resultsArrayList;
+    private String keyword;
+    private Boolean favourited;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -51,9 +68,12 @@ public class viewSearch extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            resultsArrayList = bundle.getParcelableArrayList("results");
+            keyword = bundle.getString("keyword");
+            favourited = bundle.getBoolean("favourite");
         }
     }
 
@@ -61,6 +81,46 @@ public class viewSearch extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_search, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_view_search, container, false);
+
+        RecyclerView reSearchResults = rootView.findViewById(R.id.reSearchResults);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        reSearchResults.setLayoutManager(layoutManager);
+        SearchAdapter adapter = new SearchAdapter(resultsArrayList);
+        reSearchResults.setAdapter(adapter);
+
+        TextView txtKeySearch = rootView.findViewById(R.id.txtKeySearch);
+        String text = "Search term: \"" + keyword + "\"";
+        if (favourited)
+            text += ", Showing Favourites.";
+        txtKeySearch.setText(text);
+
+        adapter.setOnClickListener( view -> {
+            SearchAdapter.SearchViewHolder viewHolder = (SearchAdapter.SearchViewHolder) reSearchResults.findContainingViewHolder(view);
+
+            MediaObject mediaObject = new MediaObject();
+            String log ="";
+            assert viewHolder != null;
+            if (viewHolder.book != null){
+                mediaObject = viewHolder.book;
+                log = ((Book) mediaObject).getBookTitle();
+            } else if (viewHolder.game != null){
+                mediaObject = viewHolder.game;
+                log = ((Game) mediaObject).getGameTitle();
+            } else if (viewHolder.movie != null){
+                mediaObject = viewHolder.movie;
+                log = ((Movie) mediaObject).getTitle();
+            } else if(viewHolder.series != null){
+                mediaObject = viewHolder.series;
+                log = ((Series) mediaObject).getTitle();
+            }
+
+            //TODO nav to display media object
+            Toast.makeText(this.getContext(),log,Toast.LENGTH_SHORT).show();
+        });
+
+
+
+        return rootView;
     }
 }

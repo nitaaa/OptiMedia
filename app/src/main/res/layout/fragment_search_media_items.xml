@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".search_media_items" >
+    tools:context=".ui.search_media_items" >
 
     <LinearLayout
         android:id="@+id/linlaySearch"
@@ -84,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/action_search"
-            app:icon="@drawable/ic_search" />
+            app:icon="@drawable/ic_search"/>
 
     </LinearLayout>
 

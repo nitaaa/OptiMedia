@@ -21,6 +21,7 @@ import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
 import com.example.partnersincode.optimedia.adapters.SeriesLogAdapter;
 import com.example.partnersincode.optimedia.models.Genre;
+import com.example.partnersincode.optimedia.models.Library;
 import com.example.partnersincode.optimedia.models.Series;
 import com.example.partnersincode.optimedia.models.SeriesLog;
 
@@ -147,6 +148,8 @@ public class createSeriesLog extends Fragment {
 
         Button btnShareSeries = rootView.findViewById(R.id.btnShareSeries);
         btnShareSeries.setOnClickListener(view -> {
+            Library library = new Library();
+            //TODO Not sure how to pass this? create a new library in db then pass the library?
             Bundle bundle = new Bundle();
             bundle.putParcelable("seriesInfo", series);
             Navigation.findNavController(view).navigate(R.id.nav_shareLibrary, bundle);
