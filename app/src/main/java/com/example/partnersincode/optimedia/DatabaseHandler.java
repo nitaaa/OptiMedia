@@ -1116,11 +1116,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ArrayList<Game> gameArrayList = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM Game";
-        Game game = new Game();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
             do {
+                Game game = new Game();
                 game.setGameID(c.getInt(c.getColumnIndex("gameID")));
                 game.setGenreID(c.getInt(c.getColumnIndex("genreID")));
                 game.setGameTitle(c.getString(c.getColumnIndex("gameTitle")));
@@ -1147,7 +1147,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ArrayList<Game> gameArrayList = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM Game WHERE gameTitle LIKE '%" + string +"%'";
-        
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         if (c.moveToFirst()) {
@@ -1230,11 +1229,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return logs;
     }
 
-//    public void updateMovieLog(int id, String note,String time) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        String query = "UPDATE Movielog SET m_note = '"+ note +"',m_timestamp = '"+ time +"' WHERE ML_ID = "+id;
-//        db.execSQL(query);
-//    }
+
+    /**
+     * Updates a movie log in the database.
+     * Alexandria
+     * @return
+     */
+    public void updateMovieLog(int id, String note,String time) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE Movielog SET m_note = '"+ note +"',m_timestamp = '"+ time +"' WHERE ML_ID = "+id;
+        db.execSQL(query);
+    }
+
 
     /**
      * Gets all genres from the database.
@@ -1287,18 +1293,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * Gets all the movie logs from the database
+     * Gets all the game logs from the database
      * Alexandria
-     * @return ArrayList<MovieLog> populated with list
+     * @return ArrayList<GameLog> populated with list
      */
     @SuppressLint("Range")
+    //TODO Refactor name
     public ArrayList<MovieLog> getMovieLogs()
     {
-        ArrayList<GameLog> logs = new ArrayList<>();
 
-        //TODO EVERYTHING FROM HERE ONWARDS
+        ArrayList<GameLog> log = new ArrayList<>();
 
-        String SQL = "SELECT * FROM MovieLog";
+
+        String SQL = "SELECT * FROM GameLog";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(SQL, null);
 
@@ -1306,24 +1313,45 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
 
-                MovieLog movieLog = new MovieLog();
-                movieLog.setML_ID(c.getInt(c.getColumnIndex("ML_ID")));
-                movieLog.setMovieID(c.getInt(c.getColumnIndex("movieID")));
-                movieLog.setM_note(c.getString(c.getColumnIndex("m_note")));
-                movieLog.setM_timestamp(c.getString(c.getColumnIndex("m_timestamp")));
 
-//                logs.add(movieLog);
-                Log.d("DatabaseHandler", "getMovieLogs: " + movieLog.toString());
+
+                GameLog gameLog = new GameLog();
+                gameLog.setGL_ID(c.getInt(c.getColumnIndex("GL_ID")));
+                gameLog.setGameID(c.getInt(c.getColumnIndex("gameID")));
+                gameLog.setGLTitle(c.getString(c.getColumnIndex("glTitle")));
+                gameLog.setGLNote(c.getString(c.getColumnIndex("glNote")));
+
+                log.add(gameLog);
+                Log.d("DatabaseHandler", "getGameLogs: " + gameLog.toString());
             } while (c.moveToNext());
         }
         c.close();
-        return null;        //todo fix
+        return log;
+
     }
 
-    public void updateMovieLog(int id, String note,String time) {
+    /**
+     * Updates a game log in the database.
+     * Alexandria
+     * @return
+     */
+    public void updateGameLog(int id, String title,String note) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "UPDATE Movielog SET m_note = '"+ note +"',m_timestamp = '"+ time +"' WHERE ML_ID = "+id;
+        String query = "UPDATE GameLog SET glTitle = '"+ title +"',glNote = '"+ note +"' WHERE GL_ID = "+id;
         db.execSQL(query);
+    }
+
+    /**
+     * Create new game log in database.
+     * Alexandria
+     * @return int ID
+     */
+    public void addGameLog(GameLog log) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Insert into Gamelog (gameID,glTitle,glNote) " +
+                "values ("+log.getGameID()+",'"+log.getGLTitle()+"', '"+log.getGLNote()+"')";
+        db.execSQL(query);
+
     }
 
     /**

@@ -2,7 +2,6 @@ package com.example.partnersincode.optimedia.ui;
 
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +13,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.models.Genre;
+import com.example.partnersincode.optimedia.models.Movie;
 import com.example.partnersincode.optimedia.models.MovieLog;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +32,8 @@ public class createMovieLog extends Fragment {
     private MovieLog movieLog;
     private int MovieID;
     private Boolean editing;
+    private Movie movie;
+    private Genre genre;
     private static final String TAG = "CreateMovieLog";
 
     public createMovieLog() {
@@ -65,7 +66,11 @@ public class createMovieLog extends Fragment {
             movieLog = (MovieLog) bundle.getSerializable("movieLogInfo");
             editing = true;
         } else {
-            MovieID =bundle.getInt("MovieID");
+            movie = bundle.getParcelable("movieInfo");
+            DatabaseHandler db = new DatabaseHandler(getContext());
+            if(movie.getGenreID()!=0)
+            genre = db.getGenre(movie.getGenreID());
+            else genre = new Genre(-1, "");
             editing = false;
         }
     }
@@ -78,9 +83,15 @@ public class createMovieLog extends Fragment {
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
 
         //TextView edtxtMovieID = rootView.findViewById(R.id.edtxtMovieID);
-        TextView edtxtTime = rootView.findViewById(R.id.edtxtTime);
+        TextView edtxtTime = rootView.findViewById(R.id.edtxtTitle);
         TextView edtxtNote = rootView.findViewById(R.id.edtxtNote);
-        Button btnAddMovieLog = rootView.findViewById(R.id.btnAddMovieLog);
+        Button btnAddMovieLog = rootView.findViewById(R.id.btnAddGameLog);
+        TextView text = rootView.findViewById(R.id.txtMovie);
+        text.setText(movie.getTitle());
+        text = rootView.findViewById(R.id.txtMovieGenre);
+        text.setText(genre.getGenreName());
+        text = rootView.findViewById(R.id.txtLink);
+        text.setText(movie.getLink());
 
         if (editing){
             btnAddMovieLog.setText("Edit Movie Log");
@@ -105,7 +116,7 @@ public class createMovieLog extends Fragment {
                 log.setM_timestamp(edtxtTime.getText().toString());
                 dbHandler.addMovieLog(log);
 
-                Toast.makeText(this.getContext(), "Movie log added", Toast.LENGTH_LONG).show();
+                Toast.makeText(this.getContext(), "Movie Log Added", Toast.LENGTH_LONG).show();
                 edtxtTime.setText("");
                 edtxtNote.setText("");
                 getActivity().onBackPressed();

@@ -1,6 +1,8 @@
 package com.example.partnersincode.optimedia.models;
 
-public class GameLog {
+import java.io.Serializable;
+
+public class GameLog implements Serializable {
     private int GL_ID;
     private int gameID;
     private String glTitle;
@@ -22,28 +24,28 @@ public class GameLog {
         return GL_ID + "," + gameID + "," + glTitle + "," + glNote;
     }
 
-    public int getML_ID() {
+    public int getGL_ID() {
         return GL_ID;
     }
 
-    public void setML_ID(int ML_ID) {
-        this.GL_ID = ML_ID;
+    public void setGL_ID(int GL_ID) {
+        this.GL_ID = GL_ID;
     }
 
-    public int getMovieID() {
+    public int getGameID() {
         return gameID;
     }
 
-    public void setMovieID(int movieID) {
-        this.gameID = movieID;
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
     }
 
     public String getGLTitle() {
         return glTitle;
     }
 
-    public void setGLTitle(String gltitle) {
-        this.glTitle = gltitle;
+    public void setGLTitle(String glTitle) {
+        this.glTitle = glTitle;
     }
 
     public String getGLNote() {

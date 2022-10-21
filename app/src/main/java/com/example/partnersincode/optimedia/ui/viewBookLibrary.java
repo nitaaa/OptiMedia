@@ -96,8 +96,7 @@ public class viewBookLibrary extends Fragment {
             Toast.makeText(this.getContext(), book.toString(),Toast.LENGTH_LONG).show();
             Bundle bundle = new Bundle();
             bundle.putParcelable("bookInfo", book);
-     // TODO:Navigation from view book library to A02111
-            //  Navigation.findNavController(view).navigate(R.id., bundle); //navigate to A02111
+            Navigation.findNavController(view).navigate(R.id.nav_viewBooklogs, bundle); //navigate to A02111
         });
 
         //TODO: onclick for edit

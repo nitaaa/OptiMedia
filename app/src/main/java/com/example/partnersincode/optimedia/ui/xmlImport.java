@@ -278,7 +278,7 @@ public class xmlImport extends Fragment {
 
         Bundle bundle = new Bundle();
         bundle.putString("libraryName",libraryName);
-        bundle.putSerializable("XML", list);
+        bundle.putSerializable("list", list);
 
         //TODO: Integration Colin's View List
         //Navigation.findNavController(view).navigate(R.id.  ,bundle);

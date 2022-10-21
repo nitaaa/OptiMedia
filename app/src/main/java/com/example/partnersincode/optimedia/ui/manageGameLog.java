@@ -14,15 +14,15 @@ import android.widget.Button;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
-import com.example.partnersincode.optimedia.adapters.MovieLogAdapter;
+import com.example.partnersincode.optimedia.adapters.GameLogAdapter;
+import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.GameLog;
-import com.example.partnersincode.optimedia.models.MovieLog;
 
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link manageGameLog#newInstance} factory method to
+ * Use the {@link manageGameLog#} factory method to
  * create an instance of this fragment.
  */
 public class manageGameLog extends Fragment {
@@ -31,6 +31,7 @@ public class manageGameLog extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private String title;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -44,8 +45,8 @@ public class manageGameLog extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param
+     * @param
      * @return A new instance of fragment manageGameLog.
      */ /*
     // TODO: Rename and change types and number of parameters
@@ -76,6 +77,10 @@ public class manageGameLog extends Fragment {
             GameID = getBundle.getInt("getGameID");
         }else
             GameID=-1;
+        Game game = getBundle.getParcelable("gameInfo");
+        title = game.getGameTitle();
+
+        getActivity().getWindow().setTitle(title);
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_manage_game_log, container, false);
@@ -86,26 +91,26 @@ public class manageGameLog extends Fragment {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        MovieLogAdapter adapter = new MovieLogAdapter(logs);
+        GameLogAdapter adapter = new GameLogAdapter(logs);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnClickListener( view -> {
-            MovieLogAdapter.MovieLogViewHolder viewHolder = (MovieLogAdapter.MovieLogViewHolder) recyclerView.findContainingViewHolder(view);
-            MovieLog movieLog = viewHolder.movieLog;
-            //Toast.makeText(this.getContext(), movieLog.getMovieID()),Toast.LENGTH_LONG).show();
+            GameLogAdapter.GameLogViewHolder viewHolder = (GameLogAdapter.GameLogViewHolder) recyclerView.findContainingViewHolder(view);
+            GameLog gameLog = viewHolder.gameLog;
+            //Toast.makeText(this.getContext(), gameLog.getGameID()),Toast.LENGTH_LONG).show();
 
             Bundle bundle = new Bundle();
-            bundle.putSerializable("movieLogInfo",movieLog);
+            bundle.putSerializable("gameLogInfo",gameLog);
             bundle.putString("Intent", "Edit");
-            Navigation.findNavController(view).navigate(R.id.nav_createMovieLog, bundle);
+            Navigation.findNavController(view).navigate(R.id.nav_createGameLog, bundle);
         });
 
-        Button btnCreateMovieLog = rootView.findViewById(R.id.btnCreateGameLog);
-        btnCreateMovieLog.setOnClickListener(view ->{
+        Button btnCreateGameLog = rootView.findViewById(R.id.btnCreateGameLog);
+        btnCreateGameLog.setOnClickListener(view ->{
             Bundle bundle = new Bundle();
             bundle.putInt("GameID",GameID);
             bundle.putString("Intent", "Add");
-            Navigation.findNavController(view).navigate(R.id.nav_createMovieLog,bundle);
+            Navigation.findNavController(view).navigate(R.id.nav_createGameLog,bundle);
         });
 
         return rootView;

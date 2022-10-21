@@ -76,7 +76,7 @@
         </androidx.recyclerview.widget.RecyclerView>
 
         <Button
-            android:id="@+id/btnAddMovieLog"
+            android:id="@+id/btnAddGameLog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:insetLeft="16dp"

@@ -122,7 +122,7 @@ public class addGameToLibrary extends Fragment {
                     recyclerView2.setAdapter(gameAdapter2);
                 });
 
-        Button btnAdd = rootView.findViewById(R.id.btnAddMovieLog);
+        Button btnAdd = rootView.findViewById(R.id.btnAddGameLog);
         btnAdd.setOnClickListener(view ->
         {
             Library library = (Library) spinLibrary.getSelectedItem();
