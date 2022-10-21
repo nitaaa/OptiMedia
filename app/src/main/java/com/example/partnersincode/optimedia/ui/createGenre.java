@@ -1,7 +1,6 @@
 package com.example.partnersincode.optimedia.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
@@ -36,7 +34,7 @@ public class createGenre extends Fragment {
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
 
         TextView edtName = rootView.findViewById(R.id.edtxtGenre);
-        Button btnNewGenre = rootView.findViewById(R.id.btnAddNewGenre);
+        Button btnNewGenre = rootView.findViewById(R.id.btnAddGenre);
 
         if (bEdit){
             btnNewGenre.setText("Edit Genre");

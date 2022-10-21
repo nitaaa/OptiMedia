@@ -86,7 +86,7 @@ public class manageGameLog extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_manage_game_log, container, false);
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
 
-        List<GameLog> logs = dbHandler.getGameLog();
+        List<MovieLog> logs = dbHandler.getMovieLogs();
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerGameLog);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
