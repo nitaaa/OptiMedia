@@ -1000,6 +1000,50 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * Update a Movie (favourite, started, complete)
+     * Adriaan Benn && Alexandria Damons
+     * @return void
+     * @param  movie
+     */
+    public void updateMovie(Movie movie){
+        int fav, start, complete;
+        fav = (movie.getFavourite()) ? 1 : 0;
+        start = (movie.getStarted()) ? 1 : 0;
+        complete = (movie.getComplete()) ? 1 : 0;
+        String updateQuery = "UPDATE Movie SET favourite = "+fav+", started = "+start
+                +", complete = "+complete+" WHERE movieID = "+movie.getMovieID();
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            db.execSQL(updateQuery);
+            
+        } catch(Exception e){
+           e.printStackTrace();
+        }
+    }
+
+    /**
+     * Update a Game (favourite, started, complete)
+     * Adriaan Benn && Alexandria Damons
+     * @return void
+     * @param  game
+     */
+    public void updateGame(Game game){
+        int fav, start, complete;
+        fav = (game.isFavourite()) ? 1 : 0;
+        start = (game.isStarted()) ? 1 : 0;
+        complete = (game.isCompleted()) ? 1 : 0;
+        String updateQuery = "UPDATE Game SET favourite = "+fav+", started = "+start
+                +", complete = "+complete+" WHERE gameID = "+game.getGameID();
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            db.execSQL(updateQuery);
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Create a record/log for a series
      * Qaanita Fataar
      * @return int
@@ -1299,10 +1343,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
     @SuppressLint("Range")
     //TODO Refactor name
-    public ArrayList<MovieLog> getMovieLogs()
+    public ArrayList<GameLog> getGameLogs()
     {
 
-        ArrayList<GameLog> log = new ArrayList<>();
+        ArrayList<GameLog> logs = new ArrayList<>();
 
 
         String SQL = "SELECT * FROM GameLog";
@@ -1313,20 +1357,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
 
-
-
                 GameLog gameLog = new GameLog();
                 gameLog.setGL_ID(c.getInt(c.getColumnIndex("GL_ID")));
                 gameLog.setGameID(c.getInt(c.getColumnIndex("gameID")));
                 gameLog.setGLTitle(c.getString(c.getColumnIndex("glTitle")));
                 gameLog.setGLNote(c.getString(c.getColumnIndex("glNote")));
 
-                log.add(gameLog);
+                logs.add(gameLog);
                 Log.d("DatabaseHandler", "getGameLogs: " + gameLog.toString());
             } while (c.moveToNext());
         }
         c.close();
-        return log;
+        return logs;
 
     }
 
@@ -1353,33 +1395,5 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(query);
 
     }
-
-    /**
-     * Gets all movies from the database.
-     * Alexandria
-     * @return ArrayList<Movie>
-     */
-//    @SuppressLint("Range")
-//    public ArrayList<Author> getMovies() {
-//        ArrayList<Author> authorArrayList = new ArrayList<>();
-//
-//        String selectQuery = "SELECT * FROM Movie";
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor c = db.rawQuery(selectQuery, null);
-//        // looping through all rows and adding to list
-//        if (c.moveToFirst()) {
-//            do {
-//                Movie movie = new Movie();
-//                movie.setMovieID(c.getInt(c.getColumnIndex("authorID")));
-//                movie.setAuthorName(c.getString(c.getColumnIndex("authorName")));
-//                movie.setAuthorSurname(c.getString(c.getColumnIndex("authorSurname")));
-//
-//                authorArrayList.add(movie);
-//                Log.d("DatabaseHandler", "getAllLibraries: " + movie.toString());
-//            } while (c.moveToNext());
-//        }
-//        c.close();
-//        return authorArrayList;
-//    }
 
 }

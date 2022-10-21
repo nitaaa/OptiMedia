@@ -32,6 +32,7 @@ public class manageGameLog extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String title;
+    private Game game;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -75,9 +76,10 @@ public class manageGameLog extends Fragment {
         Bundle getBundle = this.getArguments();
         if (getBundle != null) {
             GameID = getBundle.getInt("getGameID");
+
         }else
             GameID=-1;
-        Game game = getBundle.getParcelable("gameInfo");
+        game = getBundle.getParcelable("gameInfo");
         title = game.getGameTitle();
 
         getActivity().getWindow().setTitle(title);
@@ -86,7 +88,7 @@ public class manageGameLog extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_manage_game_log, container, false);
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
 
-        List<MovieLog> logs = dbHandler.getMovieLogs();
+        List<GameLog> logs = dbHandler.getGameLogs();
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerGameLog);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -100,6 +102,7 @@ public class manageGameLog extends Fragment {
             //Toast.makeText(this.getContext(), gameLog.getGameID()),Toast.LENGTH_LONG).show();
 
             Bundle bundle = new Bundle();
+            bundle.putParcelable("gameInfo",game);
             bundle.putSerializable("gameLogInfo",gameLog);
             bundle.putString("Intent", "Edit");
             Navigation.findNavController(view).navigate(R.id.nav_createGameLog, bundle);

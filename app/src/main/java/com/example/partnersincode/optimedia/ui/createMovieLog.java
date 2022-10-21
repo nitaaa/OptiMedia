@@ -88,7 +88,7 @@ public class createMovieLog extends Fragment {
         Button btnAddMovieLog = rootView.findViewById(R.id.btnAddGameLog);
         TextView text = rootView.findViewById(R.id.txtMovie);
         text.setText(movie.getTitle());
-        text = rootView.findViewById(R.id.txtMovieGenre);
+        text = rootView.findViewById(R.id.txtGameGenre);
         text.setText(genre.getGenreName());
         text = rootView.findViewById(R.id.txtLink);
         text.setText(movie.getLink());

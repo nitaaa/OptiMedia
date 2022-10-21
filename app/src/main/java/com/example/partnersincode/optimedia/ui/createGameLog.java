@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,9 +30,10 @@ public class createGameLog extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private GameLog gameLog;
+    private Game game;
     private int GameID;
     private Boolean editing;
+    private GameLog gameLog;
     private static final String TAG = "CreateGameLog";
 
     public createGameLog() {
@@ -61,7 +63,8 @@ public class createGameLog extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         if (bundle.getString("Intent") == "Edit") {
-            gameLog = (GameLog) bundle.getSerializable("gameLogInfo");
+            game =  bundle.getParcelable("gameInfo");
+            gameLog = bundle.getParcelable("gameLogInfo");
             editing = true;
         } else {
             GameID =bundle.getInt("GameID");
@@ -79,6 +82,32 @@ public class createGameLog extends Fragment {
         TextView edtxtTitle = rootView.findViewById(R.id.edtxtTitle);
         TextView edtxtNote = rootView.findViewById(R.id.edtxtNote);
         Button btnAddGameLog = rootView.findViewById(R.id.btnAddGameLog);
+
+
+        TextView txtTitle = rootView.findViewById(R.id.txtGame);
+        TextView txtGenre = rootView.findViewById(R.id.txtGameGenre);
+        TextView txtType = rootView.findViewById(R.id.txtGameType);
+
+        Switch switchSLogFavourite,switchSLogStarted,switchSLogComplete;
+        switchSLogFavourite = rootView.findViewById((R.id.switchSLogFavourite));
+        switchSLogStarted = rootView.findViewById((R.id.switchSLogStarted));
+        switchSLogComplete = rootView.findViewById((R.id.switchSLogComplete));
+
+        switchSLogFavourite.setChecked(game.isFavourite());
+        switchSLogFavourite.setOnCheckedChangeListener((compoundButton, b) -> {
+            game.setFavourite(b);
+            dbHandler.updateGame(game);
+        });
+        switchSLogStarted.setChecked(game.isStarted());
+        switchSLogStarted.setOnCheckedChangeListener((compoundButton, b) -> {
+            game.setStarted(b);
+            dbHandler.updateGame(game);
+        });
+        switchSLogComplete.setChecked(game.isCompleted());
+        switchSLogComplete.setOnCheckedChangeListener((compoundButton, b) -> {
+            game.setCompleted(b);
+            dbHandler.updateGame(game);
+        });
 
         if (editing){
             btnAddGameLog.setText("Edit Game Log");

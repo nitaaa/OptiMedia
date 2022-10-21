@@ -11,10 +11,66 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/txtGame"
+            style="@style/txtHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="[Title]" />
+
+        <TextView
+            android:id="@+id/txtGameType"
+            style="@style/txtSubHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="[Type]" />
+
+        <TextView
+            android:id="@+id/txtGameGenre"
+            style="@style/txtSubHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="[Genre]" />
+
+        <Switch
+            android:id="@+id/switchSLogFavourite"
+            style="@style/txtSubHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/favourite"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <Switch
+            android:id="@+id/switchSLogStarted"
+            style="@style/txtSubHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/started"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <Switch
+            android:id="@+id/switchSLogComplete"
+            style="@style/txtSubHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/completed"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"/>
+            android:orientation="vertical" />
 
         <LinearLayout
             android:layout_width="match_parent"
