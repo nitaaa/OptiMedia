@@ -10,6 +10,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.os.Environment;
+import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +33,15 @@ import org.w3c.dom.Element;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
+import org.xmlpull.v1.XmlSerializer;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -100,7 +108,7 @@ public class xmlExport extends Fragment {
         if(bundle!=null)
         {
             //TODO: Set key to correct name
-            library = (Library) bundle.getParcelable("library");
+            library = (Library) bundle.getParcelable("libraryInfo");
         }
 
     }
@@ -112,6 +120,7 @@ public class xmlExport extends Fragment {
         View root =  inflater.inflate(R.layout.fragment_xml_export, container, false);
         root.findViewById(R.id.copy).setOnClickListener(this::onCopyClicked);
         root.findViewById(R.id.save).setOnClickListener(this::onSaveClicked);
+        root.findViewById(R.id.save).setVisibility(View.GONE);
         root.findViewById(R.id.share).setOnClickListener(this::onShareQR);
         generateXML();
         TextView view = root.findViewById(R.id.xmlView);
@@ -241,24 +250,8 @@ public class xmlExport extends Fragment {
 
     private void onSaveClicked(View view)
     {
-        try {
-            DOMImplementation impl = document.getImplementation();
-            DOMImplementationLS implLS = (DOMImplementationLS) impl.getFeature("LS", "3.0");
-            LSSerializer ser = implLS.createLSSerializer();
+        getFileName(view);
 
-            getFileName(view);
-
-            FileOutputStream fout = new FileOutputStream(filename);
-
-            LSOutput lsOutput = implLS.createLSOutput();
-            lsOutput.setEncoding("UTF-8");
-
-            lsOutput.setByteStream(fout);
-
-            ser.write(document, lsOutput);
-            fout.close();
-        }
-        catch(Exception e) { e.printStackTrace();}
     }
 
     private void getFileName(View view)
@@ -284,6 +277,7 @@ public class xmlExport extends Fragment {
                                 // get user input and set it to result
                                 // edit text
                                 filename = userInput.getText().toString();
+                                doSave();
                             }
                         })
                 .setNegativeButton("Cancel",
@@ -292,5 +286,21 @@ public class xmlExport extends Fragment {
                                 dialog.cancel();
                             }
                         }).show();
+    }
+
+    private void doSave()
+    {
+        try {
+            File path = requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+            File file = new File(path, filename+".xml");
+            file.createNewFile();
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(output.getBytes(StandardCharsets.UTF_8));
+            fos.close();
+            Toast.makeText(getContext(),"Saved",Toast.LENGTH_SHORT).show();
+        }
+        catch(Exception e) {
+            Toast.makeText(getContext(),"Saving failed",Toast.LENGTH_SHORT).show();
+            e.printStackTrace();}
     }
 }

@@ -17,9 +17,7 @@ import android.widget.Toast;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
-import com.example.partnersincode.optimedia.adapters.BookAdapter;
 import com.example.partnersincode.optimedia.adapters.GameAdapter;
-import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.Library;
 
@@ -115,8 +113,8 @@ public class viewGameLibrary extends Fragment {
         Button imgBtnShareGLib = rootView.findViewById(R.id.imgBtnShareGLib);
         imgBtnShareGLib.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
-            bundle.putParcelable("GameLibraryInfo", library);
-            Navigation.findNavController(view).navigate(R.id.nav_shareLibrary, bundle);
+            bundle.putParcelable("libraryInfo", library);
+            Navigation.findNavController(view).navigate(R.id.nav_xmlExport, bundle);
         });
         return rootView;
     }

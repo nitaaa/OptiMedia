@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -92,6 +93,27 @@ public class createMovieLog extends Fragment {
         text.setText(genre.getGenreName());
         text = rootView.findViewById(R.id.txtLink);
         text.setText(movie.getLink());
+
+        Switch switchSLogFavourite,switchSLogStarted,switchSLogComplete;
+        switchSLogFavourite = rootView.findViewById((R.id.switchSLogFavourite));
+        switchSLogStarted = rootView.findViewById((R.id.switchSLogStarted));
+        switchSLogComplete = rootView.findViewById((R.id.switchSLogComplete));
+
+        switchSLogFavourite.setChecked(movie.getFavourite());
+        switchSLogFavourite.setOnCheckedChangeListener((compoundButton, b) -> {
+            movie.setFavourite(b);
+            dbHandler.updateMovie(movie);
+        });
+        switchSLogStarted.setChecked(movie.getStarted());
+        switchSLogStarted.setOnCheckedChangeListener((compoundButton, b) -> {
+            movie.setStarted(b);
+            dbHandler.updateMovie(movie);
+        });
+        switchSLogComplete.setChecked(movie.getComplete());
+        switchSLogComplete.setOnCheckedChangeListener((compoundButton, b) -> {
+            movie.setComplete(b);
+            dbHandler.updateMovie(movie);
+        });
 
         if (editing){
             btnAddMovieLog.setText("Edit Movie Log");

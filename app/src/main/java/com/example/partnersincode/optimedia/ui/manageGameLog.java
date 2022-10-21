@@ -7,6 +7,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +32,8 @@ public class manageGameLog extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private String title;
     private Game game;
+    private static final String TAG = "manageGameLog";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -49,7 +50,7 @@ public class manageGameLog extends Fragment {
      * @param
      * @param
      * @return A new instance of fragment manageGameLog.
-     */ /*
+     */
     // TODO: Rename and change types and number of parameters
     public static manageGameLog newInstance(String param1, String param2) {
         manageGameLog fragment = new manageGameLog();
@@ -63,26 +64,18 @@ public class manageGameLog extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            game = bundle.getParcelable("gameInfo");
+            Log.d(TAG, "onCreate: series passed: "+game.getGameTitle());
         }
-    } */
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        int GameID;
-        Bundle getBundle = this.getArguments();
-        if (getBundle != null) {
-            GameID = getBundle.getInt("getGameID");
 
-        }else
-            GameID=-1;
-        game = getBundle.getParcelable("gameInfo");
-        title = game.getGameTitle();
-
-        getActivity().getWindow().setTitle(title);
+        getActivity().getWindow().setTitle(TAG);
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_manage_game_log, container, false);
@@ -111,8 +104,8 @@ public class manageGameLog extends Fragment {
         Button btnCreateGameLog = rootView.findViewById(R.id.btnCreateGameLog);
         btnCreateGameLog.setOnClickListener(view ->{
             Bundle bundle = new Bundle();
-            bundle.putInt("GameID",GameID);
             bundle.putString("Intent", "Add");
+            bundle.putParcelable("gameInfo",game);
             Navigation.findNavController(view).navigate(R.id.nav_createGameLog,bundle);
         });
 

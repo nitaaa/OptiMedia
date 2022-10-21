@@ -16,6 +16,9 @@ import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
 import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.GameLog;
+import com.example.partnersincode.optimedia.models.Genre;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,14 +65,16 @@ public class createGameLog extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
-        if (bundle.getString("Intent") == "Edit") {
+        if (bundle.getString("Intent").equals("Edit")) {
             game =  bundle.getParcelable("gameInfo");
-            gameLog = bundle.getParcelable("gameLogInfo");
+            gameLog = (GameLog) bundle.getSerializable("gameLogInfo");
             editing = true;
         } else {
-            GameID =bundle.getInt("GameID");
+            game =  bundle.getParcelable("gameInfo");
+            gameLog = (GameLog) bundle.getSerializable("gameLogInfo");
             editing = false;
         }
+
     }
 
     @Override
@@ -87,6 +92,11 @@ public class createGameLog extends Fragment {
         TextView txtTitle = rootView.findViewById(R.id.txtGame);
         TextView txtGenre = rootView.findViewById(R.id.txtGameGenre);
         TextView txtType = rootView.findViewById(R.id.txtGameType);
+
+        ArrayList<Genre> genres = dbHandler.getGenres();
+        txtTitle.setText(game.getGameTitle());
+        txtGenre.setText(genres.get(game.getGenreID()).toString());
+        txtType.setText(game.getGameType());
 
         Switch switchSLogFavourite,switchSLogStarted,switchSLogComplete;
         switchSLogFavourite = rootView.findViewById((R.id.switchSLogFavourite));

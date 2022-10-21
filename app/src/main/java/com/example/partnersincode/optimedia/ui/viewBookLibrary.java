@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
 import com.example.partnersincode.optimedia.adapters.BookAdapter;
-import com.example.partnersincode.optimedia.adapters.LibraryAdapter;
 import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Library;
 
@@ -113,8 +112,8 @@ public class viewBookLibrary extends Fragment {
         Button imgBtnShareBLib = rootView.findViewById(R.id.imgBtnShareBLib);
         imgBtnShareBLib.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
-            bundle.putParcelable("BookLibraryInfo", library);
-            Navigation.findNavController(view).navigate(R.id.nav_shareLibrary, bundle);
+            bundle.putParcelable("libraryInfo", library);
+            Navigation.findNavController(view).navigate(R.id.nav_xmlExport, bundle);
         });
         return rootView;
     }

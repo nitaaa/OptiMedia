@@ -61,9 +61,9 @@
         tools:layout="@layout/fragment_create_book" />
 
     <fragment
-        android:id="@+id/nav_shareLibrary"
-        android:name="com.example.partnersincode.optimedia.ui.shareLibrary.ShareLibrary"
-        android:label="Share Library" />
+        android:id="@+id/nav_importLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.importLibrary.ImportLibrary"
+        android:label="Import Library" />
 
     <fragment
         android:id="@+id/nav_createSeries"
@@ -161,7 +161,7 @@
     <fragment
         android:id="@+id/nav_createMovieLog"
         android:name="com.example.partnersincode.optimedia.ui.createMovieLog"
-        android:label="createMovieLog"
+        android:label="Create Movie Log"
         tools:layout="@layout/fragment_create_movie_log" />
 
     <fragment
@@ -184,4 +184,14 @@
         android:name="com.example.partnersincode.optimedia.ui.manageGameLog"
         android:label="fragment_manage_game_log"
         tools:layout="@layout/fragment_manage_game_log" />
+    <fragment
+        android:id="@+id/nav_qrScanControl"
+        android:name="com.example.partnersincode.optimedia.ui.scanQRCode.qrScanControl"
+        android:label="Scan QR Code"
+        tools:layout="@layout/fragment_scan_qr_code" />
+    <fragment
+        android:id="@+id/nav_xmlImport"
+        android:name="com.example.partnersincode.optimedia.ui.xmlImport"
+        android:label="Import XML"
+        tools:layout="@layout/fragment_xml_import" />
 </navigation>

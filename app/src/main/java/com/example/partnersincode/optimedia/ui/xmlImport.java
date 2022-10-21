@@ -101,7 +101,7 @@ public class xmlImport extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root =  inflater.inflate(R.layout.fragment_xml_export, container, false);
+        View root =  inflater.inflate(R.layout.fragment_xml_import, container, false);
 
         root.findViewById(R.id.btnImport).setOnClickListener(this::onImportClicked);
 
