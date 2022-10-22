@@ -101,7 +101,7 @@ public class xmlImport extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root =  inflater.inflate(R.layout.fragment_xml_export, container, false);
+        View root =  inflater.inflate(R.layout.fragment_xml_import, container, false);
 
         root.findViewById(R.id.btnImport).setOnClickListener(this::onImportClicked);
 
@@ -140,17 +140,19 @@ public class xmlImport extends Fragment {
                     NamedNodeMap map  = node.getAttributes();
                     String title = map.getNamedItem("title").getNodeValue();
                     String genre = map.getNamedItem("genre").getNodeValue();
+                    String link = map.getNamedItem("link").getNodeValue();
                     Series series;
                     //TODO everything
                     try{
                         Genre dbGenre = db.getGenre(genre);
-                        series = new Series(-1,dbGenre.getGenreID(),title,"", false,false,false);
+                        series = new Series(-1,dbGenre.getGenreID(),title,link, false,false,false);
 
                     }catch(Exception e)
                     {
                         Genre dbGenre = new Genre(-1,genre);
                         db.addGenre(dbGenre.getGenreName());
-                        series = new Series(-1,dbGenre.getGenreID(),title,"", false,false,false);
+                        int genreId = db.getGenre(dbGenre.getGenreName()).getGenreID();
+                        series = new Series(-1,genreId,title,"", false,false,false);
 
                     }
                     library.add(series);
@@ -162,17 +164,19 @@ public class xmlImport extends Fragment {
                     NamedNodeMap map  = node.getAttributes();
                     String title = map.getNamedItem("title").getNodeValue();
                     String genre = map.getNamedItem("genre").getNodeValue();
+                    String link = map.getNamedItem("link").getNodeValue();
                     Movie movie;
                     //TODO everything
                     try{
                         Genre dbGenre = db.getGenre(genre);
-                        movie = new Movie(-1,dbGenre.getGenreID(),title,"", false,false,false);
+                        movie = new Movie(-1,dbGenre.getGenreID(),title,link, false,false,false);
 
                     }catch(Exception e)
                     {
                         Genre dbGenre = new Genre(-1,genre);
                         db.addGenre(dbGenre.getGenreName());
-                        movie = new Movie(-1,dbGenre.getGenreID(),title,"", false,false,false);
+                        int genreId = db.getGenre(dbGenre.getGenreName()).getGenreID();
+                        movie = new Movie(-1,genreId,title,"", false,false,false);
 
                     }
                     library.add(movie);
@@ -194,7 +198,8 @@ public class xmlImport extends Fragment {
                     {
                         Genre dbGenre = new Genre(-1,genre);
                         db.addGenre(dbGenre.getGenreName());
-                        game = new Game(-1,dbGenre.getGenreID(),title,type, false,false,false);
+                        int genreId = db.getGenre(dbGenre.getGenreName()).getGenreID();
+                        game = new Game(-1,genreId,title,type, false,false,false);
 
                     }
                     library.add(game);
@@ -219,6 +224,8 @@ public class xmlImport extends Fragment {
                     {
                         dbGenre = new Genre(-1,genre);
                         db.addGenre(dbGenre.getGenreName());
+                        int genreId = db.getGenre(dbGenre.getGenreName()).getGenreID();
+                        dbGenre.setGenreID(genreId);
                     }
 
                     try{
@@ -227,6 +234,7 @@ public class xmlImport extends Fragment {
                     {
                         Author author = new Author(-1,authorName,authorSurname);
                         db.createNewAuthor(author);
+                        dbAuthor =  db.getAuthorByName(authorSurname,authorName);
                     }
 
                     book = new Book(-1,dbAuthor.getAuthorID(),dbGenre.getGenreID(),ISBN,title, false,false,false);
@@ -271,7 +279,6 @@ public class xmlImport extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString("libraryName",libraryName);
         bundle.putSerializable("list", list);
-
 
         //TODO: Integration Colin's View List
         //Navigation.findNavController(view).navigate(R.id.  ,bundle);

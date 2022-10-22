@@ -1,5 +1,6 @@
 package com.example.partnersincode.optimedia.ui;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
@@ -19,7 +23,7 @@ import com.example.partnersincode.optimedia.models.Author;
 import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Genre;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +41,13 @@ public class createBook extends Fragment {
     private String mParam1;
     private String mParam2;
     private static final String TAG = "CreateBook";
+
+    //Variables saved and used when adding a new movie
+    DatabaseHandler dbHandler;
+    List<Genre> genres;
+    ArrayAdapter<Genre> adapter;
+    List<Author> authors;
+    ArrayAdapter<Author> adapter2;
 
     public createBook() {
         // Required empty public constructor
@@ -76,28 +87,32 @@ public class createBook extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_create_book, container, false);
 
-        DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
+        dbHandler = new DatabaseHandler(this.getContext());
 
         TextView edtxtBookISBN = rootView.findViewById(R.id.edtxtName);
         TextView edtxtBookTitle = rootView.findViewById(R.id.edtxtSurname);
 
         //get genre for spinner
-        ArrayList<Genre> genres = dbHandler.getGenres();
-        ArrayAdapter<Genre> adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, genres);
+        genres = dbHandler.getGenres();
+        adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, genres);
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
 
         Spinner spinGenre = (Spinner) rootView.findViewById(R.id.spinGenre);
         spinGenre.setAdapter(adapter);
 
         //get author for spinner
-        ArrayList<Author> authors = dbHandler.getAuthors();
-        ArrayAdapter<Author> adapter2 = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, authors);
+        authors = dbHandler.getAuthors();
+        adapter2 = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, authors);
         adapter2.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
 
         Spinner spinAuthor = (Spinner) rootView.findViewById(R.id.spinAuthor);
         spinAuthor.setAdapter(adapter2);
 
-        Button btnAddNewBook = rootView.findViewById(R.id.btnAddNewAuthor);
+        //add new genre or author
+        rootView.findViewById(R.id.btnAddGenre).setOnClickListener(this::getNewGenreName);
+        rootView.findViewById(R.id.btnAddAuthor).setOnClickListener(this::getNewAuthorName);
+
+        Button btnAddNewBook = rootView.findViewById(R.id.btnSaveBook);
         btnAddNewBook.setOnClickListener(view -> {
             Book newBook = new Book();
             newBook.setISBN(edtxtBookISBN.getText().toString());
@@ -106,9 +121,13 @@ public class createBook extends Fragment {
             newBook.setGenreID(curGenre.getGenreID());
             Author curAuthor = (Author) spinAuthor.getSelectedItem();
             newBook.setAuthorID(curAuthor.getAuthorID());
-            newBook.setFavourite(false);
-            newBook.setStarted(false);
-            newBook.setCompleted(false);
+
+            boolean bFav = ((Switch)view.findViewById((R.id.A08400_favourite))).isChecked();
+            boolean bStarted = ((Switch)view.findViewById((R.id.A08400_started))).isChecked();
+            boolean bCom = ((Switch)view.findViewById((R.id.A08400_completed))).isChecked();
+            newBook.setFavourite(bFav);
+            newBook.setStarted(bStarted);
+            newBook.setCompleted(bCom);
 
             int i = dbHandler.createNewBook(newBook);
             Log.d(TAG, "Book Added:" + newBook.getBookTitle());
@@ -129,5 +148,94 @@ public class createBook extends Fragment {
         });
 
         return rootView;
+    }
+
+    private void getNewGenreName(View view)
+    {
+        LayoutInflater li = LayoutInflater.from(getContext());
+        View promptsView = li.inflate(R.layout.prompt_new_genre, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                getContext());
+
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // get user input and set it to result
+                                // edit text
+
+                                if(userInput.getText().toString().equals(""))
+                                {
+                                    Toast.makeText(getContext(),getString(R.string.invalidGenre), Toast.LENGTH_SHORT).show();
+                                    dialog.cancel();
+                                }
+                                dbHandler.addGenre(userInput.getText().toString());
+                                Genre genre = dbHandler.getGenre(userInput.getText().toString());
+                                genres.add(genre);
+                                adapter.notifyDataSetChanged();
+
+
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        }).show();
+    }
+
+    private void getNewAuthorName(View view)
+    {
+        LayoutInflater li = LayoutInflater.from(getContext());
+        View promptsView = li.inflate(R.layout.prompt_new_author, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                getContext());
+
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+        final EditText userInput2 = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput2);
+
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // get user input and set it to result
+                                // edit text
+
+                                if(userInput.getText().toString().equals(""))
+                                {
+                                    Toast.makeText(getContext(),getString(R.string.invalidGenre), Toast.LENGTH_SHORT).show();
+                                    dialog.cancel();
+                                }
+                                dbHandler.createNewAuthor(new Author(-1, userInput.getText().toString(), userInput2.getText().toString()));
+                                Author author = dbHandler.getAuthorByName(userInput.getText().toString(), userInput2.getText().toString());
+                                authors.add(author);
+                                adapter2.notifyDataSetChanged();
+
+
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        }).show();
     }
 }

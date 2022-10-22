@@ -20,9 +20,9 @@
             android:title="@string/manage_authors" />
 
         <item
-            android:id="@+id/nav_shareLibrary"
+            android:id="@+id/nav_importLibrary"
             android:icon="@drawable/ic_share"
-            android:title="@string/share_library" />
+            android:title="Import Library" />
 
         <item
             android:id="@+id/nav_addNewMedia"
@@ -61,6 +61,11 @@
             android:id="@+id/nav_viewStatistics"
             android:icon="@drawable/stats"
             android:title="Statistics" />
+
+        <item
+            android:id="@+id/nav_search_media_items"
+            android:icon="@drawable/ic_search"
+            android:title="@string/search_media" />
 
     </group>
 </menu>

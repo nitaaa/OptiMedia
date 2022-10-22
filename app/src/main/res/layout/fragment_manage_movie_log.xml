@@ -22,7 +22,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/lblMovieLogs"
+                android:id="@+id/lblGameLogs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -30,7 +30,7 @@
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/btnCreateMovieLog"
+                android:id="@+id/btnCreateGameLog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -39,7 +39,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerMovieLog"
+            android:id="@+id/recyclerGameLog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp">

@@ -13,13 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
-import com.example.partnersincode.optimedia.adapters.GameAdapter;
 import com.example.partnersincode.optimedia.adapters.WatchObjectAdapter;
-import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.Library;
 import com.example.partnersincode.optimedia.models.Movie;
 import com.example.partnersincode.optimedia.models.Series;
@@ -100,9 +97,9 @@ public class viewWatchLibrary extends Fragment {
             if (viewHolder.movie != null){
                 Movie movie = viewHolder.movie;
                 bundle.putParcelable("movieInfo", movie);
-                Toast.makeText(this.getContext(), movie.getTitle(),Toast.LENGTH_LONG).show();
-                // TODO:Navigation from view book library to A02311
-                // Navigation.findNavController(view).navigate(R.id., bundle);
+
+
+                Navigation.findNavController(view).navigate(R.id.nav_manageMovieLog, bundle);
             } else if (viewHolder.series != null){
                 Series series = viewHolder.series;
                 bundle.putParcelable("seriesInfo", series);
@@ -126,8 +123,8 @@ public class viewWatchLibrary extends Fragment {
         Button imgBtnShareWLib = rootView.findViewById(R.id.imgBtnShareWLib);
         imgBtnShareWLib.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
-            bundle.putParcelable("WatchLibraryInfo", library);
-            Navigation.findNavController(view).navigate(R.id.nav_shareLibrary, bundle);
+            bundle.putParcelable("libraryInfo", library);
+            Navigation.findNavController(view).navigate(R.id.nav_xmlExport, bundle);
         });
         return rootView;
     }
