@@ -111,6 +111,8 @@
     <string name="record_season_and_episode">Record Season and Episode</string>
     <string name="copy">Copy</string>
     <string name="exportXML">Export XML</string>
+
+    <string name="favourite_genre">Most popular genre:</string>
     <string name="enterGenreName">Enter Genre</string>
     <string name="search_media">Search Media</string>
 

@@ -175,6 +175,20 @@
         android:label="fragment_xml_export"
         tools:layout="@layout/fragment_xml_export" />
     <fragment
+        android:id="@+id/nav_addBookToLib"
+        android:name="com.example.partnersincode.optimedia.addBookToLib.addBookToLibrary"
+        android:label="addBookToLibrary" />
+    <fragment
+        android:id="@+id/nav_viewList"
+        android:name="com.example.partnersincode.optimedia.ui.ViewList"
+        android:label="fragment_view_list"
+        tools:layout="@layout/fragment_view_list" />
+    <fragment
+        android:id="@+id/nav_viewStatistics"
+        android:name="com.example.partnersincode.optimedia.ui.ViewStatistics"
+        android:label="fragment_view_statistics"
+        tools:layout="@layout/fragment_view_statistics" />
+    <fragment
         android:id="@+id/nav_createGameLog"
         android:name="com.example.partnersincode.optimedia.ui.createGameLog"
         android:label="fragment_create_game_log"

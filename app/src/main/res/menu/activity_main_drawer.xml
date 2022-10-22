@@ -54,6 +54,13 @@
             android:id="@+id/nav_viewAllLibraries"
             android:icon="@drawable/ic_library"
             android:title="@string/view_all_libraries" />
+        <item
+            android:id="@+id/nav_addBookToLib"
+            android:title="Add Book To Library" />
+        <item
+            android:id="@+id/nav_viewStatistics"
+            android:icon="@drawable/stats"
+            android:title="Statistics" />
 
         <item
             android:id="@+id/nav_search_media_items"
