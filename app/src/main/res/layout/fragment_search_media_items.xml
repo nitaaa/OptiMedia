@@ -84,7 +84,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/action_search"
-            app:icon="@drawable/ic_search"/>
+            android:textColor="@color/black"
+            app:icon="@drawable/ic_search"
+            app:iconTint="@color/black" />
 
     </LinearLayout>
 

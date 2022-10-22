@@ -3,6 +3,7 @@ package com.example.partnersincode.optimedia.ui;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -97,26 +98,31 @@ public class viewSearch extends Fragment {
 
         adapter.setOnClickListener( view -> {
             SearchAdapter.SearchViewHolder viewHolder = (SearchAdapter.SearchViewHolder) reSearchResults.findContainingViewHolder(view);
-
+            Bundle bundle = new Bundle();
             MediaObject mediaObject = new MediaObject();
+
             String log ="";
             assert viewHolder != null;
             if (viewHolder.book != null){
                 mediaObject = viewHolder.book;
-                log = ((Book) mediaObject).getBookTitle();
+                log = "Book";
             } else if (viewHolder.game != null){
                 mediaObject = viewHolder.game;
-                log = ((Game) mediaObject).getGameTitle();
+                log = "Game";
             } else if (viewHolder.movie != null){
                 mediaObject = viewHolder.movie;
-                log = ((Movie) mediaObject).getTitle();
+                log = "Movie";
             } else if(viewHolder.series != null){
                 mediaObject = viewHolder.series;
-                log = ((Series) mediaObject).getTitle();
+                log = "Series";
             }
 
-            //TODO nav to display media object
+            //TODO nav to display media object  nav_viewMediaObject
             Toast.makeText(this.getContext(),log,Toast.LENGTH_SHORT).show();
+
+            bundle.putParcelable("mediaObject", mediaObject);
+            bundle.putString("type", log);
+            Navigation.findNavController(view).navigate(R.id.nav_viewMediaObject, bundle);
         });
 
 

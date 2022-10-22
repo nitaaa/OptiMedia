@@ -1364,4 +1364,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         c.close();
         return watchList;
     }
+
+    @SuppressLint("Range")
+    public int getWLI_IDbySeriesID(int sID){
+        String selectQuery = "SELECT * FROM WatchListItem WHERE seriesID = " +sID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        int wli_id = 0;
+        if (c.moveToFirst()){
+            wli_id = c.getInt(c.getColumnIndex("WLI_ID"));
+        }
+        return wli_id;
+    }
+
+    @SuppressLint("Range")
+    public int getWLI_IDbyMovieID(int mID){
+        String selectQuery = "SELECT * FROM WatchListItem WHERE movieID = " +mID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        int wli_id = 0;
+        if (c.moveToFirst()){
+            wli_id = c.getInt(c.getColumnIndex("WLI_ID"));
+        }
+        return wli_id;
+    }
 }
