@@ -14,7 +14,7 @@ import com.example.partnersincode.optimedia.models.Library;
 import java.util.List;
 
 public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder> {
-    private final List<Library> libraryList;
+    private List<Library> libraryList;
     private View.OnClickListener onClickListener;
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
@@ -23,6 +23,10 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.LibraryV
 
     public LibraryAdapter(List<Library> libraryList){
         this.libraryList = libraryList;
+    }
+
+    public void setLibraryList(List<Library> list){
+        libraryList = list;
     }
 
     public LibraryAdapter(List<Library> libraryList, View.OnClickListener onClickListener) {

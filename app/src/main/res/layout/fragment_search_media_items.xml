@@ -50,7 +50,8 @@
                 android:id="@+id/rbS_All"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/lbl_all" />
+                android:text="@string/lbl_all"
+                android:checked="true"/>
 
             <RadioButton
                 android:id="@+id/rbS_Book"

@@ -1548,15 +1548,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return  c.getInt(0);
     }
 
-    //TODO seems to be an error with this
     public String statsSeriesPopGenre() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "Select genreName,count(genreID) From Book inner join Genre" +
-                " on Book.genreID=Genre.genreID group by genreName order by count(genreID) desc";
+        String sql = "Select genreName,count(Genre.genreID) From Genre inner join Series on Genre.genreID=Series.genreID group by Genre.genreName order by count(Genre.genreID) desc";
         Cursor c = db.rawQuery(sql,null);
         c.moveToFirst();
         return  c.getString(0);
-     }
+    }
+
+    public String statsMoviePopGenre() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "Select genreName,count(Genre.genreID) From Genre inner join Movie on " +
+                "Genre.genreID=Movie.genreID group by Genre.genreName order by count(Genre.genreID) desc";
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getString(0);
+    }
+
+    public String statsGamePopGenre() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "Select genreName,count(Genre.genreID) From Genre inner join Game on " +
+                "Genre.genreID=Game.genreID group by Genre.genreName order by count(Genre.genreID) desc";
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getString(0);
+    }
+
+    public String statsBookPopGenre() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "Select genreName,count(Genre.genreID) From Genre inner join Book on " +
+                "Genre.genreID=Book.genreID group by Genre.genreName order by count(Genre.genreID) desc";
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getString(0);
+    }
 
     /**
      * Gets all the game logs from the database
@@ -1564,7 +1589,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @return ArrayList<GameLog> populated with list
      */
     @SuppressLint("Range")
-    //TODO Refactor name
     public ArrayList<GameLog> getGameLogs()
     {
 

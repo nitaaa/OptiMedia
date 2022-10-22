@@ -12,41 +12,48 @@
 
         <Button
             android:id="@+id/btnBookLibraries"
-            android:layout_width="wrap_content"
+            android:layout_width="88dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="Books"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btnGameLibraries"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="Games"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
             android:id="@+id/btnWatchLibraries"
-            android:layout_width="wrap_content"
+            android:layout_width="88dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Watch"
-            android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/btnGameLibraries"
+            app:layout_constraintEnd_toStartOf="@+id/btnShowAllLibraries"
+            app:layout_constraintStart_toEndOf="@+id/btnGameLibraries"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnGameLibraries"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Games"
+            app:layout_constraintEnd_toStartOf="@+id/btnWatchLibraries"
             app:layout_constraintStart_toEndOf="@+id/btnBookLibraries"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnShowAllLibraries"
+            android:layout_width="111dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="Show All"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reListAllLibraries"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
@@ -54,6 +61,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnGameLibraries" />
+            app:layout_constraintTop_toBottomOf="@+id/btnWatchLibraries" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
