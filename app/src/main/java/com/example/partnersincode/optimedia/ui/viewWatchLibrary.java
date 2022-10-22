@@ -98,11 +98,12 @@ public class viewWatchLibrary extends Fragment {
                 Movie movie = viewHolder.movie;
                 bundle.putParcelable("movieInfo", movie);
 
-
-                Navigation.findNavController(view).navigate(R.id.nav_manageMovieLog, bundle);
+                Navigation.findNavController(view).navigate(R.id.nav_createMovieLog, bundle);
             } else if (viewHolder.series != null){
                 Series series = viewHolder.series;
                 bundle.putParcelable("seriesInfo", series);
+
+                Log.d(TAG, "onCreateView: " + series.getTitle());
                 // Toast.makeText(this.getContext(), series.getTitle(),Toast.LENGTH_LONG).show(); //Navigates so no toast
                 // Navigation from view book library to A02312
                 Navigation.findNavController(view).navigate(R.id.nav_createSeriesLog, bundle);

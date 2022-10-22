@@ -75,7 +75,7 @@ public class createSeriesLog extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             series = bundle.getParcelable("seriesInfo");
-            Log.d(TAG, "onCreate: series passed: "+series.getTitle());
+            Log.d(TAG, "onCreate: series passed: " + series.getTitle());
         }
     }
 
@@ -95,9 +95,9 @@ public class createSeriesLog extends Fragment {
 
         //Fill in series info
         TextView txtSLogSTitle,txtSLogSGenre,txtSLogLink;
-        txtSLogSTitle = rootView.findViewById(R.id.txtMovie);
-        txtSLogSGenre = rootView.findViewById(R.id.txtGameGenre);
-        txtSLogLink = rootView.findViewById(R.id.txtLink);
+        txtSLogSTitle = rootView.findViewById(R.id.txtSLogSTitle);
+        txtSLogSGenre = rootView.findViewById(R.id.txtSLogSGenre);
+        txtSLogLink = rootView.findViewById(R.id.txtSLogLink);
 
         Switch switchSLogFavourite,switchSLogStarted,switchSLogComplete;
         switchSLogFavourite = rootView.findViewById((R.id.switchSLogFavourite));
