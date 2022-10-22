@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public class Book implements Parcelable {
+public class Book extends MediaObject implements Parcelable {
     private int bookID;
     private int authorID;
     private int genreID;

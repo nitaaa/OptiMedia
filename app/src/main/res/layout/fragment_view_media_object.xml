@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.viewMediaObject" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/txtTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[Title]"
+                android:textSize="28sp"/>
+
+            <TextView
+                android:id="@+id/txtAuth_vwo"
+                style="@style/txtHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[Author]"
+                android:visibility = "gone"/>
+
+            <TextView
+                android:id="@+id/txtGenre_vwo"
+                style="@style/txtHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[Genre]" />
+
+            <TextView
+                android:id="@+id/txttype"
+                style="@style/txtHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[Type]" />
+
+            <TextView
+                android:id="@+id/txt3rdProp"
+                style="@style/txtHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[Link/Type/ISBN]"
+                android:layout_marginBottom = "20dp"
+                android:autoLink="web"/>
+
+            <Button
+                android:id="@+id/btnAddtoLib_vmo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add to Library"
+                app:icon="@drawable/ic_add"
+                app:iconTint="@color/black"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:id="@+id/linlayAdd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility = "gone">
+
+                <Spinner
+                    android:id="@+id/spinAddtoLib"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="12"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/btnAdd_vwo"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    app:icon="@drawable/ic_done"
+                    app:iconTint="@color/black" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnShare_vwo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_share"
+                app:icon="@drawable/ic_share"
+                app:iconTint="@color/black"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

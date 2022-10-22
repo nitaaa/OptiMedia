@@ -63,7 +63,7 @@ public class Library implements Parcelable {
 
     @Override
     public String toString() {
-        return libraryID + "," + libraryName + "," + libraryType;
+        return libraryName;
     }
 
     @Override

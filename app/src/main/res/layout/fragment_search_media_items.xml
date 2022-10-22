@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.search_media_items" >
+
+    <LinearLayout
+        android:id="@+id/linlaySearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txtvKeyword"
+            style="@style/txtHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_keyword" />
+
+        <EditText
+            android:id="@+id/edtTxtKeywordSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter Keyword"
+            android:inputType="text"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:id="@+id/txtvMediaType"
+            style="@style/txtSubHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/lbl_mediaTypes" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/rbS_All"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_all" />
+
+            <RadioButton
+                android:id="@+id/rbS_Book"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/booktxt" />
+
+            <RadioButton
+                android:id="@+id/rbS_Game"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gametxt" />
+
+            <RadioButton
+                android:id="@+id/rbS_WLI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/movieseriestxt"/>
+        </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/chbxShowFavourites"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_showFavourites"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/btnSearchMedia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/action_search"
+            android:textColor="@color/black"
+            app:icon="@drawable/ic_search"
+            app:iconTint="@color/black" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

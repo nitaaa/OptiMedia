@@ -15,9 +15,10 @@
     <color name="main_blue">#448AFF</color>
     <color name="darker_blue">#1147A1</color>
     <color name="lighter_blue">#94BCFF</color>
-    <color name="secondary_red">#52A0FF</color>
-    <color name="darker_red">#A30A0A</color>
-    <color name="lighter_red">#D39494</color>
+
+    <color name="secondary_red">#FADEA2</color>
+    <color name="darker_red">#F4BB40</color>
+    <color name="lighter_red">#CDB98C</color>
 
     <color name="book_theme">#FF88e48f</color>
     <color name="game_theme">#FFbde767</color>

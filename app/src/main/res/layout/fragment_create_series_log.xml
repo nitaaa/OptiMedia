@@ -21,28 +21,78 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtMovie"
-                style="@style/txtHeading"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="[Title]" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/txtGameGenre"
-                style="@style/txtSubHeading"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="[Genre]" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtLink"
-                style="@style/txtSubHeading"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="[Link]" />
+                    <TextView
+                        android:id="@+id/txtSLogSTitle"
+                        style="@style/txtHeading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="[Title]" />
+
+                    <TextView
+                        android:id="@+id/txtSLogSGenre"
+                        style="@style/txtSubHeading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="[Genre]" />
+
+                    <TextView
+                        android:id="@+id/txtSLogLink"
+                        style="@style/txtSubHeading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:autoLink="web"
+                        android:text="[Link]"
+                        android:textColorLink="@color/movie_series_theme"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btnDeleteSeries"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lbl_delete"
+                        android:singleLine="true"
+                        android:textSize="10sp"
+                        app:icon="@drawable/ic_delete"
+                        app:iconPadding="0dp"
+                        app:backgroundTint="@color/movie_series_theme"
+                        android:textColor="@color/black"
+                        app:iconTint="#000000"/>
+
+                    <Button
+                        android:id="@+id/btnShareSeries"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="@string/lbl_share"
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        app:backgroundTint="@color/movie_series_theme"
+                        app:icon="@drawable/ic_share"
+                        app:iconPadding="0dp"
+                        app:iconTint="#000000" />
+                </LinearLayout>
+
+            </LinearLayout>
+
 
             <Switch
                 android:id="@+id/switchSLogFavourite"

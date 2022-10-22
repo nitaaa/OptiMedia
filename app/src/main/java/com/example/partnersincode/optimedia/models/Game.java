@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-public class Game implements Parcelable {
+public class Game extends MediaObject implements Parcelable {
     private int gameID;
     private int genreID;
     private String gameTitle, gameType;

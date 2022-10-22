@@ -2,8 +2,8 @@
     <string name="app_name">OptiMedia</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Optimedia</string>
+    <string name="nav_header_subtitle">Partner\'s in Code</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -26,6 +26,12 @@
     <string name="lbl_timestamp">Time (hh:mm)</string>
     <string name="lbl_note">Note</string>
     <string name="btn_add_seriesLog">Add Series Log</string>
+    <string name="lbl_delete">Delete</string>
+    <string name="lbl_share">Share</string>
+    <string name="lbl_keyword">Enter search term</string>
+    <string name="lbl_showFavourites">Show Favourites</string>
+    <string name="lbl_mediaTypes">Select Media (Optional)</string>
+    <string name="lbl_all">Search All</string>
 
     <!-- Adriaan -->
     <string name="addMediaToLibrary">Add Movie/Series to library</string>
@@ -106,6 +112,8 @@
     <string name="copy">Copy</string>
     <string name="exportXML">Export XML</string>
     <string name="enterGenreName">Enter Genre</string>
+    <string name="search_media">Search Media</string>
+
 
 
 </resources>
