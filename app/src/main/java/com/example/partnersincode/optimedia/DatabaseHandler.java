@@ -1077,6 +1077,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * Update a Book (favourite, started, complete)
+     * Adriaan Benn
+     * @return void
+     * @param  book
+     */
+    public void updateBook(Book book){
+        int fav, start, complete;
+        fav = (book.isFavourite()) ? 1 : 0;
+        start = (book.isStarted()) ? 1 : 0;
+        complete = (book.isCompleted()) ? 1 : 0;
+        String updateQuery = "UPDATE Book SET favourite = "+fav+", started = "+start
+                +", complete = "+complete+" WHERE bookID = "+book.getBookID();
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            db.execSQL(updateQuery);
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Create a record/log for a series
      * Qaanita Fataar
      * @return int

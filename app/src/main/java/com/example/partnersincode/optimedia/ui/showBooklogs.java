@@ -15,6 +15,7 @@ import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
 import com.example.partnersincode.optimedia.adapters.BooklogAdapter;
 import com.example.partnersincode.optimedia.adapters.GenreAdapter;
+import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Booklog;
 import com.example.partnersincode.optimedia.models.Genre;
 
@@ -27,15 +28,20 @@ import java.util.List;
  */
 public class showBooklogs extends Fragment {
 
+    Book book;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         int BookID;
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            BookID = bundle.getInt("getBookID");
+            book = bundle.getParcelable("bookInfo");
+            BookID = book.getBookID();
         }else
             BookID=-1;
+
+
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_show_booklogs, container, false);
@@ -55,6 +61,7 @@ public class showBooklogs extends Fragment {
             Booklog booklog = viewHolder.booklog;
 
             Bundle bundleSend = new Bundle();
+            bundleSend.putParcelable("bookInfo",book);
             bundleSend.putParcelable("blInfo", booklog);
             bundleSend.putString("Intent", "Edit");
           Navigation.findNavController(item).navigate(R.id.nav_createBooklogs, bundleSend);

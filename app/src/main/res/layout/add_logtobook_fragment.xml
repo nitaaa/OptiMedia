@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
@@ -21,6 +23,61 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/txtBook"
+                style="@style/txtHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[Title]" />
+
+            <TextView
+                android:id="@+id/txtGenre"
+                style="@style/txtSubHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="[Genre]" />
+
+            <TextView
+                android:id="@+id/txtISBN"
+                style="@style/txtSubHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="[ISBN]" />
+
+            <Switch
+                android:id="@+id/switchFav"
+                style="@style/txtSubHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/favourite"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            <Switch
+                android:id="@+id/switchStarted"
+                style="@style/txtSubHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/started"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            <Switch
+                android:id="@+id/switchCompleted"
+                style="@style/txtSubHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/completed"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <TextView
                 style="@style/TextAppearance.AppCompat.Title"
