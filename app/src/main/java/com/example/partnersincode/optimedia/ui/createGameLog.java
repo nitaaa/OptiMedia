@@ -74,6 +74,7 @@ public class createGameLog extends Fragment {
             gameLog = (GameLog) bundle.getSerializable("gameLogInfo");
             editing = false;
         }
+        GameID = game.getGameID();
 
     }
 

@@ -37,7 +37,7 @@ public class GameLogAdapter extends RecyclerView.Adapter<GameLogAdapter.GameLogV
 
         public void setGameLog(GameLog gameLog) {
             this.gameLog = gameLog;
-            txtRecyclerGameLog.setText(gameLog.getGLTitle() + " " + gameLog.getGLNote());
+            txtRecyclerGameLog.setText(gameLog.getGLTitle() + "\n" + gameLog.getGLNote());
         }
     }
 

@@ -19,6 +19,7 @@ import java.util.List;
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder>{
     private final List<Book> bookList;
     private View.OnClickListener onClickListener;
+    private View.OnLongClickListener onLongClickListener;
 
     public BookAdapter(List<Book> bookList) {
         this.bookList = bookList;
@@ -26,6 +27,10 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
+    }
+    public void setOnLongClickListener(View.OnLongClickListener onLongClickListener)
+    {
+        this.onLongClickListener = onLongClickListener;
     }
 
     public class BookViewHolder extends RecyclerView.ViewHolder {
@@ -64,6 +69,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         Book book = bookList.get(position);
         holder.setBook(book);
         holder.itemView.setOnClickListener(onClickListener);
+        holder.itemView.setOnLongClickListener(onLongClickListener);
     }
 
     @Override

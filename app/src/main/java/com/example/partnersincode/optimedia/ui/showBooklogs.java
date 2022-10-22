@@ -72,6 +72,7 @@ public class showBooklogs extends Fragment {
         btnCreateGenre.setOnClickListener(item -> {
             Bundle bundleSend = new Bundle();
             bundleSend.putInt("blBookID", BookID);
+            bundleSend.putParcelable("bookInfo",book);
             bundleSend.putString("Intent", "Add");
             Navigation.findNavController(item).navigate(R.id.nav_createBooklogs,bundleSend);
         });

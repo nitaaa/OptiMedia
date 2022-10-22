@@ -191,12 +191,12 @@
     <fragment
         android:id="@+id/nav_createGameLog"
         android:name="com.example.partnersincode.optimedia.ui.createGameLog"
-        android:label="fragment_create_game_log"
+        android:label="@string/createGameLog"
         tools:layout="@layout/fragment_create_game_log" />
     <fragment
         android:id="@+id/nav_manageGameLog"
         android:name="com.example.partnersincode.optimedia.ui.manageGameLog"
-        android:label="fragment_manage_game_log"
+        android:label="@string/manageGameLogs"
         tools:layout="@layout/fragment_manage_game_log" />
     <fragment
         android:id="@+id/nav_qrScanControl"

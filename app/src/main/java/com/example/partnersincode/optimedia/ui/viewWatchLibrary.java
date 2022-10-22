@@ -98,7 +98,7 @@ public class viewWatchLibrary extends Fragment {
                 Movie movie = viewHolder.movie;
                 bundle.putParcelable("movieInfo", movie);
 
-                Navigation.findNavController(view).navigate(R.id.nav_createMovieLog, bundle);
+                Navigation.findNavController(view).navigate(R.id.nav_manageMovieLog, bundle);
             } else if (viewHolder.series != null){
                 Series series = viewHolder.series;
                 bundle.putParcelable("seriesInfo", series);

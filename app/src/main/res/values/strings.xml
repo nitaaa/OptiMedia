@@ -115,7 +115,9 @@
     <string name="favourite_genre">Most popular genre:</string>
     <string name="enterGenreName">Enter Genre</string>
     <string name="search_media">Search Media</string>
-
+    <string name="gameLog">Game Log</string>
+    <string name="manageGameLogs">Manage Game Logs</string>
+    <string name="createGameLog">Create Game Log</string>
 
 
 </resources>

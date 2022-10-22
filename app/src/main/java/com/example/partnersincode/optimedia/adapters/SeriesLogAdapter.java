@@ -17,6 +17,7 @@ import java.util.List;
 public class SeriesLogAdapter extends RecyclerView.Adapter<SeriesLogAdapter.SeriesLogViewHolder>{
     private final List<SeriesLog> seriesLogList;
     private View.OnClickListener onClickListener;
+    private View.OnLongClickListener onLongClickListener;
 
     public SeriesLogAdapter(List<SeriesLog> seriesLogList) {
         this.seriesLogList = seriesLogList;
@@ -24,6 +25,10 @@ public class SeriesLogAdapter extends RecyclerView.Adapter<SeriesLogAdapter.Seri
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
+    }
+    public void setOnLongClickListener(View.OnLongClickListener onLongClickListener)
+    {
+        this.onLongClickListener = onLongClickListener;
     }
 
     public static class SeriesLogViewHolder extends RecyclerView.ViewHolder {
@@ -62,6 +67,7 @@ public class SeriesLogAdapter extends RecyclerView.Adapter<SeriesLogAdapter.Seri
         SeriesLog seriesLog = seriesLogList.get(position);
         holder.setSeriesLog(seriesLog);
         holder.itemView.setOnClickListener(onClickListener);
+        holder.itemView.setOnLongClickListener(onLongClickListener);
     }
 
     @Override

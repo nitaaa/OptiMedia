@@ -20,6 +20,7 @@ import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.GameLog;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,13 +76,13 @@ public class manageGameLog extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        getActivity().getWindow().setTitle(TAG);
+
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_manage_game_log, container, false);
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
 
-        List<GameLog> logs = dbHandler.getGameLogs();
+        List<GameLog> logs = dbHandler.getGameLogs().stream().filter(gameLog -> gameLog.getGameID()==game.getGameID()).collect(Collectors.toList());
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerGameLog);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());

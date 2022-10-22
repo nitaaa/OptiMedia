@@ -21,6 +21,7 @@ public class WatchObjectAdapter extends RecyclerView.Adapter<WatchObjectAdapter.
     private static final String TAG = "WatchObjectAdapter";
     private final List<WatchObject> watchObjectList;
     private View.OnClickListener onClickListener;
+    private View.OnLongClickListener onLongClickListener;
 
     public WatchObjectAdapter(List<WatchObject> watchObjectList) {
         this.watchObjectList = watchObjectList;
@@ -28,6 +29,11 @@ public class WatchObjectAdapter extends RecyclerView.Adapter<WatchObjectAdapter.
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
+    }
+
+    public void setOnLongClickListener(View.OnLongClickListener onLongClickListener)
+    {
+        this.onLongClickListener = onLongClickListener;
     }
 
     public class WatchObjectViewHolder extends RecyclerView.ViewHolder {
@@ -75,6 +81,7 @@ public class WatchObjectAdapter extends RecyclerView.Adapter<WatchObjectAdapter.
             holder.setMovie((Movie) watchObject);
         }
         holder.itemView.setOnClickListener(onClickListener);
+        holder.itemView.setOnLongClickListener(onLongClickListener);
     }
 
     @Override

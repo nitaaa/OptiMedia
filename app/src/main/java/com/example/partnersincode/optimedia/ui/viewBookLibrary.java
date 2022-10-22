@@ -97,6 +97,11 @@ public class viewBookLibrary extends Fragment {
             bundle.putParcelable("bookInfo", book);
             Navigation.findNavController(view).navigate(R.id.nav_viewBooklogs, bundle); //navigate to A02111
         });
+        //Set long click listener for removing from library
+//        adapter.setOnLongClickListener( view ->
+//        {
+//
+//        });
 
         //TODO: onclick for edit
         Button imgBtnEditBook = rootView.findViewById(R.id.imgBtnEditBook);

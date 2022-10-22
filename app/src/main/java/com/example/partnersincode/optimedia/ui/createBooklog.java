@@ -36,7 +36,7 @@ public class createBooklog extends Fragment {
            bookID = bundle.getInt("blBookID");
             bEdit = false;
         }
-        bundle.getParcelable("bookInfo");
+        book = bundle.getParcelable("bookInfo");
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.add_logtobook_fragment, container, false);
