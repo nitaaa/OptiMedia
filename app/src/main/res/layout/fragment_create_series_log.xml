@@ -93,6 +93,7 @@
 
             </LinearLayout>
 
+
             <Switch
                 android:id="@+id/switchSLogFavourite"
                 style="@style/txtSubHeading"

@@ -56,12 +56,26 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="lbl_scanToAddLibrary">Scan this QR code to add %s</string>
+    <string name="submit">Submit</string>
+    <string name="scanAnother">Scan More</string>
+    <string name="scanNr">Scan Nr: %d</string>
+    <string name="A05000_instructions">Continue scanning (Scan More button) until the the last QR code has been scanned. Please take care not to scan anything other QR codes, and only scan what the sender has provided. Scans have to be done in order given by sender. When finished, click submit. Use the count below to ensure that number of QR codes scanned equates to the current QR code as show on the sender screen</string>
+    <string name="scanQR">Scan QR Code</string>
+    <string name="ok">OK</string>
+    <string name="noCameraPermission">Cannot scan QR code without camera permissions. Try Again</string>
+    <string name ="scanFailed">Scanning Failed/Cancelled</string>
     <string name="addToWatchLibraryConfirmation">Media added to watch library</string>
+
     <string name="label_new_media">Add New Media</string>
     <string name="add_new_game">Add New Game</string>
     <string name="game_name">Game Name:</string>
     <string name="game_type">Game Type:</string>
     <string name="select_genre">Select Genre:</string>
+    <string name="fileName">Set File Name</string>
+    <string name="newGenreBtn">Add Genre</string>
+    <string name="invalidGenre">Please enter a valid genre</string>
+
+    <string name="undo">Undo</string>
 
     <!-- Temp: might be replaced by other people's strings-->
     <string name="add_new_book">Add New Book</string>
@@ -95,7 +109,11 @@
 
     <string name="view_all_libraries">View All Libraries</string>
     <string name="record_season_and_episode">Record Season and Episode</string>
+    <string name="copy">Copy</string>
+    <string name="exportXML">Export XML</string>
+    <string name="enterGenreName">Enter Genre</string>
     <string name="search_media">Search Media</string>
+
 
 
 </resources>

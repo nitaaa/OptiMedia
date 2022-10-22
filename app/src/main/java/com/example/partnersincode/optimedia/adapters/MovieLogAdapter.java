@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.partnersincode.optimedia.R;
-import com.example.partnersincode.optimedia.models.Movie;
 import com.example.partnersincode.optimedia.models.MovieLog;
 
 import java.util.List;
@@ -33,7 +32,7 @@ public class MovieLogAdapter extends RecyclerView.Adapter<MovieLogAdapter.MovieL
 
         public MovieLogViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtRecyclerMovieLog = itemView.findViewById(R.id.txtRecylerMovieLog);
+            txtRecyclerMovieLog = itemView.findViewById(R.id.txtRecylerGameLog);
         }
 
         public void setMovieLog(MovieLog movieLog) {

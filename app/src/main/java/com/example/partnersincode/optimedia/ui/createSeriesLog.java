@@ -95,9 +95,9 @@ public class createSeriesLog extends Fragment {
 
         //Fill in series info
         TextView txtSLogSTitle,txtSLogSGenre,txtSLogLink;
-        txtSLogSTitle = rootView.findViewById(R.id.txtSLogSTitle);
-        txtSLogSGenre = rootView.findViewById(R.id.txtSLogSGenre);
-        txtSLogLink = rootView.findViewById(R.id.txtSLogLink);
+        txtSLogSTitle = rootView.findViewById(R.id.txtMovie);
+        txtSLogSGenre = rootView.findViewById(R.id.txtGameGenre);
+        txtSLogLink = rootView.findViewById(R.id.txtLink);
 
         Switch switchSLogFavourite,switchSLogStarted,switchSLogComplete;
         switchSLogFavourite = rootView.findViewById((R.id.switchSLogFavourite));

@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -40,9 +39,9 @@ public class CreateSeries extends Fragment {
         button.setOnClickListener(v-> {
             String Title = ((EditText) view.findViewById(R.id.edtSeriesTitle)).getText().toString();
             Genre genre = (Genre) spinnerGenre.getSelectedItem();
-            boolean bFav = ((Switch)view.findViewById((R.id.sFavourite))).isChecked();
-            boolean bStarted = ((Switch)view.findViewById((R.id.sStarted))).isChecked();
-            boolean bCom = ((Switch)view.findViewById((R.id.sCompleted))).isChecked();
+            boolean bFav = ((Switch)view.findViewById((R.id.A08400_favourite))).isChecked();
+            boolean bStarted = ((Switch)view.findViewById((R.id.A08400_started))).isChecked();
+            boolean bCom = ((Switch)view.findViewById((R.id.A08400_completed))).isChecked();
 
             dbHandler.createSeries(Title,genre.getGenreID(),bFav,bStarted,bCom);
             Toast.makeText(this.getContext(),"Added Series", Toast.LENGTH_SHORT).show();

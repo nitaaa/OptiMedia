@@ -75,7 +75,7 @@ public class manageAuthors extends Fragment {
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
 
         List<Author> authors = dbHandler.getAuthors();
-        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerMovieLog);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerGameLog);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -92,7 +92,7 @@ public class manageAuthors extends Fragment {
             Navigation.findNavController(view).navigate(R.id.nav_createAuthor, bundle);
         });
 
-        Button btnCreateAuthor = rootView.findViewById(R.id.btnCreateMovieLog);
+        Button btnCreateAuthor = rootView.findViewById(R.id.btnCreateGameLog);
         btnCreateAuthor.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_createAuthor));
 
         return rootView;

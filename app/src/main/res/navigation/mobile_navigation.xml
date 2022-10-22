@@ -61,9 +61,9 @@
         tools:layout="@layout/fragment_create_book" />
 
     <fragment
-        android:id="@+id/nav_shareLibrary"
-        android:name="com.example.partnersincode.optimedia.ui.shareLibrary.ShareLibrary"
-        android:label="Share Library" />
+        android:id="@+id/nav_importLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.importLibrary.ImportLibrary"
+        android:label="Import Library" />
 
     <fragment
         android:id="@+id/nav_createSeries"
@@ -161,7 +161,7 @@
     <fragment
         android:id="@+id/nav_createMovieLog"
         android:name="com.example.partnersincode.optimedia.ui.createMovieLog"
-        android:label="createMovieLog"
+        android:label="Create Movie Log"
         tools:layout="@layout/fragment_create_movie_log" />
 
     <fragment
@@ -169,6 +169,31 @@
         android:name="com.example.partnersincode.optimedia.ui.manageMovieLog"
         android:label="manageMovieLog"
         tools:layout="@layout/fragment_manage_movie_log" />
+    <fragment
+        android:id="@+id/nav_xmlExport"
+        android:name="com.example.partnersincode.optimedia.ui.xmlExport"
+        android:label="fragment_xml_export"
+        tools:layout="@layout/fragment_xml_export" />
+    <fragment
+        android:id="@+id/nav_createGameLog"
+        android:name="com.example.partnersincode.optimedia.ui.createGameLog"
+        android:label="fragment_create_game_log"
+        tools:layout="@layout/fragment_create_game_log" />
+    <fragment
+        android:id="@+id/nav_manageGameLog"
+        android:name="com.example.partnersincode.optimedia.ui.manageGameLog"
+        android:label="fragment_manage_game_log"
+        tools:layout="@layout/fragment_manage_game_log" />
+    <fragment
+        android:id="@+id/nav_qrScanControl"
+        android:name="com.example.partnersincode.optimedia.ui.scanQRCode.qrScanControl"
+        android:label="Scan QR Code"
+        tools:layout="@layout/fragment_scan_qr_code" />
+    <fragment
+        android:id="@+id/nav_xmlImport"
+        android:name="com.example.partnersincode.optimedia.ui.xmlImport"
+        android:label="Import XML"
+        tools:layout="@layout/fragment_xml_import" />
     <fragment
         android:id="@+id/nav_search_media_items"
         android:name="com.example.partnersincode.optimedia.ui.search_media_items"
@@ -184,4 +209,5 @@
         android:name="com.example.partnersincode.optimedia.ui.viewMediaObject"
         android:label="View Media"
         tools:layout="@layout/fragment_view_media_object" />
+
 </navigation>

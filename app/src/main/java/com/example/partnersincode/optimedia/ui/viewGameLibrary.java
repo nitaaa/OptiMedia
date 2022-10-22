@@ -17,9 +17,7 @@ import android.widget.Toast;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
-import com.example.partnersincode.optimedia.adapters.BookAdapter;
 import com.example.partnersincode.optimedia.adapters.GameAdapter;
-import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.Library;
 
@@ -98,8 +96,7 @@ public class viewGameLibrary extends Fragment {
             Toast.makeText(this.getContext(), game.toString(),Toast.LENGTH_LONG).show();
             Bundle bundle = new Bundle();
             bundle.putParcelable("gameInfo", game);
-            // TODO:Navigation from view book library to A02211
-            //Navigation.findNavController(view).navigate(R.id., bundle); //navigate to A02111
+            Navigation.findNavController(view).navigate(R.id.nav_manageGameLog, bundle); //navigate to A02111
         });
 
         //TODO: onclick for edit
@@ -116,8 +113,8 @@ public class viewGameLibrary extends Fragment {
         Button imgBtnShareGLib = rootView.findViewById(R.id.imgBtnShareGLib);
         imgBtnShareGLib.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
-            bundle.putParcelable("GameLibraryInfo", library);
-            Navigation.findNavController(view).navigate(R.id.nav_shareLibrary, bundle);
+            bundle.putParcelable("libraryInfo", library);
+            Navigation.findNavController(view).navigate(R.id.nav_xmlExport, bundle);
         });
         return rootView;
     }

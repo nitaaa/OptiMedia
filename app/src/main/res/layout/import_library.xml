@@ -23,16 +23,16 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
-                android:id="@+id/btnGenQR"
+                android:id="@+id/btnScanQR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/share_qr" />
+                android:text="Scan QR" />
 
             <Button
-                android:id="@+id/btnCreateXML"
+                android:id="@+id/btnImportXML"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/share_xml" />
+                android:text="Import XML" />
 
         </LinearLayout>
 
