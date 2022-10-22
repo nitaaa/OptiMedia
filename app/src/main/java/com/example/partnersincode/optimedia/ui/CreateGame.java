@@ -1,7 +1,9 @@
 package com.example.partnersincode.optimedia.ui;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -10,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +24,7 @@ import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.Genre;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +38,7 @@ public class CreateGame extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String TAG = "CreateGame";
+    private Spinner spinGenre;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -81,10 +87,17 @@ public class CreateGame extends Fragment {
         ArrayAdapter<Genre> adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, genres);
         adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
 
-        Spinner spinGenre =(Spinner) rootView.findViewById(R.id.spinGenre);
+        spinGenre = (Spinner) rootView.findViewById(R.id.spinGenre);
         spinGenre.setAdapter(adapter);
         TextView edtxtGameName = rootView.findViewById(R.id.edtxtGameName);
         TextView edtxtGameType = rootView.findViewById(R.id.edtxtGameType);
+
+        Switch favourite = rootView.findViewById(R.id.cg_favourite);
+        Switch started = rootView.findViewById(R.id.cg_started);
+        Switch complete = rootView.findViewById(R.id.cg_complete);
+
+        Button btncg_genre = rootView.findViewById(R.id.btncg_genre);
+        btncg_genre.setOnClickListener(this::getNewGenreName);
 
         Button btnAddNewGame = rootView.findViewById(R.id.btnAddNewGame);
         btnAddNewGame.setOnClickListener(view -> {
@@ -93,9 +106,9 @@ public class CreateGame extends Fragment {
             newGame.setGameType(edtxtGameType.getText().toString());
             Genre curGenre = (Genre) spinGenre.getSelectedItem();
             newGame.setGenreID(curGenre.getGenreID());
-            newGame.setFavourite(false);
-            newGame.setStarted(false);
-            newGame.setCompleted(false);
+            newGame.setFavourite(favourite.isChecked());
+            newGame.setStarted(started.isChecked());
+            newGame.setCompleted(complete.isChecked());
 
             int i = dbHandler.createNewGame(newGame);
             Log.d(TAG, "Game Added:" + newGame.getGameTitle());
@@ -115,5 +128,52 @@ public class CreateGame extends Fragment {
         });
 
         return rootView;
+    }
+
+    private void getNewGenreName(View view)
+    {
+        LayoutInflater li = LayoutInflater.from(getContext());
+        View promptsView = li.inflate(R.layout.prompt_new_genre, null);
+        DatabaseHandler handler = new DatabaseHandler(this.getContext());
+        List<Genre> genres = handler.getGenres();
+        ArrayAdapter<Genre> adapter = new ArrayAdapter<>(this.getContext(),android.R.layout.simple_spinner_dropdown_item,genres);
+
+        spinGenre.setAdapter(adapter);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                getContext());
+
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView
+                .findViewById(R.id.editTextDialogUserInput);
+
+
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // get user input and set it to result
+                                // edit text
+
+                                if(userInput.getText().toString().equals(""))
+                                {
+                                    Toast.makeText(getContext(),getString(R.string.invalidGenre), Toast.LENGTH_SHORT).show();
+                                    dialog.cancel();
+                                }
+                                handler.addGenre(userInput.getText().toString());
+                                Genre genre = handler.getGenre(userInput.getText().toString());
+                                genres.add(genre);
+                                adapter.notifyDataSetChanged();
+
+
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        }).show();
     }
 }
