@@ -1286,9 +1286,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 book.setGenreID(c.getInt(c.getColumnIndex("genreID")));
                 book.setISBN(c.getString(c.getColumnIndex("ISBN")));
                 book.setBookTitle(c.getString(c.getColumnIndex("bookTitle")));
-                book.setFavourite(c.getInt(c.getColumnIndex("favourite"))==1);
-                book.setStarted(c.getInt(c.getColumnIndex("started")) == 1);
-                book.setCompleted(c.getInt(c.getColumnIndex("complete"))==1);
+                book.setFavourite(c.getInt(c.getColumnIndex("favourite")) > 0);
+                book.setStarted(c.getInt(c.getColumnIndex("started")) > 0);
+                book.setCompleted(c.getInt(c.getColumnIndex("complete")) > 0);
 
                 bookArrayList.add(book);
                 Log.d("DatabaseHandler", "getBookLibraries: " + book.toString());
@@ -1526,6 +1526,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return  c.getInt(0);
     }
 
+    //TODO seems to be an error with this
     public String statsSeriesPopGenre() {
         SQLiteDatabase db = this.getWritableDatabase();
         String sql = "Select genreName,count(genreID) From Book inner join Genre" +
@@ -1636,34 +1637,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             db.execSQL(SQL);
         }
-    }
-
-    @SuppressLint("Range")
-    public Collection<Book> getBooks(String keyword) {
-        ArrayList<Book> bookArrayList = new ArrayList<>();
-
-        String selectQuery = "SELECT * FROM Book WHERE bookTitle LIKE '%" + keyword +"%'";
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery(selectQuery, null);
-        if (c.moveToFirst()) {
-            do {
-                Book book = new Book();
-                book.setBookID(c.getInt(c.getColumnIndex("bookID")));
-                book.setAuthorID(c.getInt(c.getColumnIndex("authorID")));
-                book.setGenreID(c.getInt(c.getColumnIndex("genreID")));
-                book.setBookTitle(c.getString(c.getColumnIndex("bookTitle")));
-                book.setISBN(c.getString(c.getColumnIndex("ISBN")));
-                book.setFavourite(c.getInt(c.getColumnIndex("favourite")) > 0);
-                book.setStarted(c.getInt(c.getColumnIndex("started")) > 0);
-                book.setCompleted(c.getInt(c.getColumnIndex("complete")) > 0);
-
-                bookArrayList.add(book);
-                Log.d("DatabaseHandler", "getBooks: " + book.getBookTitle());
-            } while (c.moveToNext());
-        }
-        c.close();
-        return bookArrayList;
     }
 
     public Collection<WatchObject> getWatchItems(String keyword) {

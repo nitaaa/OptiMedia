@@ -66,7 +66,8 @@ public class ViewStatistics extends Fragment {
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
 
         TextView txtSPG = rootView.findViewById(R.id.txtSPG);
-        txtSPG.setText(txtSPG.getText() + dbHandler.statsSeriesPopGenre());
+        //todo see DatabaseHandler.java line 1530
+        //txtSPG.setText(txtSPG.getText() + dbHandler.statsSeriesPopGenre());
 
         TextView txtFS = rootView.findViewById(R.id.txtFS);
         txtFS.setText(txtFS.getText() + Integer.toString(dbHandler.statsFinishedSeries()));

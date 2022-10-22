@@ -152,7 +152,7 @@ public class createSeriesLog extends Fragment {
             //TODO Not sure how to pass this? create a new library in db then pass the library?
             Bundle bundle = new Bundle();
             bundle.putParcelable("seriesInfo", series);
-            Navigation.findNavController(view).navigate(R.id.nav_shareLibrary, bundle);
+            //Navigation.findNavController(view).navigate(R.id.nav_shareLibrary, bundle);
         });
 
         Button btnDeleteSeries = rootView.findViewById(R.id.btnDeleteSeries);
