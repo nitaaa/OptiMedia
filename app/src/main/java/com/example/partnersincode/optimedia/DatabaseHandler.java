@@ -186,7 +186,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         query = "INSERT INTO BookLog (bookID,blTitle,blNote,blPageNumber) VALUES " +
                 " (1,'Feyre','I threw myself into that fire, threw myself into it, into him, and let myself burn.','312'),"+
                 " (1,'Mr. Archeron','We need hope, or else we cannot endure.','19'), " +
-                " (1,'Rhysand','I didn''t want you to fight alone. Or die alone.','413')";
+                " (1,'Rhysand','I didn''t want you to fight alone. Or die alone.','413'),"+
+                " (9,'Cinder','Even in the Future the Story Begins with Once Upon a Time.','3'),"+
+                " (9,'Kai','But mirrors have an uncanny way of telling the truth.','195'), " +
+                " (10,'Scarlet','I don’t see that her being cyborg is relevant.','215'),"+
+                " (10,'Winter','Did you see any rice in there? Maybe we could fill Cinders head with it.','184'),"+
+                " (10,'Wolfe','But you are the only one, Scarlet. You will always be the only one.','259'), " +
+                " (7,'R50','','0'),"+
+                " (8,'R65','','0')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add game log
