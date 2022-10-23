@@ -143,11 +143,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         sqLiteDatabaseDB.execSQL(query);
 
         //add series
-        query = "INSERT INTO Series (genreID,seriesTitle,favourite,started,complete) VALUES ('1','Fate: The Winx Saga',1,1,0),"+
-                " ('2','The Umbrella Academy',0,1,0), ('3','Bridgerton',0,1,1), "+
-                " ('5','The Summer I Turned Pretty',0,0,0), ('9','Reacher',1,1,1)," +
-                "('10','Welcome to Wrexham',1,1,0), ('7','The Winchesters',1,0,0), ('1','House of the Dragon',0,1,0)," +
-                "('1','The Lord of the Rings: The Rings of Power',1,0,0), ('3','The Empress',0,0,0)";
+        query = "INSERT INTO Series (genreID,seriesTitle,favourite,started,complete) VALUES (1,'Fate: The Winx Saga',1,1,0),"+
+                " (1,'The Umbrella Academy',0,1,0), (3,'Bridgerton',0,1,1), "+
+                " (5,'The Summer I Turned Pretty',0,0,0), (9,'Reacher',1,1,1)," +
+                "(10,'Welcome to Wrexham',1,1,0), ('7','The Winchesters',1,0,0), (1,'House of the Dragon',0,1,0)," +
+                "(1,'The Lord of the Rings: The Rings of Power',1,0,0), (3,'The Empress',0,0,0)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add watchlist item
@@ -179,7 +179,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         sqLiteDatabaseDB.execSQL(query);
 
         //add watch library
-        query = "INSERT INTO WatchLibrary (libraryID,WLI_ID)VALUES (3,11),(3,2),(3,19),(9,10),(9,11),(5,5),(5,12),(5,13)";
+        query = "INSERT INTO WatchLibrary (libraryID,WLI_ID)VALUES (3,11),(3,2),(3,19),(9,10),(9,9),(5,5),(5,12),(5,13)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add book log

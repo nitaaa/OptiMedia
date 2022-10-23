@@ -106,7 +106,7 @@ public class createSeriesLog extends Fragment {
 
         ArrayList<Genre> genres = dbHandler.getGenres();
         txtSLogSTitle.setText(series.getTitle());
-        txtSLogSGenre.setText(genres.get(series.getGenreID()).toString());
+        txtSLogSGenre.setText(dbHandler.getGenre(series.getGenreID()).toString());
         txtSLogLink.setText(series.getLink());
 
         switchSLogFavourite.setChecked(series.getFavourite());
