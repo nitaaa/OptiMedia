@@ -15,15 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
 import com.example.partnersincode.optimedia.adapters.MovieLogAdapter;
+import com.example.partnersincode.optimedia.models.Movie;
 import com.example.partnersincode.optimedia.models.MovieLog;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link manageMovieLog#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class manageMovieLog extends Fragment {
 
   /*  // TODO: Rename parameter arguments, choose names that match
@@ -66,13 +63,15 @@ public class manageMovieLog extends Fragment {
         }
     }*/
 
+    Movie movie;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         int MovieID;
         Bundle getBundle = this.getArguments();
         if (getBundle != null) {
-            MovieID = getBundle.getInt("getMovieID");
+            movie = getBundle.getParcelable("movieInfo");
         }else
             MovieID=-1;
 
@@ -95,6 +94,7 @@ public class manageMovieLog extends Fragment {
 
             Bundle bundle = new Bundle();
             bundle.putSerializable("movieLogInfo",movieLog);
+            bundle.putParcelable("movieInfo",movie);
             bundle.putString("Intent", "Edit");
             Navigation.findNavController(view).navigate(R.id.nav_createMovieLog, bundle);
         });
@@ -102,7 +102,7 @@ public class manageMovieLog extends Fragment {
         Button btnCreateMovieLog = rootView.findViewById(R.id.btnCreateGameLog);
        btnCreateMovieLog.setOnClickListener(view ->{
            Bundle bundle = new Bundle();
-           bundle.putInt("MovieID",MovieID);
+           bundle.putParcelable("movieInfo",movie);
            bundle.putString("Intent", "Add");
            Navigation.findNavController(view).navigate(R.id.nav_createMovieLog,bundle);
        });

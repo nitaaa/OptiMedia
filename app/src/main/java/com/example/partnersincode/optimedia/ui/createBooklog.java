@@ -47,6 +47,8 @@ public class createBooklog extends Fragment {
         TextView edtPN = rootView.findViewById(R.id.edtBLPN);
         Button btnNewBL = rootView.findViewById(R.id.btnAddBookLog);
 
+        edtNote.setSingleLine(false);
+
         TextView txtTitle = rootView.findViewById(R.id.txtBook);
         TextView txtGenre = rootView.findViewById(R.id.txtGenre);
         TextView txtISBN = rootView.findViewById(R.id.txtISBN);

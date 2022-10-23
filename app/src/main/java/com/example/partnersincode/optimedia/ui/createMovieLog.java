@@ -67,13 +67,14 @@ public class createMovieLog extends Fragment {
             movieLog = (MovieLog) bundle.getSerializable("movieLogInfo");
             editing = true;
         } else {
-            movie = bundle.getParcelable("movieInfo");
-            DatabaseHandler db = new DatabaseHandler(getContext());
-            if(movie.getGenreID()!=0)
-            genre = db.getGenre(movie.getGenreID());
-            else genre = new Genre(-1, "");
+
             editing = false;
         }
+        movie = bundle.getParcelable("movieInfo");
+        DatabaseHandler db = new DatabaseHandler(getContext());
+        if(movie.getGenreID()!=0)
+            genre = db.getGenre(movie.getGenreID());
+        else genre = new Genre(-1, "");
     }
 
     @Override
@@ -86,6 +87,7 @@ public class createMovieLog extends Fragment {
         //TextView edtxtMovieID = rootView.findViewById(R.id.edtxtMovieID);
         TextView edtxtTime = rootView.findViewById(R.id.edtxtTitle);
         TextView edtxtNote = rootView.findViewById(R.id.edtxtNote);
+        edtxtNote.setSingleLine(false);
         Button btnAddMovieLog = rootView.findViewById(R.id.btnAddGameLog);
         TextView text = rootView.findViewById(R.id.txtMovie);
         text.setText(movie.getTitle());

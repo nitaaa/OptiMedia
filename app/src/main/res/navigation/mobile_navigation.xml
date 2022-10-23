@@ -57,7 +57,7 @@
     <fragment
         android:id="@+id/nav_createBook"
         android:name="com.example.partnersincode.optimedia.ui.createBook"
-        android:label="Create Book"
+        android:label="Add Book"
         tools:layout="@layout/fragment_create_book" />
 
     <fragment
@@ -105,7 +105,7 @@
     <fragment
         android:id="@+id/nav_createBooklogs"
         android:name="com.example.partnersincode.optimedia.ui.createBooklog"
-        android:label="Add/Edit Booklog"
+        android:label="Book Log"
         tools:layout="@layout/add_logtobook_fragment" />
         
     <fragment
@@ -161,13 +161,13 @@
     <fragment
         android:id="@+id/nav_createMovieLog"
         android:name="com.example.partnersincode.optimedia.ui.createMovieLog"
-        android:label="Create Movie Log"
+        android:label="Movie Log"
         tools:layout="@layout/fragment_create_movie_log" />
 
     <fragment
         android:id="@+id/nav_manageMovieLog"
         android:name="com.example.partnersincode.optimedia.ui.manageMovieLog"
-        android:label="manageMovieLog"
+        android:label="Manage Movie Log"
         tools:layout="@layout/fragment_manage_movie_log" />
     <fragment
         android:id="@+id/nav_xmlExport"
@@ -177,7 +177,7 @@
     <fragment
         android:id="@+id/nav_addBookToLib"
         android:name="com.example.partnersincode.optimedia.addBookToLib.addBookToLibrary"
-        android:label="addBookToLibrary" />
+        android:label="Add Book to Library" />
     <fragment
         android:id="@+id/nav_viewList"
         android:name="com.example.partnersincode.optimedia.ui.ViewList"
