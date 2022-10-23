@@ -172,7 +172,7 @@
     <fragment
         android:id="@+id/nav_xmlExport"
         android:name="com.example.partnersincode.optimedia.ui.xmlExport"
-        android:label="Export XML"
+        android:label="Export Library"
         tools:layout="@layout/fragment_xml_export" />
     <fragment
         android:id="@+id/nav_addBookToLib"
@@ -186,7 +186,7 @@
     <fragment
         android:id="@+id/nav_viewStatistics"
         android:name="com.example.partnersincode.optimedia.ui.ViewStatistics"
-        android:label="fragment_view_statistics"
+        android:label="Statistics"
         tools:layout="@layout/fragment_view_statistics" />
     <fragment
         android:id="@+id/nav_createGameLog"

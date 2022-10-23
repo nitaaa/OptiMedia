@@ -90,7 +90,7 @@ public class editLibrary extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dbHandler.deleteLibrary(library.getLibraryID(), library.getLibraryType());
-                        Navigation.findNavController(rootView).navigate(R.id.nav_viewAllLibraries);
+                        Navigation.findNavController(rootView).navigate(R.id.nav_home);
                     }
                 });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

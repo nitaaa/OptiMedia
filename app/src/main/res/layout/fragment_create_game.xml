@@ -22,10 +22,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="right"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <TextView
             android:id="@+id/textView4"
+            style="@style/txtSubHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/game_name" />
@@ -39,6 +41,7 @@
 
         <TextView
             android:id="@+id/textView6"
+            style="@style/txtSubHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/game_type" />
@@ -52,6 +55,7 @@
 
         <TextView
             android:id="@+id/textView5"
+            style="@style/txtSubHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/select_genre" />
@@ -60,6 +64,33 @@
             android:id="@+id/spinGenre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btncg_genre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/newGenreBtn" />
+
+        <Switch
+            android:id="@+id/cg_favourite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/favourite" />
+
+        <Switch
+            android:id="@+id/cg_started"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/started" />
+
+        <Switch
+            android:id="@+id/cg_complete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/completed" />
 
     </LinearLayout>
 

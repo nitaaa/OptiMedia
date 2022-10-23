@@ -1,5 +1,6 @@
 package com.example.partnersincode.optimedia.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -59,6 +60,7 @@ public class ViewStatistics extends Fragment {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,8 +68,16 @@ public class ViewStatistics extends Fragment {
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
 
         TextView txtSPG = rootView.findViewById(R.id.txtSPG);
-        //todo see DatabaseHandler.java line 1530
-        //txtSPG.setText(txtSPG.getText() + dbHandler.statsSeriesPopGenre());
+        txtSPG.setText(txtSPG.getText() + dbHandler.statsSeriesPopGenre());
+
+        TextView txtMPG = rootView.findViewById(R.id.txtMPG);
+        txtMPG.setText(txtMPG.getText() + dbHandler.statsMoviePopGenre());
+
+        TextView txtGPG = rootView.findViewById(R.id.txtGPG);
+        txtGPG.setText(txtGPG.getText() + dbHandler.statsGamePopGenre());
+
+        TextView txtBPG = rootView.findViewById(R.id.txtBPG);
+        txtBPG.setText(txtBPG.getText() + dbHandler.statsBookPopGenre());
 
         TextView txtFS = rootView.findViewById(R.id.txtFS);
         txtFS.setText(txtFS.getText() + Integer.toString(dbHandler.statsFinishedSeries()));

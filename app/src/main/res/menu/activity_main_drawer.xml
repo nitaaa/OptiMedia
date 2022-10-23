@@ -6,8 +6,13 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_dashboard"
             android:title="@string/menu_home" />
+
+        <item
+            android:id="@+id/nav_search_media_items"
+            android:icon="@drawable/ic_search"
+            android:title="@string/search_media" />
 
         <item
             android:id="@+id/nav_createLibrary"
@@ -15,9 +20,9 @@
             android:title="@string/createlabel" />
 
         <item
-            android:id="@+id/nav_manageAuthors"
-            android:icon="@drawable/ic_author"
-            android:title="@string/manage_authors" />
+            android:id="@+id/nav_viewAllLibraries"
+            android:icon="@drawable/ic_library"
+            android:title="@string/view_all_libraries" />
 
         <item
             android:id="@+id/nav_importLibrary"
@@ -26,46 +31,23 @@
 
         <item
             android:id="@+id/nav_addNewMedia"
-            android:icon="@drawable/ic_add"
+            android:icon="@drawable/ic_create"
             android:title="@string/label_new_media" />
 
-        <item
+<!--        <item-->
+<!--            android:id="@+id/nav_manageGenre"-->
+<!--            android:icon="@drawable/ic_genre"-->
+<!--            android:title="Manage genres" />-->
 
-            android:id="@+id/nav_manageGenre"
-            android:icon="@drawable/ic_add"
-            android:title="Manage genres" />
+<!--        <item-->
+<!--            android:id="@+id/nav_manageAuthors"-->
+<!--            android:icon="@drawable/ic_author"-->
+<!--            android:title="@string/manage_authors" />-->
 
-        <item
-            android:id="@+id/nav_viewBooklogs"
-            android:icon="@drawable/ic_add"
-            android:title="Manage Booklogs" />
-
-        <item
-            android:id="@+id/nav_addGameToLibrary"
-            android:icon="@drawable/ic_add"
-            android:title="Add Game To Library" />
-
-        <item
-            android:id="@+id/nav_manageMovieLog"
-            android:icon="@drawable/ic_author"
-            android:title="Manage Movie Log" />
-
-        <item
-            android:id="@+id/nav_viewAllLibraries"
-            android:icon="@drawable/ic_library"
-            android:title="@string/view_all_libraries" />
-        <item
-            android:id="@+id/nav_addBookToLib"
-            android:title="Add Book To Library" />
         <item
             android:id="@+id/nav_viewStatistics"
             android:icon="@drawable/stats"
             android:title="Statistics" />
-
-        <item
-            android:id="@+id/nav_search_media_items"
-            android:icon="@drawable/ic_search"
-            android:title="@string/search_media" />
 
     </group>
 </menu>

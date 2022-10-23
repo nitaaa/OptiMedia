@@ -189,27 +189,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Qaanita Fataar
      * @param LibraryType String - Library's Type (Book, Game, Watch)
      */
-    public void createLibrary(String LibraryName, String LibraryType){
+    public int createLibrary(String LibraryName, String LibraryType){
         Log.d("createLibrary", " starting ");
         SQLiteDatabase db = this.getWritableDatabase();
 
         //Works both ways:
         //Way 1:
-        String query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','"+ LibraryType +"')";
-        if (LibraryType.equals("Movie/Series")){
-            query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','Watch')";
-        }
-        db.execSQL(query);
+//        String query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','"+ LibraryType +"')";
+//        if (LibraryType.equals("Movie/Series")){
+//            query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','Watch')";
+//        }
+//        db.execSQL(query);
 
         //Way 2: Helpful because you get the ID as well
-    //    ContentValues values = new ContentValues();
-    //    values.put("libraryName", LibraryName);
-    //    if (LibraryType.equals("Movie/Series")){
-    //        values.put("libraryType", "Watch");
-     //   } else {
-     //       values.put("libraryType", LibraryType);
-     //   }
-     //   long id = db.insertWithOnConflict("Library", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        ContentValues values = new ContentValues();
+        values.put("libraryName", LibraryName);
+        if (LibraryType.equals("Movie/Series")){
+            values.put("libraryType", "Watch");
+        } else {
+            values.put("libraryType", LibraryType);
+        }
+        long id = db.insertWithOnConflict("Library", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        return (int) id;
      //   Log.d("createLibrary", "complete // " +id);
     }
 
@@ -256,7 +257,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<Library> getAllLibraries() {
         ArrayList<Library> libraryArrayList = new ArrayList<>();
 
-        String selectQuery = "SELECT * FROM Library";
+        String selectQuery = "SELECT * FROM Library WHERE NOT libraryName='tempshare'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
@@ -1548,15 +1549,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return  c.getInt(0);
     }
 
-    //TODO seems to be an error with this
     public String statsSeriesPopGenre() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "Select genreName,count(genreID) From Book inner join Genre" +
-                " on Book.genreID=Genre.genreID group by genreName order by count(genreID) desc";
+        String sql = "Select genreName,count(Genre.genreID) From Genre inner join Series on Genre.genreID=Series.genreID group by Genre.genreName order by count(Genre.genreID) desc";
         Cursor c = db.rawQuery(sql,null);
         c.moveToFirst();
         return  c.getString(0);
-     }
+    }
+
+    public String statsMoviePopGenre() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "Select genreName,count(Genre.genreID) From Genre inner join Movie on " +
+                "Genre.genreID=Movie.genreID group by Genre.genreName order by count(Genre.genreID) desc";
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getString(0);
+    }
+
+    public String statsGamePopGenre() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "Select genreName,count(Genre.genreID) From Genre inner join Game on " +
+                "Genre.genreID=Game.genreID group by Genre.genreName order by count(Genre.genreID) desc";
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getString(0);
+    }
+
+    public String statsBookPopGenre() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "Select genreName,count(Genre.genreID) From Genre inner join Book on " +
+                "Genre.genreID=Book.genreID group by Genre.genreName order by count(Genre.genreID) desc";
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getString(0);
+    }
 
     /**
      * Gets all the game logs from the database
@@ -1564,7 +1590,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * @return ArrayList<GameLog> populated with list
      */
     @SuppressLint("Range")
-    //TODO Refactor name
     public ArrayList<GameLog> getGameLogs()
     {
 
@@ -1711,5 +1736,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             wli_id = c.getInt(c.getColumnIndex("WLI_ID"));
         }
         return wli_id;
+    }
+
+    @SuppressLint("Range")
+    public Library getLibraryByID(int libID) {
+        String selectQuery = "SELECT * FROM Library WHERE libraryID=" +libID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        Library library = new Library();
+        if (c.moveToFirst()){
+            library.setLibraryID(c.getInt(c.getColumnIndex("libraryID")));
+            library.setLibraryName(c.getString(c.getColumnIndex("libraryName")));
+            library.setLibraryType(c.getString(c.getColumnIndex("libraryType")));
+        }
+        return library;
+    }
+
+    public void deleteTemp(){
+        String deleteLibQuery = "DELETE FROM Library WHERE libraryName='tempshare'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        try{
+            db.execSQL(deleteLibQuery);
+        } catch(Exception e){
+            Log.d("deleteTemp", "Error \n" + e.getMessage());
+        }
     }
 }
