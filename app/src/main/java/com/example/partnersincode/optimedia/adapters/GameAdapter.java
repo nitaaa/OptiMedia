@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Game;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder>{
     private final List<Game> gameList;
     private View.OnClickListener onClickListener;
+    private View.OnLongClickListener onLongClickListener;
 
     public GameAdapter(List<Game> gameList) {
         this.gameList = gameList;
@@ -23,6 +25,10 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
+    }
+    public void setOnLongClickListener(View.OnLongClickListener onLongClickListener)
+    {
+        this.onLongClickListener = onLongClickListener;
     }
 
     public class GameViewHolder extends RecyclerView.ViewHolder  {
@@ -56,10 +62,17 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
         Game game = gameList.get(position);
         holder.setGame(game);
         holder.itemView.setOnClickListener(onClickListener);
+        holder.itemView.setOnLongClickListener(onLongClickListener);
     }
 
     @Override
     public int getItemCount() {
         return gameList.size();
+    }
+
+    public void remove(Game game)
+    {
+        gameList.remove(game);
+        notifyDataSetChanged();
     }
 }

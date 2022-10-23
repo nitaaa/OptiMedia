@@ -1702,7 +1702,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             Game cur = (Game) object;
             int gameID = cur.getGameID();
-            String SQL = String.format("DELETE FROM GameLibrary WHERE \n gameIO = %d AND libraryID = %d",
+            String SQL = String.format("DELETE FROM GameLibrary WHERE \n gameID = %d AND libraryID = %d",
                     gameID, libraryID);
             db.execSQL(SQL);
 
@@ -1710,11 +1710,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         else if(object instanceof WatchObject) {
             WatchObject cur = (WatchObject) object;
             int objectID = cur.getID();
-
-            String SQL = String.format(
-                    "DELETE FROM WatchLibrary WHERE libraryID = %d AND" +
-                            "WLI_ID = (SELECT WLI_ID FROM WatchListItem WHERE seriesID = %d or movieID = %d )"
-                    , libraryID, objectID, objectID);
+            String SQL = null;
+            if(object instanceof Movie)
+            SQL = String.format(
+                    "DELETE FROM WatchLibrary WHERE libraryID = %d AND " +
+                            "WLI_ID = (SELECT WLI_ID FROM WatchListItem WHERE  movieID = %d )"
+                    , libraryID, objectID);
+            else
+            SQL = String.format(
+                    "DELETE FROM WatchLibrary WHERE libraryID = %d AND " +
+                            "WLI_ID = (SELECT WLI_ID FROM WatchListItem WHERE seriesID = %d)"
+                    , libraryID, objectID);
 
             db.execSQL(SQL);
         }

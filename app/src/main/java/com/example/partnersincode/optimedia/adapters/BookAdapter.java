@@ -77,4 +77,10 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         return bookList.size();
     }
 
+    public void remove(Book book)
+    {
+        bookList.remove(book);
+        notifyDataSetChanged();
+    }
+
 }

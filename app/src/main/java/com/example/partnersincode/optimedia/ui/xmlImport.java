@@ -203,7 +203,7 @@ public class xmlImport extends Fragment {
                 {
                     NamedNodeMap map  = node2.getAttributes();
                     String title = map.getNamedItem("title").getNodeValue();
-                    String type = map.getNamedItem("type").getNodeValue();
+                    String type = map.getNamedItem("gameType").getNodeValue();
                     String genre = map.getNamedItem("genre").getNodeValue();
                     Game game;
                     //TODO everything

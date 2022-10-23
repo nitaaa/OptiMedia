@@ -189,10 +189,4 @@ public class AddNewMovie extends Fragment {
                         }).show();
     }
 
-
-
-
-
-
-
 }

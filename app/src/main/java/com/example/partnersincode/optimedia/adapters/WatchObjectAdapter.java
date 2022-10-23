@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.Movie;
 import com.example.partnersincode.optimedia.models.Series;
@@ -87,6 +88,12 @@ public class WatchObjectAdapter extends RecyclerView.Adapter<WatchObjectAdapter.
     @Override
     public int getItemCount() {
         return watchObjectList.size();
+    }
+
+    public void remove(WatchObject film)
+    {
+        watchObjectList.remove(film);
+        notifyDataSetChanged();
     }
 
 }
