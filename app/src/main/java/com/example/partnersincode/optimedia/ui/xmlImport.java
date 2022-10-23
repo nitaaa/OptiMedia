@@ -114,6 +114,7 @@ public class xmlImport extends Fragment {
         // Inflate the layout for this fragment
         View root =  inflater.inflate(R.layout.fragment_xml_import, container, false);
         text = root.findViewById(R.id.edtxtXML);
+        text.setSingleLine(false);
         if(passedXML!=null)
         {
 

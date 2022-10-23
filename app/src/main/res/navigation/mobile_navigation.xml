@@ -172,7 +172,7 @@
     <fragment
         android:id="@+id/nav_xmlExport"
         android:name="com.example.partnersincode.optimedia.ui.xmlExport"
-        android:label="fragment_xml_export"
+        android:label="Export XML"
         tools:layout="@layout/fragment_xml_export" />
     <fragment
         android:id="@+id/nav_addBookToLib"
