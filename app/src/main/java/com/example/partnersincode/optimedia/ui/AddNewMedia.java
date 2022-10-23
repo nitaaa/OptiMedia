@@ -79,6 +79,18 @@ public class AddNewMedia extends Fragment {
         btnNewMovie.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_addNewMovie));
         btnNewSeries.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_createSeries));
 
+        Button btnAddBookToLib = rootView.findViewById(R.id.btnAddBookToLib);
+        Button btnAddGameToLib = rootView.findViewById(R.id.btnAddGameToLib);
+        Button btnAddWatchToLib = rootView.findViewById(R.id.btnAddWatchToLib);
+        btnAddBookToLib.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_addBookToLib));
+        btnAddGameToLib.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_addGameToLibrary));
+        btnAddWatchToLib.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_addToWatchLibrary));
+
+        Button btnManageAuthor = rootView.findViewById(R.id.btnManageAuthor);
+        Button btnManageGenre = rootView.findViewById(R.id.btnManageGenre);
+        btnManageAuthor.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_manageAuthors));
+        btnManageGenre.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_manageGenre));
+
         return rootView;
     }
 }

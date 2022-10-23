@@ -37,6 +37,8 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
+        dbHandler.deleteTemp();
+
         List<Library> libraryList = dbHandler.getAllLibraries();
         RecyclerView reListLib_Home = root.findViewById(R.id.reListLib_Home);
 

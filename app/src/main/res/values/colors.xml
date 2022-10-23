@@ -12,9 +12,9 @@
     <color name="selectedColour">#4CAF50</color>
 
     <!-- TODO: Update Colors -->
-    <color name="main_blue">#9C27B0</color>
-    <color name="darker_blue">#851598</color>
-    <color name="lighter_blue">#D282DF</color>
+    <color name="main_blue">#3F51B5</color>
+    <color name="darker_blue">#1D2E8B</color>
+    <color name="lighter_blue">#6570A8</color>
 
     <color name="secondary_red">#FADEA2</color>
     <color name="darker_red">#F4BB40</color>

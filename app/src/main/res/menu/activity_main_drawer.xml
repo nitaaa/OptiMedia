@@ -34,37 +34,20 @@
             android:icon="@drawable/ic_create"
             android:title="@string/label_new_media" />
 
-        <item
-            android:id="@+id/nav_manageGenre"
-            android:icon="@drawable/ic_genre"
-            android:title="Manage genres" />
+<!--        <item-->
+<!--            android:id="@+id/nav_manageGenre"-->
+<!--            android:icon="@drawable/ic_genre"-->
+<!--            android:title="Manage genres" />-->
 
-        <item
-            android:id="@+id/nav_manageAuthors"
-            android:icon="@drawable/ic_author"
-            android:title="@string/manage_authors" />
+<!--        <item-->
+<!--            android:id="@+id/nav_manageAuthors"-->
+<!--            android:icon="@drawable/ic_author"-->
+<!--            android:title="@string/manage_authors" />-->
 
         <item
             android:id="@+id/nav_viewStatistics"
             android:icon="@drawable/stats"
             android:title="Statistics" />
-
-
-
-
-
-        <item
-            android:id="@+id/nav_addGameToLibrary"
-            android:icon="@drawable/ic_add"
-            android:title="Add Game To Library" />
-
-        <item
-            android:id="@+id/nav_addBookToLib"
-            android:icon="@drawable/ic_book"
-            android:title="Add Book To Library" />
-
-
-
 
     </group>
 </menu>

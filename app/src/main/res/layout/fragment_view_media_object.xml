@@ -81,8 +81,7 @@
                     android:id="@+id/spinAddtoLib"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="12"
-                    android:textSize="20sp" />
+                    android:layout_weight="8"/>
 
                 <Button
                     android:id="@+id/btnAdd_vwo"

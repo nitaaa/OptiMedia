@@ -88,7 +88,8 @@
                         app:backgroundTint="@color/movie_series_theme"
                         app:icon="@drawable/ic_share"
                         app:iconPadding="0dp"
-                        app:iconTint="#000000" />
+                        app:iconTint="#000000"
+                        android:visibility="invisible"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -179,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:insetLeft="16dp"
                 android:insetRight="16dp"
-                android:text="@string/addbtn"
+                android:text="Add Series Log"
                 app:backgroundTint="@color/movie_series_theme"
                 android:textColor="@color/black" />
 

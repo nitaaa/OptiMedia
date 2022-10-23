@@ -3,6 +3,7 @@ package com.example.partnersincode.optimedia.ui;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
@@ -189,7 +190,23 @@ public class viewMediaObject extends Fragment {
         });
 
         btnShare_vwo.setOnClickListener(view -> {
-            //TODO QAANITA SHARE ITEM
+            int libID = dbHandler.createLibrary("tempshare", type);
+            Library shareLib = dbHandler.getLibraryByID(libID);
+            if (type.equals("Book")){
+                dbHandler.addBookToLib(libID, ((Book) mediaObject).getBookID());
+            } else if (type.equals("Game")){
+                dbHandler.createGameLibrary((Game) mediaObject, shareLib);
+            } else if (type.equals("Movie")){
+                int wli_id = dbHandler.getWLI_IDbyMovieID(((Movie)mediaObject).getMovieID());
+                dbHandler.addWLItoLibrary(shareLib, wli_id);
+            } else if (type.equals("Series")){
+                int wli_id = dbHandler.getWLI_IDbySeriesID(((Series)mediaObject).getSeriesID());
+                dbHandler.addWLItoLibrary(shareLib, wli_id);
+            }
+
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("libraryInfo", shareLib);
+            Navigation.findNavController(view).navigate(R.id.nav_xmlExport, bundle);
         });
 
         return rootView;

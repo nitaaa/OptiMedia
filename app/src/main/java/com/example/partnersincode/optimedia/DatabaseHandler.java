@@ -189,27 +189,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Qaanita Fataar
      * @param LibraryType String - Library's Type (Book, Game, Watch)
      */
-    public void createLibrary(String LibraryName, String LibraryType){
+    public int createLibrary(String LibraryName, String LibraryType){
         Log.d("createLibrary", " starting ");
         SQLiteDatabase db = this.getWritableDatabase();
 
         //Works both ways:
         //Way 1:
-        String query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','"+ LibraryType +"')";
-        if (LibraryType.equals("Movie/Series")){
-            query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','Watch')";
-        }
-        db.execSQL(query);
+//        String query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','"+ LibraryType +"')";
+//        if (LibraryType.equals("Movie/Series")){
+//            query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','Watch')";
+//        }
+//        db.execSQL(query);
 
         //Way 2: Helpful because you get the ID as well
-    //    ContentValues values = new ContentValues();
-    //    values.put("libraryName", LibraryName);
-    //    if (LibraryType.equals("Movie/Series")){
-    //        values.put("libraryType", "Watch");
-     //   } else {
-     //       values.put("libraryType", LibraryType);
-     //   }
-     //   long id = db.insertWithOnConflict("Library", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        ContentValues values = new ContentValues();
+        values.put("libraryName", LibraryName);
+        if (LibraryType.equals("Movie/Series")){
+            values.put("libraryType", "Watch");
+        } else {
+            values.put("libraryType", LibraryType);
+        }
+        long id = db.insertWithOnConflict("Library", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        return (int) id;
      //   Log.d("createLibrary", "complete // " +id);
     }
 
@@ -256,7 +257,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<Library> getAllLibraries() {
         ArrayList<Library> libraryArrayList = new ArrayList<>();
 
-        String selectQuery = "SELECT * FROM Library";
+        String selectQuery = "SELECT * FROM Library WHERE NOT libraryName='tempshare'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
@@ -1735,5 +1736,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             wli_id = c.getInt(c.getColumnIndex("WLI_ID"));
         }
         return wli_id;
+    }
+
+    @SuppressLint("Range")
+    public Library getLibraryByID(int libID) {
+        String selectQuery = "SELECT * FROM Library WHERE libraryID=" +libID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        Library library = new Library();
+        if (c.moveToFirst()){
+            library.setLibraryID(c.getInt(c.getColumnIndex("libraryID")));
+            library.setLibraryName(c.getString(c.getColumnIndex("libraryName")));
+            library.setLibraryType(c.getString(c.getColumnIndex("libraryType")));
+        }
+        return library;
+    }
+
+    public void deleteTemp(){
+        String deleteLibQuery = "DELETE FROM Library WHERE libraryName='tempshare'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        try{
+            db.execSQL(deleteLibQuery);
+        } catch(Exception e){
+            Log.d("deleteTemp", "Error \n" + e.getMessage());
+        }
     }
 }
