@@ -238,7 +238,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Colin O'Linksy
      * @return void
      */
-    public void createSeries(String seriesTitle,int genreID, boolean favourite, boolean started,boolean completed) {
+    @SuppressLint("Range")
+    public void createSeries(String seriesTitle,int genreID, String link, boolean favourite, boolean started,boolean completed) {
         int fav, start, complete;
         fav = (favourite) ? 1 : 0;
         start = (started) ? 1 : 0;
@@ -246,6 +247,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "INSERT INTO Series (seriesTitle,genreID,favourite,started,complete) VALUES ('"+seriesTitle+"',"+genreID+","+fav+","+start+","+complete+")";
         db.execSQL(query);
+        //Adriaan addition (add WLI for series object)
+        query = String.format("SELECT * FROM Series WHERE seriesTitle = \'%s\'",seriesTitle);
+        Cursor c = db.rawQuery(query,null);
+        if(c.moveToFirst())
+        {
+             int seriesID = c.getInt(c.getColumnIndex("seriesID"));
+            query = String.format("INSERT INTO WatchListItem (seriesID, link) VALUES (%d, \'%s\')",seriesID,link);
+            db.execSQL(query);
+        }
     }
 
     /**

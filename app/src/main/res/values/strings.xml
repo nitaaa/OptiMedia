@@ -68,6 +68,7 @@
     <string name="createLibraryToast">Library \'%s\' created</string>
     <string name="importFail">Importing failed, please check your contents and try again</string>
     <string name="confirmRemoveFromLib">Are you sure you wish to remove \'%s\' from library \'%s\'</string>
+    <string name="message_movieAdded">Movie \'%s\' added to database</string>
 
     <string name="label_new_media">Add New Media</string>
     <string name="add_new_game">Add New Game</string>

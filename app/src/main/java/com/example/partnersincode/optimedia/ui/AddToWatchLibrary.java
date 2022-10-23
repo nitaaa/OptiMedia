@@ -171,7 +171,7 @@ public class AddToWatchLibrary extends Fragment {
             //Get the id of the watchlistitem holding this movie/series object
             DatabaseHandler db = new DatabaseHandler(getContext());
             int WLI_ID = db.getWLI_ID(idFieldName,objectID);
-
+            if(WLI_ID == -1) return;
             //Add movie or series to watchlibrary
             db.addWLItoLibrary(library,WLI_ID);
 
