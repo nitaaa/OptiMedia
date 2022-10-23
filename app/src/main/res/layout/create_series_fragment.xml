@@ -40,6 +40,21 @@
                 tools:ignore="HardcodedText" />
 
             <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Series URL or Source Name:"
+                />
+
+            <EditText
+                android:id="@+id/seriesLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Enter Series URL or Source Name"/>
+
+            <TextView
                 android:id="@+id/textView3"
                 style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="match_parent"
@@ -53,11 +68,19 @@
 
                 <Spinner
                     android:id="@+id/spinnerGenre"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/genre_type"
-                    android:minHeight="48dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_weight="2"/>
+
+                <Button
+                    android:id="@+id/btnAddGenre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/newGenreBtn"/>
             </LinearLayout>
 
             <Switch

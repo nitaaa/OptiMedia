@@ -40,12 +40,12 @@
     <string name="action_addSelected">Add Selected</string>
     <string name="label_SelectLibrary">Select a Library</string>
     <string name="selectMedia">Select Movies/Series (max %d)</string>
-    <string name="heading_addNewMovie">Add new movie to database</string>
+    <string name="heading_addNewMovie">Add MFovie</string>
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
     <string name="lbl_movie_title">Movie title:</string>
     <string name="lbl_movie_link">Movie URL or Source Name:</string>
-    <string name="message_movieAdded">Movie (%s) was added</string>
+    <string name="message_movieed">Movie (%s) was added</string>
     <string name="lbl_genre">Select Genre</string>
     <string name="movie">Movie</string>
     <string name="series">Series</string>
@@ -68,6 +68,7 @@
     <string name="createLibraryToast">Library \'%s\' created</string>
     <string name="importFail">Importing failed, please check your contents and try again</string>
     <string name="confirmRemoveFromLib">Are you sure you wish to remove \'%s\' from library \'%s\'</string>
+    <string name="message_movieAdded">Movie \'%s\' added to database</string>
 
     <string name="label_new_media">Add New Media</string>
     <string name="add_new_game">Add New Game</string>
@@ -91,7 +92,7 @@
     <string name="favourite">Favourite:</string>
     <string name="started">Started:</string>
     <string name="completed">Completed:</string>
-    <string name="addbtn">Add</string>
+    <string name="addbtn">Add new Series</string>
     <string name="log_title">Log Title:</string>
     <string name="log_note">Note:</string>
     <string name="log_pgno">Page Number:</string>

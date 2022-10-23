@@ -17,6 +17,8 @@ import com.example.partnersincode.optimedia.models.Movie;
 import com.example.partnersincode.optimedia.models.WatchObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 public class AddToWatchLibraryAdaptor extends RecyclerView.Adapter<AddToWatchLibraryAdaptor.WatchObjectViewHolder> {
 
@@ -125,6 +127,17 @@ public class AddToWatchLibraryAdaptor extends RecyclerView.Adapter<AddToWatchLib
     {
 
         watchObjects = db.getMoviesAndSeries();
+        notifyDataSetChanged();
+    }
+
+    public void updateForSearch(String searchTerm)
+    {
+        if(watchObjects.size()==0) getWatchObjects();
+        if(searchTerm.equals(""))
+        {
+            return;
+        }
+        watchObjects = (ArrayList<WatchObject>) watchObjects.stream().filter(watchObject -> watchObject.getTitle().toLowerCase(Locale.ROOT).contains(searchTerm.toLowerCase(Locale.ROOT))).collect(Collectors.toList());
         notifyDataSetChanged();
     }
 
