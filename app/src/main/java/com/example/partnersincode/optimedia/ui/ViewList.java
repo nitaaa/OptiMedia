@@ -101,7 +101,7 @@ public class ViewList extends Fragment {
                 BookAdapter.BookViewHolder viewHolder = (BookAdapter.BookViewHolder) recyclerView.findContainingViewHolder(view);
                 bundleBook.putParcelable("mediaObject",viewHolder.book);
                 bundleBook.putString("type","Book");
-                Navigation.findNavController(view).navigate(R.id.nav_viewMediaObject);
+                Navigation.findNavController(view).navigate(R.id.nav_viewMediaObject,bundleBook);
             });
         }
 
@@ -118,7 +118,7 @@ public class ViewList extends Fragment {
                  bundleWatch.putParcelable("mediaObject", viewHolder.series);
                  bundleWatch.putString("type", "Series");
              }
-               Navigation.findNavController(view).navigate(R.id.nav_viewMediaObject);
+               Navigation.findNavController(view).navigate(R.id.nav_viewMediaObject,bundleWatch);
            });
         }
 
@@ -130,7 +130,7 @@ public class ViewList extends Fragment {
                     GameAdapter.GameViewHolder viewHolder = (GameAdapter.GameViewHolder) recyclerView.findContainingViewHolder(view);
                     bundleGame.putParcelable("mediaObject",viewHolder.game);
                     bundleGame.putString("type","Game");
-                    Navigation.findNavController(view).navigate(R.id.nav_viewMediaObject);
+                    Navigation.findNavController(view).navigate(R.id.nav_viewMediaObject,bundleGame);
                 });
             }
 
