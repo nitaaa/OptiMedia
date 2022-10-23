@@ -101,36 +101,49 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addTestData(SQLiteDatabase sqLiteDatabaseDB){
         //TODO: put in test data then add query
         //add genres
-        String query = "INSERT INTO Genre (genreName) VALUES ('Fantasy'),('Science Fiction'),('Romance'),('War/Military'),('Young Adult'),('Children')";
+        String query = "INSERT INTO Genre (genreName) VALUES ('Fantasy'),('Science Fiction'),('Romance'),('War/Military'),('Young Adult'),('Children')," +
+                "('Adventure'),('Comedy'),('Action'),('Documentary')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add authors
-        query = "INSERT INTO Author (authorName, authorSurname) VALUES ('Sarah J.', 'Maas'),('John', 'Knowles'),('Madeleine', 'LEngle')," +
-                "('Jennifer', 'Niven'),('Sabaa', 'Tahir'),('Benjamin', 'Alire Saenz'),('Marissa', 'Meyer')";
+        query = "INSERT INTO Author (authorName, authorSurname) VALUES ('Sarah J.', 'Maas'),('JK', 'Rowling'),('Lee', 'Child')," +
+                "('Jennifer', 'Niven'),('Sabaa', 'Tahir'),('Benjamin', 'Alire Saenz'),('Marissa', 'Meyer'),('Holly','Black')," +
+                "('Madelaine','Miller'),('Leigh','Bardugo')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add books
-        query = "INSERT INTO Book (authorID, genreID, ISBN, bookTitle, favourite, started, complete) VALUES (1, 1, '1635575567 ', 'A Court of Thorns and Roses', 0, 0, 0),"+
-        "(6, 5, '1933693584 ', 'Last Night I Sang to the Monster', 0, 0, 0), (5, 1, '9781595148049', 'An Ember in the Ashes', 0, 0, 0)";
+        query = "INSERT INTO Book (authorID, genreID, ISBN, bookTitle, favourite, started, complete) VALUES " +
+                "(1, 1, '1635575567 ', 'A Court of Thorns and Roses', 1, 1, 0), (6, 5, '1933693584 ', 'Last Night I Sang to the Monster', 0, 0, 1), " +
+                "(5, 1, '9781595148049', 'An Ember in the Ashes', 0, 0, 0), (1, 1, '1635575567 ', 'A Court of Thorns and Roses', 1, 1, 0), " +
+                "(2, 1, '9780747591054', 'Harry Potter and the Deathly Hallows', 1, 1, 1), (8, 1, '9780316310314 ', 'The Cruel Prince', 0, 1, 1)," +
+                "(3, 9, '9780515141429', 'Killing Floor', 0, 0, 0), (3, 9, '9780515142242 ', 'Die Trying', 0, 0, 0)," +
+                "(7, 2, '9780312641894', 'Cinder', 1, 1, 1), (7, 2, '9780312642969 ', 'Scarlet', 0, 1, 0)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add games
         query = " INSERT INTO Game (genreID,gameTitle,gameType,favourite,started,complete) VALUES "+
-                "('1','The Witcher 3: Wild Hunt','Open World, RPG',0,0,0), "+
+                "('1','The Witcher 3: Wild Hunt','Open World, RPG',0,1,0), "+
                 "('4','Counter-Strike: Global Offensive','FPS Multiplayer',0,0,0), "+
-                "('6','Animal Crossing: New Horizons','Life simulation',0,0,0)";
+                "('6','Animal Crossing: New Horizons','Life Simulation',1,1,0)," +
+                "('7','The Elder Scrolls V: Skyrim','Open World, RPG',0,1,1), "+
+                "('6','Fall Guys','Multiplayer',0,0,0), "+
+                "('5','The Sims 4','Life Simulation',1,1,0)," +
+                "('1','Coral Island','Early Access',0,0,0), "+
+                "('7','Stardew Valley','Farming Sim',1,1,1), "+
+                "('7','Disney Dreamlight Valley','Life simulation',0,0,0)," +
+                "('2','Cyberpunk 2077','Open World, RPG',0,0,0)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add movies
-        query = "INSERT INTO Movie (genreID,movieTitle,favourite,started,complete) VALUES ('5','Paper Towns',0,0,0),"+
-                " ('1','Fallen',0,0,0), ('5','The perks of being a wallflower',0,0,0), "+
-                " ('2','Ready Player One',0,0,0), ('3','To all the Boys I''ve Loved Before',0,0,0)";
+        query = "INSERT INTO Movie (genreID,movieTitle,favourite,started,complete) VALUES ('5','Paper Towns',0,1,1),"+
+                " ('1','Fallen',1,1,1), ('5','The perks of being a wallflower',1,1,1), "+
+                " ('2','Ready Player One',0,0,0), ('3','To all the Boys I''ve Loved Before',0,0,0), ('6','Lightyear',0,0,0)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add series
-        query = "INSERT INTO Series (genreID,seriesTitle,favourite,started,complete) VALUES ('1','Fate: The Winx Saga',0,0,0),"+
-                " ('2','The Umbrella Academy',0,0,0), ('3','Bridgerton',0,0,0), "+
-                " ('5','The Summer I Turned Pretty',0,0,0), ('6','Lightyear',0,0,0)";
+        query = "INSERT INTO Series (genreID,seriesTitle,favourite,started,complete) VALUES ('1','Fate: The Winx Saga',1,1,0),"+
+                " ('2','The Umbrella Academy',1,0,0), ('3','Bridgerton',0,1,1), "+
+                " ('5','The Summer I Turned Pretty',0,0,0), ('9','Reacher',1,1,1)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add watchlist item
@@ -141,8 +154,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         sqLiteDatabaseDB.execSQL(query);
 
         //add library
-        query = "INSERT INTO Library (libraryName,libraryType) VALUES ('To Be Read','Book'), ('Indie Favs','Game'), ('Watch with K','Watch'), " +
-                "('Current Reads','Book'), ('Watching123','Watch')";
+        query = "INSERT INTO Library (libraryName,libraryType) VALUES ('To Be Read','Book'), ('Indie Favs','Game'), ('Watch together','Watch'), " +
+                "('Current Reads','Book'), ('Watching123','Watch'), ('New Releases','Game')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add book library
@@ -170,13 +183,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         sqLiteDatabaseDB.execSQL(query);
 
         //add movie log
-        query = "INSERT INTO MovieLog (movieID,m_note,m_timestamp)VALUES ('1','Kinda cringe','1:00'), ('2','Twilight but worse?','18:54'),"+
-                " ('3','We accept the love we think we deserve.','00:00')";
+        query = "INSERT INTO MovieLog (movieID,m_note,m_timestamp)VALUES ('1','Kinda cringe','0:1:00'), ('2','Twilight but worse?','0:18:54'),"+
+                " ('3','We accept the love we think we deserve.','0:00:00')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add series log
-        query = "INSERT INTO SeriesLog (seriesID,season,episode,s_note,s_timestamp) VALUES ('1','1','3','Stopped here','33:45'),"+
-                "('3','2','1','Drama','11:25')";
+        query = "INSERT INTO SeriesLog (seriesID,season,episode,s_note,s_timestamp) VALUES ('1','1','3','Stopped here','0:33:45'),"+
+                "('3','2','1','Drama','0:11:25')";
         sqLiteDatabaseDB.execSQL(query);
 
         Log.d("createDB", "Test data added");
