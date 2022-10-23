@@ -3,6 +3,7 @@ package com.example.partnersincode.optimedia.ui;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,8 @@ import com.example.partnersincode.optimedia.addBookToLib.AddBookAdapter;
 import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.Library;
+import com.example.partnersincode.optimedia.models.Movie;
+import com.example.partnersincode.optimedia.models.Series;
 import com.example.partnersincode.optimedia.models.WatchObject;
 
 import java.util.ArrayList;
@@ -93,15 +96,42 @@ public class ViewList extends Fragment {
         if (list.get(0) instanceof Book) {
             BookAdapter bookAdapter = new BookAdapter(list);
             recyclerView.setAdapter(bookAdapter);
+            bookAdapter.setOnClickListener((View view)->{
+                Bundle bundleBook = new Bundle();
+                BookAdapter.BookViewHolder viewHolder = (BookAdapter.BookViewHolder) recyclerView.findContainingViewHolder(view);
+                bundleBook.putParcelable("mediaObject",viewHolder.book);
+                bundleBook.putString("type","Book");
+                Navigation.findNavController(view).navigate(R.id.nav_viewMediaObject,bundleBook);
+            });
         }
 
         if (list.get(0) instanceof WatchObject){
             WatchObjectAdapter watchAdapter = new  WatchObjectAdapter (list);
             recyclerView.setAdapter(watchAdapter);
+           watchAdapter.setOnClickListener((View view)->{
+               Bundle bundleWatch = new Bundle();
+               WatchObjectAdapter.WatchObjectViewHolder viewHolder = (WatchObjectAdapter.WatchObjectViewHolder) recyclerView.findContainingViewHolder(view);
+             if (viewHolder.movie !=null) {
+                 bundleWatch.putParcelable("mediaObject", viewHolder.movie);
+                 bundleWatch.putString("type", "Movie");
+             }else{
+                 bundleWatch.putParcelable("mediaObject", viewHolder.series);
+                 bundleWatch.putString("type", "Series");
+             }
+               Navigation.findNavController(view).navigate(R.id.nav_viewMediaObject,bundleWatch);
+           });
         }
+
             if (list.get(0) instanceof Game){
               GameAdapter gameAdapter = new GameAdapter(list);
                 recyclerView.setAdapter(gameAdapter);
+                gameAdapter.setOnClickListener((View view)->{
+                    Bundle bundleGame = new Bundle();
+                    GameAdapter.GameViewHolder viewHolder = (GameAdapter.GameViewHolder) recyclerView.findContainingViewHolder(view);
+                    bundleGame.putParcelable("mediaObject",viewHolder.game);
+                    bundleGame.putString("type","Game");
+                    Navigation.findNavController(view).navigate(R.id.nav_viewMediaObject,bundleGame);
+                });
             }
 
         return rootView;
