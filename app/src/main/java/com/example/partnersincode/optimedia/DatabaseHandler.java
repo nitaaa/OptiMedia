@@ -114,7 +114,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //add books
         query = "INSERT INTO Book (authorID, genreID, ISBN, bookTitle, favourite, started, complete) VALUES " +
                 "(1, 1, '1635575567 ', 'A Court of Thorns and Roses', 1, 1, 0), (6, 5, '1933693584 ', 'Last Night I Sang to the Monster', 0, 0, 1), " +
-                "(5, 1, '9781595148049', 'An Ember in the Ashes', 0, 0, 0), (1, 1, '1635575567 ', 'A Court of Thorns and Roses', 1, 1, 0), " +
+                "(5, 1, '9781595148049', 'An Ember in the Ashes', 0, 0, 0), (10, 1, '9781250313102 ', 'Hell Bent', 0, 0, 0), " +
                 "(2, 1, '9780747591054', 'Harry Potter and the Deathly Hallows', 1, 1, 1), (8, 1, '9780316310314 ', 'The Cruel Prince', 0, 1, 1)," +
                 "(3, 9, '9780515141429', 'Killing Floor', 0, 0, 0), (3, 9, '9780515142242 ', 'Die Trying', 0, 0, 0)," +
                 "(7, 2, '9780312641894', 'Cinder', 1, 1, 1), (7, 2, '9780312642969 ', 'Scarlet', 0, 1, 0)";
@@ -136,60 +136,81 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         //add movies
         query = "INSERT INTO Movie (genreID,movieTitle,favourite,started,complete) VALUES ('5','Paper Towns',0,1,1),"+
-                " ('1','Fallen',1,1,1), ('5','The perks of being a wallflower',1,1,1), "+
-                " ('2','Ready Player One',0,0,0), ('3','To all the Boys I''ve Loved Before',0,0,0), ('6','Lightyear',0,0,0)";
+                " ('3','Blonde',1,1,1), ('5','The perks of being a wallflower',1,1,1), "+
+                " ('2','Ready Player One',0,0,0), ('3','To all the Boys I''ve Loved Before',0,0,0), ('6','Lightyear',0,0,0)," +
+                "('10','Planet Earth II',0,1,0), ('8','Hocus Pocus 2',0,1,1)," +
+                "('7','Thor: Love and Thunder',0,0,0), ('7','Black Panther: Wakanda Forever',0,0,0)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add series
         query = "INSERT INTO Series (genreID,seriesTitle,favourite,started,complete) VALUES ('1','Fate: The Winx Saga',1,1,0),"+
-                " ('2','The Umbrella Academy',1,0,0), ('3','Bridgerton',0,1,1), "+
-                " ('5','The Summer I Turned Pretty',0,0,0), ('9','Reacher',1,1,1)";
+                " ('2','The Umbrella Academy',0,1,0), ('3','Bridgerton',0,1,1), "+
+                " ('5','The Summer I Turned Pretty',0,0,0), ('9','Reacher',1,1,1)," +
+                "('10','Welcome to Wrexham',1,1,0), ('7','The Winchesters',1,0,0), ('1','House of the Dragon',0,1,0)," +
+                "('1','The Lord of the Rings: The Rings of Power',1,0,0), ('3','The Empress',0,0,0)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add watchlist item
-        query = "INSERT INTO WatchListItem (seriesID,movieID, link) VALUES ('1',NULL,'https://www.imdb.com/title/tt8179402/'), " +
-                "(NULL,'3','https://www.imdb.com/title/tt1659337/'), ('3',NULL,'https://www.imdb.com/title/tt8740790/'), " +
-                "('2',NULL,'https://www.imdb.com/title/tt1312171/'), (NULL,'2','https://www.imdb.com/title/tt1564777/'), " +
-                "(NULL,'5','https://www.imdb.com/title/tt3846674/')";
+        query = "INSERT INTO WatchListItem (seriesID,movieID, link) VALUES (NULL,'1','https://www.imdb.com/title/tt3622592/')," +
+                "(NULL,'2','https://www.imdb.com/title/tt1655389/'),(NULL,'3','https://www.imdb.com/title/tt1659337/'), " +
+                "(NULL,'4','https://www.imdb.com/title/tt1677720/'),(NULL,'5','https://www.imdb.com/title/tt3846674/'), " +
+                "(NULL,'6','https://www.imdb.com/title/tt10298810/'),(NULL,'7','https://www.imdb.com/title/tt5491994/'), " +
+                "(NULL,'8','https://www.imdb.com/title/tt11909878/'),(NULL,'9','https://www.imdb.com/title/tt10648342/'), " +
+                "(NULL,'10','https://www.imdb.com/title/tt9114286/'), " +
+                "('1',NULL,'https://www.imdb.com/title/tt8179402/'), ('2',NULL,'https://www.imdb.com/title/tt1312171/'), " +
+                "('3',NULL,'https://www.imdb.com/title/tt8740790/'), ('4', NULL,'https://www.imdb.com/title/tt14016500/'), " +
+                "('5',NULL,'https://www.imdb.com/title/tt9288030/'), ('6',NULL,'https://www.imdb.com/title/tt14674086/')," +
+                "('7',NULL,'https://www.imdb.com/title/tt14923244/'), ('8', NULL,'https://www.imdb.com/title/tt11198330/')," +
+                "('9',NULL,'https://www.imdb.com/title/tt7631058/'), ('10',NULL,'https://www.imdb.com/title/tt13720112/')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add library
         query = "INSERT INTO Library (libraryName,libraryType) VALUES ('To Be Read','Book'), ('Indie Favs','Game'), ('Watch together','Watch'), " +
-                "('Current Reads','Book'), ('Watching123','Watch'), ('New Releases','Game')";
+                "('Current Reads','Book'), ('Netflix','Watch'), ('New Releases','Game'), ('2023 Book Release','Book'), ('For Sale', 'Book')," +
+                "('Marvel','Watch'), ('Farming Sim','Game')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add book library
-        query = "INSERT INTO BookLibrary (libraryID,bookID) VALUES (4,1), (1,3)";
+        query = "INSERT INTO BookLibrary (libraryID,bookID) VALUES (4,9),(4,10),(4,1),(1,3),(1,6),(8,7),(8,8),(7,4)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add game library
-        query = "INSERT INTO GameLibrary (libraryID,gameID) VALUES (2,1)";
+        query = "INSERT INTO GameLibrary (libraryID,gameID) VALUES (2,1),(10,7),(10,8),(10,9),(6,9),(6,10)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add watch library
-        query = "INSERT INTO WatchLibrary (libraryID,WLI_ID)VALUES (3,1), (3,2), (3,3), (5,4),(5,5)";
+        query = "INSERT INTO WatchLibrary (libraryID,WLI_ID)VALUES (3,11),(3,2),(3,19),(9,10),(9,11),(5,5),(5,12),(5,13)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add book log
         query = "INSERT INTO BookLog (bookID,blTitle,blNote,blPageNumber) VALUES " +
-                " ('1','Feyre','I threw myself into that fire, threw myself into it, into him, and let myself burn.','312'),"+
-                " ('1','Mr. Archeron','We need hope, or else we cannot endure.','19'), " +
-                " ('1','Rhysand','I didn''t want you to fight alone. Or die alone.','413')";
+                " (1,'Feyre','I threw myself into that fire, threw myself into it, into him, and let myself burn.','312'),"+
+                " (1,'Mr. Archeron','We need hope, or else we cannot endure.','19'), " +
+                " (1,'Rhysand','I didn''t want you to fight alone. Or die alone.','413')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add game log
-        query = "INSERT INTO GameLog (gameID,glTitle,glNote) VALUES ('1','Spoilers','Play 1 and 2 first'), "+
-                "('1','DLC','New DLC availiable on steam'), ('2','Reset ranks',''), ('3','Replant','Need orange and cherry trees')";
+        query = "INSERT INTO GameLog (gameID,glTitle,glNote) VALUES (1,'Spoilers','Play 1 and 2 first'), "+
+                "(1,'DLC','New DLC availiable on steam'), (8,'Joja Farm','Buy pumpkin seeds'), (8,'Mods','Update on nexus'), " +
+                "(7,'Release date','Mid october on steam'), (5,'Family Friendly','-'), " +
+                "(6,'Joja Farm','Buy pumpkin seeds'), (6,'Mods','Update on nexus'), " +
+                "(10,'D wishlist','PS4'), (3,'ACNH Bingo','LilSimsie on Wednesday')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add movie log
-        query = "INSERT INTO MovieLog (movieID,m_note,m_timestamp)VALUES ('1','Kinda cringe','0:1:00'), ('2','Twilight but worse?','0:18:54'),"+
-                " ('3','We accept the love we think we deserve.','0:00:00')";
+        query = "INSERT INTO MovieLog (movieID,m_note,m_timestamp)VALUES (1,'Kinda cringe','0:01:00'), (1,'Twilight but no vampires','0:18:54'),"+
+                "(3,'We accept the love we think we deserve.','0:00:00'), (3,'TW Abuse','0:00:00'), " +
+                "(8,'Watch Party - 31 Oct','0:00:00'),(6,'For babsitting','0:00:00')," +
+                "(2,'Some of them love Marilyn, some of them hate Marilyn. What’s that got to do with me?','0:53:20')," +
+                "(2,'My mind’s my own to change.','0:01:20')," +
+                "(2,'It’s just a dream. It’s just a crazy dream.','0:01:54'),(3,'So, I guess we are who we are for alot of reasons.','0:00:00')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add series log
-        query = "INSERT INTO SeriesLog (seriesID,season,episode,s_note,s_timestamp) VALUES ('1','1','3','Stopped here','0:33:45'),"+
-                "('3','2','1','Drama','0:11:25')";
+        query = "INSERT INTO SeriesLog (seriesID,season,episode,s_note,s_timestamp) VALUES (1,'1','3','Stopped here','0:33:45'),"+
+                "(3,'2','4','Drama','0:23:00'), (3,'2','1','Have you found a wife yet? Or are you planning on offending every young girl until there are none left?','0:11:25'), (2,'2','1','Start Here','0:00:00')," +
+                "(3,'2','2','Very few attempt to outwit me, and even fewer succeed.','0:12:50'),(5,'1','3','Start Here','0:00:00'),(5,'1','5','Last Watched with mom','0:00:00')," +
+                "(8,'1','1','Start Over','0:11:25'),(8,'1','3','Last Released','0:00:00'),(9,'1','3','Start Here','0:00:00')";
         sqLiteDatabaseDB.execSQL(query);
 
         Log.d("createDB", "Test data added");
