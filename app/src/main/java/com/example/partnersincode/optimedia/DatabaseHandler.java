@@ -1729,14 +1729,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public Collection<WatchObject> getWatchItems(String keyword) {
         ArrayList<WatchObject> watchList = new ArrayList<>();
 
-        String selectQuery = "SELECT * FROM WatchLibrary";
+        String selectQuery = "SELECT * FROM WatchListItem";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
         if (c.moveToFirst()) {
             do {
                 @SuppressLint("Range") int watchListItemID = c.getInt(c.getColumnIndex("WLI_ID"));
-                Log.d("getAllWatchItemsLibrary - ", "wli_id: " + watchListItemID);
+                Log.d("getAllWatchItemsLibrary", "wli_id: " + watchListItemID);
                 WatchObject watchItem = getWatchItemByID(watchListItemID);
                 if (keyword != null){
                     if (watchItem.getTitle() != null && watchItem.getTitle().toLowerCase().contains(keyword.toLowerCase())){
