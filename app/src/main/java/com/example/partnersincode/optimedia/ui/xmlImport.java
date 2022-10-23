@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
@@ -28,8 +29,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import java.io.Serializable;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +64,8 @@ public class xmlImport extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     String libraryName;
+    String passedXML;
+    EditText text;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -95,6 +100,12 @@ public class xmlImport extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        Bundle bundle = getArguments();
+        if(bundle!=null)
+        {
+            passedXML = bundle.getString("XML");
+        }
     }
 
     @Override
@@ -102,7 +113,12 @@ public class xmlImport extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root =  inflater.inflate(R.layout.fragment_xml_import, container, false);
+        text = root.findViewById(R.id.edtxtXML);
+        if(passedXML!=null)
+        {
 
+            text.setText(passedXML);
+        }
         root.findViewById(R.id.btnImport).setOnClickListener(this::onImportClicked);
 
         return root;
@@ -119,13 +135,13 @@ public class xmlImport extends Fragment {
         ArrayList<Object> library = new ArrayList<>();
 
         try {
-            XPathExpression expr = path.compile("//library/");
+            XPathExpression expr = path.compile("library");
             NodeList resultSet = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
 
             Node node = resultSet.item(0).cloneNode(true);
 
 
-             libraryName = node.getNodeName();
+             libraryName = node.getAttributes().getNamedItem("libraryName").getNodeValue();
 
 
             NodeList set1 = node.getChildNodes();
@@ -137,7 +153,7 @@ public class xmlImport extends Fragment {
 
                 if(nodeName.equals("series")) {
 
-                    NamedNodeMap map  = node.getAttributes();
+                    NamedNodeMap map  = node2.getAttributes();
                     String title = map.getNamedItem("title").getNodeValue();
                     String genre = map.getNamedItem("genre").getNodeValue();
                     String link = map.getNamedItem("link").getNodeValue();
@@ -161,7 +177,7 @@ public class xmlImport extends Fragment {
 
                 if(nodeName.equals("movie"))
                 {
-                    NamedNodeMap map  = node.getAttributes();
+                    NamedNodeMap map  = node2.getAttributes();
                     String title = map.getNamedItem("title").getNodeValue();
                     String genre = map.getNamedItem("genre").getNodeValue();
                     String link = map.getNamedItem("link").getNodeValue();
@@ -184,7 +200,7 @@ public class xmlImport extends Fragment {
 
                 if(nodeName.equals("game"))
                 {
-                    NamedNodeMap map  = node.getAttributes();
+                    NamedNodeMap map  = node2.getAttributes();
                     String title = map.getNamedItem("title").getNodeValue();
                     String type = map.getNamedItem("type").getNodeValue();
                     String genre = map.getNamedItem("genre").getNodeValue();
@@ -207,7 +223,7 @@ public class xmlImport extends Fragment {
 
                 if(nodeName.equals("book"))
                 {
-                    NamedNodeMap map  = node.getAttributes();
+                    NamedNodeMap map  = node2.getAttributes();
                     String authorName = map.getNamedItem("authorName").getNodeValue();
                     String authorSurname = map.getNamedItem("authorSurname").getNodeValue();
                     String title = map.getNamedItem("title").getNodeValue();
@@ -253,35 +269,38 @@ public class xmlImport extends Fragment {
     }
 
 
-    private Document stringToXML(String contents)
+    private Document stringToXML(String contents) throws Exception
     {
         Document doc = null;
-        try {
+
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-             doc = builder.parse(contents);
 
-        }
-        catch (Exception e) { e.printStackTrace();}
-
-
-        return doc;
+            doc = builder.parse(new InputSource(new StringReader(contents)));
+            return doc;
     }
 
     private void onImportClicked(View view)
     {
-        EditText text = view.findViewById(R.id.edtxtXML);
 
-        Document doc = stringToXML(text.getText().toString());
 
-        ArrayList<Object>  list = convertXML(doc);
+        Document doc = null;
+        try {
+            doc = stringToXML(text.getText().toString());
+            ArrayList<Object>  list = convertXML(doc);
 
-        Bundle bundle = new Bundle();
-        bundle.putString("libraryName",libraryName);
-        bundle.putSerializable("list", list);
+            Bundle bundle = new Bundle();
+            bundle.putString("libraryName",libraryName);
+            bundle.putSerializable("list", list);
 
-        //TODO: Integration Colin's View List
-        //Navigation.findNavController(view).navigate(R.id.  ,bundle);
+
+            Navigation.findNavController(view).navigate(R.id.nav_viewList,bundle);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(),getString(R.string.importFail),Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 
 

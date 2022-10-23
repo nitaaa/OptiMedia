@@ -15,12 +15,12 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="32dp"
         android:ems="10"
+        android:hint="Paste XML Here"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/btnImport"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:hint="Paste XML Here"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnImport"

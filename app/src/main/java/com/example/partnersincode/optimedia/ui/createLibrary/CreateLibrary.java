@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
@@ -45,6 +46,7 @@ public class CreateLibrary extends Fragment {
             String libType = ((RadioButton) view.findViewById(selectedType)).getText().toString();
 
             dbHandler.createLibrary(libName, libType);
+            Toast.makeText(getContext(),getString(R.string.createLibraryToast,libName),Toast.LENGTH_SHORT).show();
         });
         return view;
     }

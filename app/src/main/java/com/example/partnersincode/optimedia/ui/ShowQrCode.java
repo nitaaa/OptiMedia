@@ -37,7 +37,9 @@ public class ShowQrCode extends Fragment {
     private Button prev;
     private Button next;
 
+
     //QR generation related fields
+    int limit = 800;       //max characters for QRcode
     QRGEncoder encoder;
     ArrayList<Bitmap> partitionedBitmaps;
     Property<Bitmap> currentQRBitmap = new Property<>();
@@ -165,7 +167,7 @@ public class ShowQrCode extends Fragment {
 
     private void processInput()
     {
-        int limit = 1046;
+
         //Check to see if input contents would exceed the size limit for a version 18 QR code
         if(QRContents.length()>limit)
         {
