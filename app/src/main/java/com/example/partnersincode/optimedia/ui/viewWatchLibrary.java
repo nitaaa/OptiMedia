@@ -2,6 +2,7 @@ package com.example.partnersincode.optimedia.ui;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,7 +17,9 @@ import android.widget.TextView;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.adapters.GameAdapter;
 import com.example.partnersincode.optimedia.adapters.WatchObjectAdapter;
+import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.Library;
 import com.example.partnersincode.optimedia.models.Movie;
 import com.example.partnersincode.optimedia.models.Series;
@@ -108,6 +111,31 @@ public class viewWatchLibrary extends Fragment {
                 // Navigation from view book library to A02312
                 Navigation.findNavController(view).navigate(R.id.nav_createSeriesLog, bundle);
             }
+        });
+
+        adapter.setOnLongClickListener( view ->
+        {
+            WatchObjectAdapter.WatchObjectViewHolder viewHolder = (WatchObjectAdapter.WatchObjectViewHolder) reWatchLibrary.findContainingViewHolder(view);
+            WatchObject watchObject = null;
+            if(viewHolder.movie!=null)
+            {
+                watchObject = viewHolder.movie;
+            }
+
+            if(viewHolder.series!=null)
+            {
+                watchObject = viewHolder.series;
+            }
+
+            AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
+            dialog.setMessage(getString(R.string.confirmRemoveFromLib,watchObject.getTitle(),library.getLibraryName()));
+            dialog.setButton(AlertDialog.BUTTON_NEGATIVE,getString(R.string.no),(a,b) -> dialog.cancel());
+            WatchObject finalWatchObject = watchObject;
+            dialog.setButton(AlertDialog.BUTTON_POSITIVE,getString(R.string.yes),(a, b) -> {
+                dbHandler.removeFromLibrary(library, finalWatchObject);
+                adapter.remove(finalWatchObject);});
+            dialog.show();
+            return true;
         });
 
         //TODO: onclick for edit

@@ -106,9 +106,10 @@ public class viewBookLibrary extends Fragment {
             AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
             dialog.setMessage(getString(R.string.confirmRemoveFromLib,book.getBookTitle(),library.getLibraryName()));
             dialog.setButton(AlertDialog.BUTTON_NEGATIVE,getString(R.string.no),(a,b) -> dialog.cancel());
-            dialog.setButton(AlertDialog.BUTTON_POSITIVE,getString(R.string.yes),(a,b) -> dbHandler.removeFromLibrary(library,book));
+            dialog.setButton(AlertDialog.BUTTON_POSITIVE,getString(R.string.yes),(a,b) -> {
+                dbHandler.removeFromLibrary(library,book);
+                adapter.remove(book);});
             dialog.show();
-
             return true;
         });
 
