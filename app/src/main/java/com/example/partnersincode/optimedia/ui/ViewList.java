@@ -81,7 +81,7 @@ public class ViewList extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_view_list, container, false);
 
         Bundle bundle = this.getArguments();
-        ArrayList list = (ArrayList)bundle.getSerializable("List");
+        ArrayList list = (ArrayList)bundle.getSerializable("list");
         String name = bundle.getString("libraryName");
 
        TextView lblName = rootView.findViewById(R.id.lblName);

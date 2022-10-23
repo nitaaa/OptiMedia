@@ -186,7 +186,7 @@ public class qrScanControl extends Fragment {
 //                .add(new qrScanAction(),"QR");
 
         ScanOptions scan = new ScanOptions();
-        scan.setOrientationLocked(false);
+        scan.setOrientationLocked(true);
 
         barcodeLauncher.launch(scan);
 
@@ -195,9 +195,10 @@ public class qrScanControl extends Fragment {
 
     private void onSubmitClicked(View view)
     {
-        //TODO: Integration
+        Bundle bundle = new Bundle();
+        bundle.putString("XML",contentsScanned.get());
 
-
+        Navigation.findNavController(view).navigate(R.id.nav_xmlImport,bundle);
     }
 
     private void onUndoClicked(View view)

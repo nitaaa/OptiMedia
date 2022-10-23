@@ -2,6 +2,7 @@ package com.example.partnersincode.optimedia.ui;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -98,10 +99,19 @@ public class viewBookLibrary extends Fragment {
             Navigation.findNavController(view).navigate(R.id.nav_viewBooklogs, bundle); //navigate to A02111
         });
         //Set long click listener for removing from library
-//        adapter.setOnLongClickListener( view ->
-//        {
-//
-//        });
+        adapter.setOnLongClickListener( view ->
+        {
+            BookAdapter.BookViewHolder viewHolder = (BookAdapter.BookViewHolder) reBookLibrary.findContainingViewHolder(view);
+            Book book = viewHolder.book;
+            AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
+            dialog.setMessage(getString(R.string.confirmRemoveFromLib,book.getBookTitle(),library.getLibraryName()));
+            dialog.setButton(AlertDialog.BUTTON_NEGATIVE,getString(R.string.no),(a,b) -> dialog.cancel());
+            dialog.setButton(AlertDialog.BUTTON_POSITIVE,getString(R.string.yes),(a,b) -> dbHandler.removeFromLibrary(library,book));
+            dialog.show();
+
+            return true;
+        });
+
 
         //TODO: onclick for edit
         Button imgBtnEditBook = rootView.findViewById(R.id.imgBtnEditBook);

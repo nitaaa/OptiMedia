@@ -46,6 +46,7 @@ public class CreateLibrary extends Fragment {
             String libType = ((RadioButton) view.findViewById(selectedType)).getText().toString();
 
             dbHandler.createLibrary(libName, libType);
+            
             Toast.makeText(this.getContext(), libName + " added.", Toast.LENGTH_SHORT).show();
         });
         return view;

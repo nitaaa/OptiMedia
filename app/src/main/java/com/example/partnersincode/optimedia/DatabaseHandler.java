@@ -1658,7 +1658,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             Book cur = (Book) object;
             int bookID = cur.getBookID();
-            String SQL = String.format("DELETE FROM BookLibrary WHERE \n bookIO = %d AND libraryID = %d",
+            String SQL = String.format("DELETE FROM BookLibrary WHERE \n bookID = %d AND libraryID = %d",
                     bookID, libraryID);
             db.execSQL(SQL);
 
