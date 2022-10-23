@@ -2,6 +2,7 @@ package com.example.partnersincode.optimedia.ui;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,7 +18,9 @@ import android.widget.Toast;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
+import com.example.partnersincode.optimedia.adapters.BookAdapter;
 import com.example.partnersincode.optimedia.adapters.GameAdapter;
+import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.Library;
 
@@ -97,6 +100,20 @@ public class viewGameLibrary extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putParcelable("gameInfo", game);
             Navigation.findNavController(view).navigate(R.id.nav_manageGameLog, bundle); //navigate to A02111
+        });
+
+        adapter.setOnLongClickListener( view ->
+        {
+            GameAdapter.GameViewHolder viewHolder = (GameAdapter.GameViewHolder) reGameLibrary.findContainingViewHolder(view);
+            Game game = viewHolder.game;
+            AlertDialog dialog = new AlertDialog.Builder(getContext()).create();
+            dialog.setMessage(getString(R.string.confirmRemoveFromLib,game.getGameTitle(),library.getLibraryName()));
+            dialog.setButton(AlertDialog.BUTTON_NEGATIVE,getString(R.string.no),(a,b) -> dialog.cancel());
+            dialog.setButton(AlertDialog.BUTTON_POSITIVE,getString(R.string.yes),(a,b) -> {
+                dbHandler.removeFromLibrary(library,game);
+                adapter.remove(game);});
+            dialog.show();
+            return true;
         });
 
         //TODO: onclick for edit

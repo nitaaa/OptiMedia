@@ -79,7 +79,7 @@ public class viewMediaObject extends Fragment {
 
         if (bundle != null) {
             mediaObject = bundle.getParcelable("mediaObject");
-            type = bundle.getString("type");
+            type = bundle.getString("gameType");
         }
     }
 
