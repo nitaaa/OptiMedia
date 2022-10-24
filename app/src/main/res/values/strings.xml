@@ -40,7 +40,7 @@
     <string name="action_addSelected">Add Selected</string>
     <string name="label_SelectLibrary">Select a Library</string>
     <string name="selectMedia">Select Movies/Series (max %d)</string>
-    <string name="heading_addNewMovie">Add MFovie</string>
+    <string name="heading_addNewMovie">Add Movie</string>
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
     <string name="lbl_movie_title">Movie title:</string>
