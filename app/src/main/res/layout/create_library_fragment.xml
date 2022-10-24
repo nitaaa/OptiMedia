@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:insetLeft="16dp"
                 android:insetRight="16dp"
-                android:text="@string/addbtn" />
+                android:text="Add New Library" />
 
         </LinearLayout>
 
