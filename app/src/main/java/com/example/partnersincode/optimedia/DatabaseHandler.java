@@ -8,27 +8,25 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-
+import com.example.partnersincode.optimedia.models.Booklog;
+import com.example.partnersincode.optimedia.models.GameLog;
 import com.example.partnersincode.optimedia.models.Genre;
 import com.example.partnersincode.optimedia.models.Library;
+import com.example.partnersincode.optimedia.models.MediaObject;
 import com.example.partnersincode.optimedia.models.Movie;
+import com.example.partnersincode.optimedia.models.MovieLog;
 import com.example.partnersincode.optimedia.models.Series;
+import com.example.partnersincode.optimedia.models.SeriesLog;
 import com.example.partnersincode.optimedia.models.WatchObject;
 
 import com.example.partnersincode.optimedia.models.Author;
 import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Game;
-import com.example.partnersincode.optimedia.models.Genre;
-
-import com.example.partnersincode.optimedia.models.Game;
-import com.example.partnersincode.optimedia.models.Genre;
-import com.example.partnersincode.optimedia.models.Library;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DB_NAME = "optimediadb";
@@ -103,79 +101,123 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addTestData(SQLiteDatabase sqLiteDatabaseDB){
         //TODO: put in test data then add query
         //add genres
-        String query = "INSERT INTO Genre (genreName) VALUES ('Fantasy'),('Science Fiction'),('Romance'),('War/Military'),('Young Adult'),('Children')";
+        String query = "INSERT INTO Genre (genreName) VALUES ('Fantasy'),('Science Fiction'),('Romance'),('War/Military'),('Young Adult'),('Children')," +
+                "('Adventure'),('Comedy'),('Action'),('Documentary')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add authors
-        query = "INSERT INTO Author (authorName, authorSurname) VALUES ('Sarah J.', 'Maas'),('John', 'Knowles'),('Madeleine', 'LEngle')," +
-                "('Jennifer', 'Niven'),('Sabaa', 'Tahir'),('Benjamin', 'Alire Saenz'),('Marissa', 'Meyer')";
+        query = "INSERT INTO Author (authorName, authorSurname) VALUES ('Sarah J.', 'Maas'),('JK', 'Rowling'),('Lee', 'Child')," +
+                "('Jennifer', 'Niven'),('Sabaa', 'Tahir'),('Benjamin', 'Alire Saenz'),('Marissa', 'Meyer'),('Holly','Black')," +
+                "('Madelaine','Miller'),('Leigh','Bardugo')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add books
-        query = "INSERT INTO Book (authorID, genreID, ISBN, bookTitle, favourite, started, complete) VALUES (1, 1, '1635575567 ', 'A Court of Thorns and Roses', 0, 0, 0),"+
-        "(6, 5, '1933693584 ', 'Last Night I Sang to the Monster', 0, 0, 0), (5, 1, '9781595148049', 'An Ember in the Ashes', 0, 0, 0)";
+        query = "INSERT INTO Book (authorID, genreID, ISBN, bookTitle, favourite, started, complete) VALUES " +
+                "(1, 1, '1635575567 ', 'A Court of Thorns and Roses', 1, 1, 0), (6, 5, '1933693584 ', 'Last Night I Sang to the Monster', 0, 0, 1), " +
+                "(5, 1, '9781595148049', 'An Ember in the Ashes', 0, 0, 0), (10, 1, '9781250313102 ', 'Hell Bent', 0, 0, 0), " +
+                "(2, 1, '9780747591054', 'Harry Potter and the Deathly Hallows', 1, 1, 1), (8, 1, '9780316310314 ', 'The Cruel Prince', 0, 1, 1)," +
+                "(3, 9, '9780515141429', 'Killing Floor', 0, 0, 0), (3, 9, '9780515142242 ', 'Die Trying', 0, 0, 0)," +
+                "(7, 2, '9780312641894', 'Cinder', 1, 1, 1), (7, 2, '9780312642969 ', 'Scarlet', 0, 1, 0)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add games
         query = " INSERT INTO Game (genreID,gameTitle,gameType,favourite,started,complete) VALUES "+
-                "('1','The Witcher 3: Wild Hunt','Open World, RPG','false','false','false'), "+
-                "('4','Counter-Strike: Global Offensive','FPS Multiplayer','false','false','false'), "+
-                "('6','Animal Crossing: New Horizons','Life simulation','false','false','false')";
+                "('1','The Witcher 3: Wild Hunt','Open World, RPG',0,1,0), "+
+                "('4','Counter-Strike: Global Offensive','FPS Multiplayer',0,0,0), "+
+                "('6','Animal Crossing: New Horizons','Life Simulation',1,1,0)," +
+                "('7','The Elder Scrolls V: Skyrim','Open World, RPG',0,1,1), "+
+                "('6','Fall Guys','Multiplayer',0,0,0), "+
+                "('5','The Sims 4','Life Simulation',1,1,0)," +
+                "('1','Coral Island','Early Access',0,0,0), "+
+                "('7','Stardew Valley','Farming Sim',1,1,1), "+
+                "('7','Disney Dreamlight Valley','Life simulation',0,0,0)," +
+                "('2','Cyberpunk 2077','Open World, RPG',0,0,0)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add movies
-        query = "INSERT INTO Movie (genreID,movieTitle,favourite,started,complete) VALUES ('5','Paper Towns','false','false','false'),"+
-                " ('1','Fallen','false','false','false'), ('5','The perks of being a wallflower','false','false','false'), "+
-                " ('2','Ready Player One','false','false','false'), ('3','To all the Boys I''ve Loved Before','false','false','false')";
+        query = "INSERT INTO Movie (genreID,movieTitle,favourite,started,complete) VALUES ('5','Paper Towns',0,1,1),"+
+                " ('3','Blonde',1,1,1), ('5','The perks of being a wallflower',1,1,1), "+
+                " ('2','Ready Player One',0,0,0), ('3','To all the Boys I''ve Loved Before',0,0,0), ('6','Lightyear',0,0,0)," +
+                "('10','Planet Earth II',0,1,0), ('8','Hocus Pocus 2',0,1,1)," +
+                "('7','Thor: Love and Thunder',0,0,0), ('7','Black Panther: Wakanda Forever',0,0,0)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add series
-        query = "INSERT INTO Series (genreID,seriesTitle,favourite,started,complete) VALUES ('1','Fate: The Winx Saga','false','false','false'),"+
-                " ('2','The Umbrella Academy','false','false','false'), ('3','Bridgerton','false','false','false'), "+
-                " ('5','The Summer I Turned Pretty','false','false','false'), ('6','Lightyear','false','false','false')";
+        query = "INSERT INTO Series (genreID,seriesTitle,favourite,started,complete) VALUES (1,'Fate: The Winx Saga',1,1,0),"+
+                " (1,'The Umbrella Academy',0,1,0), (3,'Bridgerton',0,1,1), "+
+                " (5,'The Summer I Turned Pretty',0,0,0), (9,'Reacher',1,1,1)," +
+                "(10,'Welcome to Wrexham',1,1,0), ('7','The Winchesters',1,0,0), (1,'House of the Dragon',0,1,0)," +
+                "(1,'The Lord of the Rings: The Rings of Power',1,0,0), (3,'The Empress',0,0,0)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add watchlist item
-        query = "INSERT INTO WatchListItem (seriesID,movieID, link) VALUES ('1',NULL,''), (NULL,'3',''), ('3',NULL,'')";
+        query = "INSERT INTO WatchListItem (seriesID,movieID, link) VALUES (NULL,'1','https://www.imdb.com/title/tt3622592/')," +
+                "(NULL,'2','https://www.imdb.com/title/tt1655389/'),(NULL,'3','https://www.imdb.com/title/tt1659337/'), " +
+                "(NULL,'4','https://www.imdb.com/title/tt1677720/'),(NULL,'5','https://www.imdb.com/title/tt3846674/'), " +
+                "(NULL,'6','https://www.imdb.com/title/tt10298810/'),(NULL,'7','https://www.imdb.com/title/tt5491994/'), " +
+                "(NULL,'8','https://www.imdb.com/title/tt11909878/'),(NULL,'9','https://www.imdb.com/title/tt10648342/'), " +
+                "(NULL,'10','https://www.imdb.com/title/tt9114286/'), " +
+                "('1',NULL,'https://www.imdb.com/title/tt8179402/'), ('2',NULL,'https://www.imdb.com/title/tt1312171/'), " +
+                "('3',NULL,'https://www.imdb.com/title/tt8740790/'), ('4', NULL,'https://www.imdb.com/title/tt14016500/'), " +
+                "('5',NULL,'https://www.imdb.com/title/tt9288030/'), ('6',NULL,'https://www.imdb.com/title/tt14674086/')," +
+                "('7',NULL,'https://www.imdb.com/title/tt14923244/'), ('8', NULL,'https://www.imdb.com/title/tt11198330/')," +
+                "('9',NULL,'https://www.imdb.com/title/tt7631058/'), ('10',NULL,'https://www.imdb.com/title/tt13720112/')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add library
-        query = "INSERT INTO Library (libraryName,libraryType) VALUES ('To Be Read','Book'), ('Indie Favs','Game'), ('Watch with K','Watch'), " +
-                "('Current Reads','Book'), ('Watching123','Watch')";
+        query = "INSERT INTO Library (libraryName,libraryType) VALUES ('To Be Read','Book'), ('Indie Favs','Game'), ('Watch together','Watch'), " +
+                "('Current Reads','Book'), ('Netflix','Watch'), ('New Releases','Game'), ('2023 Book Release','Book'), ('For Sale', 'Book')," +
+                "('Marvel','Watch'), ('Farming Sim','Game')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add book library
-        query = "INSERT INTO BookLibrary (libraryID,bookID) VALUES (4,1), (1,3)";
+        query = "INSERT INTO BookLibrary (libraryID,bookID) VALUES (4,9),(4,10),(4,1),(1,3),(1,6),(8,7),(8,8),(7,4)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add game library
-        query = "INSERT INTO GameLibrary (libraryID,gameID) VALUES (2,1)";
+        query = "INSERT INTO GameLibrary (libraryID,gameID) VALUES (2,1),(10,7),(10,8),(10,9),(6,9),(6,10)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add watch library
-        query = "INSERT INTO WatchLibrary (libraryID,WLI_ID)VALUES (3,1), (3,2), (3,3), (5,4),(5,5)";
+        query = "INSERT INTO WatchLibrary (libraryID,WLI_ID)VALUES (3,11),(3,2),(3,19),(9,10),(9,9),(5,5),(5,12),(5,13)";
         sqLiteDatabaseDB.execSQL(query);
 
         //add book log
         query = "INSERT INTO BookLog (bookID,blTitle,blNote,blPageNumber) VALUES " +
-                " ('1','Feyre','I threw myself into that fire, threw myself into it, into him, and let myself burn.','312'),"+
-                " ('1','Mr. Archeron','We need hope, or else we cannot endure.','19'), " +
-                " ('1','Rhysand','I didn''t want you to fight alone. Or die alone.','413')";
+                " (1,'Feyre','I threw myself into that fire, threw myself into it, into him, and let myself burn.','312'),"+
+                " (1,'Mr. Archeron','We need hope, or else we cannot endure.','19'), " +
+                " (1,'Rhysand','I didn''t want you to fight alone. Or die alone.','413'),"+
+                " (9,'Cinder','Even in the Future the Story Begins with Once Upon a Time.','3'),"+
+                " (9,'Kai','But mirrors have an uncanny way of telling the truth.','195'), " +
+                " (10,'Scarlet','I don’t see that her being cyborg is relevant.','215'),"+
+                " (10,'Winter','Did you see any rice in there? Maybe we could fill Cinders head with it.','184'),"+
+                " (10,'Wolfe','But you are the only one, Scarlet. You will always be the only one.','259'), " +
+                " (7,'R50','','0'),"+
+                " (8,'R65','','0')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add game log
-        query = "INSERT INTO GameLog (gameID,glTitle,glNote) VALUES ('1','Spoilers','Play 1 and 2 first'), "+
-                "('1','DLC','New DLC availiable on steam'), ('2','Reset ranks',''), ('3','Replant','Need orange and cherry trees')";
+        query = "INSERT INTO GameLog (gameID,glTitle,glNote) VALUES (1,'Spoilers','Play 1 and 2 first'), "+
+                "(1,'DLC','New DLC availiable on steam'), (8,'Joja Farm','Buy pumpkin seeds'), (8,'Mods','Update on nexus'), " +
+                "(7,'Release date','Mid october on steam'), (5,'Family Friendly','-'), " +
+                "(6,'Joja Farm','Buy pumpkin seeds'), (6,'Mods','Update on nexus'), " +
+                "(10,'D wishlist','PS4'), (3,'ACNH Bingo','LilSimsie on Wednesday')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add movie log
-        query = "INSERT INTO MovieLog (movieID,m_note,m_timestamp)VALUES ('1','Kinda cringe','1:00'), ('2','Twilight but worse?','18:54'),"+
-                " ('3','We accept the love we think we deserve.','00:00')";
+        query = "INSERT INTO MovieLog (movieID,m_note,m_timestamp)VALUES (1,'Kinda cringe','0:01:00'), (1,'Twilight but no vampires','0:18:54'),"+
+                "(3,'We accept the love we think we deserve.','0:00:00'), (3,'TW Abuse','0:00:00'), " +
+                "(8,'Watch Party - 31 Oct','0:00:00'),(6,'For babsitting','0:00:00')," +
+                "(2,'Some of them love Marilyn, some of them hate Marilyn. What’s that got to do with me?','0:53:20')," +
+                "(2,'My mind’s my own to change.','0:01:20')," +
+                "(2,'It’s just a dream. It’s just a crazy dream.','0:01:54'),(3,'So, I guess we are who we are for alot of reasons.','0:00:00')";
         sqLiteDatabaseDB.execSQL(query);
 
         //add series log
-        query = "INSERT INTO SeriesLog (seriesID,season,episode,s_note,s_timestamp) VALUES ('1','1','3','Stopped here','33:45'),"+
-                "('3','2','1','Drama','11:25')";
+        query = "INSERT INTO SeriesLog (seriesID,season,episode,s_note,s_timestamp) VALUES (1,'1','3','Stopped here','0:33:45'),"+
+                "(3,'2','4','Drama','0:23:00'), (3,'2','1','Have you found a wife yet? Or are you planning on offending every young girl until there are none left?','0:11:25'), (2,'2','1','Start Here','0:00:00')," +
+                "(3,'2','2','Very few attempt to outwit me, and even fewer succeed.','0:12:50'),(5,'1','3','Start Here','0:00:00'),(5,'1','5','Last Watched with mom','0:00:00')," +
+                "(8,'1','1','Start Over','0:11:25'),(8,'1','3','Last Released','0:00:00'),(9,'1','3','Start Here','0:00:00')";
         sqLiteDatabaseDB.execSQL(query);
 
         Log.d("createDB", "Test data added");
@@ -188,27 +230,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Qaanita Fataar
      * @param LibraryType String - Library's Type (Book, Game, Watch)
      */
-    public void createLibrary(String LibraryName, String LibraryType){
+    public int createLibrary(String LibraryName, String LibraryType){
         Log.d("createLibrary", " starting ");
         SQLiteDatabase db = this.getWritableDatabase();
 
         //Works both ways:
         //Way 1:
-        String query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','"+ LibraryType +"')";
-        if (LibraryType.equals("Movie/Series")){
-            query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','Watch')";
-        }
-        db.execSQL(query);
+//        String query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','"+ LibraryType +"')";
+//        if (LibraryType.equals("Movie/Series")){
+//            query = "INSERT INTO Library (libraryName,libraryType) VALUES ('"+ LibraryName +"','Watch')";
+//        }
+//        db.execSQL(query);
 
         //Way 2: Helpful because you get the ID as well
-    //    ContentValues values = new ContentValues();
-    //    values.put("libraryName", LibraryName);
-    //    if (LibraryType.equals("Movie/Series")){
-    //        values.put("libraryType", "Watch");
-     //   } else {
-     //       values.put("libraryType", LibraryType);
-     //   }
-     //   long id = db.insertWithOnConflict("Library", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        ContentValues values = new ContentValues();
+        values.put("libraryName", LibraryName);
+        if (LibraryType.equals("Movie/Series")){
+            values.put("libraryType", "Watch");
+        } else {
+            values.put("libraryType", LibraryType);
+        }
+        long id = db.insertWithOnConflict("Library", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        return (int) id;
      //   Log.d("createLibrary", "complete // " +id);
     }
 
@@ -236,10 +279,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Colin O'Linksy
      * @return void
      */
-    public void createSeries(String seriesTitle,int genreID, boolean favourite, boolean started,boolean completed) {
+    @SuppressLint("Range")
+    public void createSeries(String seriesTitle,int genreID, String link, boolean favourite, boolean started,boolean completed) {
+        int fav, start, complete;
+        fav = (favourite) ? 1 : 0;
+        start = (started) ? 1 : 0;
+        complete = (completed) ? 1 : 0;
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "INSERT INTO Series (seriesTitle,genreID,favourite,started,complete) VALUES ('"+seriesTitle+"',"+genreID+",'"+favourite+"','"+started+"','"+completed+"')";
+        String query = "INSERT INTO Series (seriesTitle,genreID,favourite,started,complete) VALUES ('"+seriesTitle+"',"+genreID+","+fav+","+start+","+complete+")";
         db.execSQL(query);
+        //Adriaan addition (add WLI for series object)
+        query = String.format("SELECT * FROM Series WHERE seriesTitle = \'%s\'",seriesTitle);
+        Cursor c = db.rawQuery(query,null);
+        if(c.moveToFirst())
+        {
+             int seriesID = c.getInt(c.getColumnIndex("seriesID"));
+            query = String.format("INSERT INTO WatchListItem (seriesID, link) VALUES (%d, \'%s\')",seriesID,link);
+            db.execSQL(query);
+        }
     }
 
     /**
@@ -251,7 +308,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<Library> getAllLibraries() {
         ArrayList<Library> libraryArrayList = new ArrayList<>();
 
-        String selectQuery = "SELECT * FROM Library";
+        String selectQuery = "SELECT * FROM Library WHERE NOT libraryName='tempshare'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
@@ -260,10 +317,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 Library library = new Library();
                 library.setLibraryID(c.getInt(c.getColumnIndex("libraryID")));
                 library.setLibraryName(c.getString(c.getColumnIndex("libraryName")));
-                library.setLibraryName(c.getString(c.getColumnIndex("libraryType")));
+                library.setLibraryType(c.getString(c.getColumnIndex("libraryType")));
 
                 libraryArrayList.add(library);
-                Log.d("DatabaseHandler", "getAllLibraries: " + library.toString());
+                //Log.d("DatabaseHandler", "getAllLibraries: " + library.toString());
             } while (c.moveToNext());
         }
         c.close();
@@ -372,6 +429,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             } while (c.moveToNext());
         }
+        c.close();
         return watchLibraries;
     }
 
@@ -407,11 +465,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 boolean favourite = movies.getInt(movies.getColumnIndex("favourite"))==1;
                 boolean started = movies.getInt(movies.getColumnIndex("started")) == 1;
                 boolean complete = movies.getInt(movies.getColumnIndex("complete"))==1;
-                
-                moviesAndSeries.add(new Movie(movieID,genreID,movieTitle,favourite,started,complete));
+                //TODO: get link from database
+                moviesAndSeries.add(new Movie(movieID,genreID,movieTitle,"",favourite,started,complete));
 
             }while(movies.moveToNext());
         }
+        movies.close();
         
         if(series.moveToFirst())
         {
@@ -423,11 +482,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 boolean favourite = series.getInt(series.getColumnIndex("favourite"))==1;
                 boolean started = series.getInt(series.getColumnIndex("started")) == 1;
                 boolean complete = series.getInt(series.getColumnIndex("complete"))==1;
-
-                moviesAndSeries.add(new Series(seriesID,genreID,seriesTitle,favourite,started,complete));
+                //TODO: get link from database
+                moviesAndSeries.add(new Series(seriesID,genreID,seriesTitle,"",favourite,started,complete));
 
             }while(series.moveToNext());
         }
+        series.close();
 
 
         return moviesAndSeries;
@@ -437,22 +497,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     /**
      * Adds a new movie object to the database, also adds the related WatchListItem
      * Adriaan
-     * @param title of movie
-     * @param link of where movie is found
-     * @param selGenre Genre object
+
      */
-    public void addMovie(String title, String link, Genre selGenre)
+    public void addMovie(Movie movie)
     {
+
+        int fav, start, complete;
+        fav = (movie.getFavourite()) ? 1 : 0;
+        start = (movie.getStarted()) ? 1 : 0;
+        complete = (movie.getComplete()) ? 1 : 0;
 
         SQLiteDatabase db = getReadableDatabase();
 
-        ContentValues movie = new ContentValues();
-        movie.put("movieTitle",title);
-        movie.put("genreID",selGenre.getGenreID());
-        long id = db.insertWithOnConflict("Movie",null,movie, SQLiteDatabase.CONFLICT_IGNORE);
+        ContentValues adding = new ContentValues();
+        adding.put("movieTitle",movie.getTitle());
+        adding.put("genreID",movie.getGenreID());
+        adding.put("favourite",fav);
+        adding.put("started",start);
+        adding.put("complete",complete);
+        long id = db.insertWithOnConflict("Movie",null,adding, SQLiteDatabase.CONFLICT_IGNORE);
 
         String SQL = String.format("INSERT INTO WatchListItem (movieID, link)" +
-                "\n VALUES (%d, \"%s\" )",id,link);
+                "\n VALUES (%d, \"%s\" )",id,movie.getLink());
 
         db.execSQL(SQL);
     }
@@ -470,8 +536,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String SQL = String.format("SELECT * FROM Movie WHERE movieTitle = \"%s\"",title);
         Cursor c = db.rawQuery(SQL,null);
-
-        return c.moveToFirst();
+        Boolean inDatabase = c.moveToFirst();
+        c.close();
+        return inDatabase;
     }
 
 
@@ -496,7 +563,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             if (c.moveToFirst()) {
                 WLI_ID = c.getInt(c.getColumnIndex("WLI_ID"));
             }
-
+            c.close();
             return WLI_ID;
         }
         return -1; //return -1 if an invalid field is passed via idFieldName
@@ -524,15 +591,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
     public int createNewBook(Book book) {
 
+        int fav, start, complete;
+        fav = (book.isFavourite()) ? 1 : 0;
+        start = (book.isStarted()) ? 1 : 0;
+        complete = (book.isCompleted()) ? 1 : 0;
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("authorID", book.getAuthorID());
         values.put("genreID", book.getGenreID());
         values.put("ISBN", book.getISBN());
         values.put("bookTitle", book.getBookTitle());
-        values.put("favourite", book.isFavourite());
-        values.put("started", book.isStarted());
-        values.put("complete", book.isCompleted());
+        values.put("favourite", fav);
+        values.put("started", start);
+        values.put("complete", complete);
         long id = db.insertWithOnConflict("Book", null, values, SQLiteDatabase.CONFLICT_IGNORE);
         Log.d("createNewBook", "complete // " +id);
 
@@ -571,8 +643,1179 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         } catch (Exception e){
             Log.d("Update Author", "failed: " + e.getMessage());
         }
+    }
 
+    /**
+     * Find all books in a library
+     * Qaanita Fataar
+     * @return ArrayList<Book>
+     * @param libraryID, searchTerm
+     */
+    @SuppressLint("Range")
+    public ArrayList<Book> getAllBooksLibrary(int libraryID, String searchTerm){
+        ArrayList<Book> bookArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM BookLibrary WHERE libraryID = " + libraryID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                int bookID = c.getInt(c.getColumnIndex("bookID"));
+                Book book = getBookByID(bookID);
+                if (book.getBookTitle() != null)  { //&& book.getBookTitle().contains(searchTerm)){
+                    bookArrayList.add(book);
+                    Log.d("DatabaseHandler", "getAllBooksLibrary: " + bookID);
+                }
+//                if (searchTerm != null){
+//                    if (book.getBookTitle() != null && book.getBookTitle().toLowerCase().contains(searchTerm.toLowerCase())){
+//                        bookArrayList.add(book);
+//                        Log.d("DatabaseHandler", "getAllBooksLibrary: " + bookID);
+//                    }
+//                } else {
+//                    bookArrayList.add(book);
+//                    Log.d("DatabaseHandler", "getAllBooksLibrary: " + bookID);
+//                }
+            } while (c.moveToNext());
+        }
+        c.close();
+        return bookArrayList;
+    }
+
+    /**
+     * Find a book by its ID
+     * Qaanita Fataar
+     * @return Book
+     * @param bookID
+     */
+    @SuppressLint("Range")
+    public Book getBookByID(int bookID){
+        Book book = new Book();
+        String selectQuery = "SELECT * FROM Book WHERE bookID = " + bookID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                book.setBookID(c.getInt(c.getColumnIndex("bookID")));
+                book.setAuthorID(c.getInt(c.getColumnIndex("authorID")));
+                book.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                book.setBookTitle(c.getString(c.getColumnIndex("bookTitle")));
+                book.setISBN(c.getString(c.getColumnIndex("ISBN")));
+                book.setFavourite(c.getInt(c.getColumnIndex("favourite")) > 0);
+                book.setStarted(c.getInt(c.getColumnIndex("started")) > 0);
+                book.setCompleted(c.getInt(c.getColumnIndex("complete")) > 0);
+                Log.d("DatabaseHandler", "getAllBooksLibrary: " + bookID);
+            } while (c.moveToNext());
+        }
+        c.close();
+        return book;
+    }
+
+    /**
+     * Find all games in a library
+     * Qaanita Fataar
+     * @return ArrayList<Game>
+     * @param libraryID, searchTerm
+     */
+    @SuppressLint("Range")
+    public ArrayList<Game> getAllGamesLibrary(int libraryID, String searchTerm){
+        ArrayList<Game> gameArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM GameLibrary WHERE libraryID = " + libraryID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                int gameID = c.getInt(c.getColumnIndex("gameID"));
+                Game game = getGameByID(gameID);
+                gameArrayList.add(game);
+                Log.d("DatabaseHandler", "getAllGamesLibrary: " + gameID);
+//                if (searchTerm != null){
+//                    if (game.getGameTitle() != null && game.getGameTitle().toLowerCase().contains(searchTerm.toLowerCase())){
+//                        gameArrayList.add(game);
+//                        Log.d("DatabaseHandler", "getAllGamesLibrary: " + gameID);
+//                    }
+//                } else {
+//                    gameArrayList.add(game);
+//                    Log.d("DatabaseHandler", "getAllGamesLibrary: " + gameID);
+//                }
+            } while (c.moveToNext());
+        }
+        c.close();
+        return gameArrayList;
+    }
+
+    /**
+     * Find a book by its ID
+     * Qaanita Fataar
+     * @return Book
+     * @param gameID
+     */
+    @SuppressLint("Range")
+    public Game getGameByID(int gameID){
+        Game game = new Game();
+        String selectQuery = "SELECT * FROM Game WHERE gameID = " + gameID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                game.setGameID(c.getInt(c.getColumnIndex("gameID")));
+                game.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                game.setGameTitle(c.getString(c.getColumnIndex("gameTitle")));
+                game.setGameType(c.getString(c.getColumnIndex("gameType")));
+                game.setFavourite(c.getInt(c.getColumnIndex("favourite")) > 0);
+                game.setStarted(c.getInt(c.getColumnIndex("started")) > 0);
+                game.setCompleted(c.getInt(c.getColumnIndex("complete")) > 0);
+                Log.d("DatabaseHandler", "getAllBooksLibrary: " + gameID);
+            } while (c.moveToNext());
+        }
+        c.close();
+        return game;
+    }
+
+    /**
+     * Find all watchlist items  in a library
+     * Qaanita Fataar
+     * @return ArrayList<WatchObject>
+     * @param libraryID, searchTerm
+     */
+    @SuppressLint("Range")
+    public ArrayList<WatchObject> getAllWatchItemsLibrary(int libraryID, String searchTerm){
+        ArrayList<WatchObject> watchList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM WatchLibrary WHERE libraryID = " + libraryID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                int watchListItemID = c.getInt(c.getColumnIndex("WLI_ID"));
+                Log.d("getAllWatchItemsLibrary - ", "wli_id: " + watchListItemID);
+                watchList.add(getWatchItemByID(watchListItemID));
+//                WatchObject watchItem = getWatchItemByID(watchListItemID);
+//                if (searchTerm != null){
+//                    if (watchItem.getTitle() != null && watchItem.getTitle().toLowerCase().contains(searchTerm.toLowerCase())){
+//                        watchList.add(watchItem);
+//                        Log.d("DatabaseHandler", "getAllWatchItemsLibrary: " + watchListItemID);
+//                    }
+//                } else {
+//                    watchList.add(watchItem);
+//                    Log.d("DatabaseHandler", "getAllWatchItemsLibrary: " + watchListItemID);
+//                }
+
+            } while (c.moveToNext());
+        }
+        c.close();
+        return watchList;
+    }
+    
+    /**
+     * Find a watch list item by ID
+     * Qaanita Fataar
+     * @return WatchObject
+     * @param WLI_ID
+     */
+    @SuppressLint("Range")
+    public WatchObject getWatchItemByID(int WLI_ID) {
+        String selectQuery = "SELECT * FROM WatchListItem WHERE WLI_ID = " + WLI_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            Log.d("TAG", "getWatchItemByID: getting items:"+WLI_ID);
+            if (!c.isNull(c.getColumnIndex("movieID"))) {
+                int movieID = c.getInt(c.getColumnIndex("movieID"));
+                Log.d("getAllWatchItemsLibrary:", "is movie, movieID" + movieID);
+                Movie movie = getMovieByID(movieID);
+                movie.setLink(c.getString(c.getColumnIndex("link")));
+                return movie;
+            } else if (!c.isNull(c.getColumnIndex("seriesID"))) {
+                int seriesID = c.getInt(c.getColumnIndex("seriesID"));
+                Log.d("getAllWatchItemsLibrary:", "is series, seriesID" + seriesID);
+                Series series = getSeriesByID(seriesID);
+                series.setLink(c.getString(c.getColumnIndex("link")));
+                return series;
+            }
+        }
+        c.close();
+        return new WatchObject();
+    }
+    
+    /**
+     * Find a movie by ID
+     * Qaanita Fataar
+     * @return Movie
+     * @param movieID
+     */
+    @SuppressLint("Range")
+    public Movie getMovieByID(int movieID) {
+        Movie movie = new Movie();
+        String selectQuery = "SELECT * FROM Movie WHERE movieID = " + movieID;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                movie.setMovieID(c.getInt(c.getColumnIndex("movieID")));
+                movie.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                movie.setTitle(c.getString(c.getColumnIndex("movieTitle")));
+                movie.setFavourite(c.getInt(c.getColumnIndex("favourite")) > 0);
+                movie.setStarted(c.getInt(c.getColumnIndex("started")) > 0);
+                movie.setComplete(c.getInt(c.getColumnIndex("complete")) > 0);
+                Log.d("DatabaseHandler", "getMovieByID: " + movie.getTitle());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return movie;
+    }
+    
+     /**
+     * Find a series by ID
+     * Qaanita Fataar
+     * @return Series
+     * @param seriesID
+     */
+    @SuppressLint("Range")
+    public Series getSeriesByID(int seriesID) {
+        Series series = new Series();
+        String selectQuery = "SELECT * FROM Series WHERE seriesID = " + seriesID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                series.setSeriesID(c.getInt(c.getColumnIndex("seriesID")));
+                series.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                series.setTitle(c.getString(c.getColumnIndex("seriesTitle")));
+                series.setFavourite(c.getInt(c.getColumnIndex("favourite")) > 0);
+                series.setStarted(c.getInt(c.getColumnIndex("started")) > 0);
+                series.setComplete(c.getInt(c.getColumnIndex("complete")) > 0);
+                Log.d("DatabaseHandler", "getSeriesByID: " + series.getTitle());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return series;
+    }
+
+    /**
+     * Find an author by ID
+     * Qaanita Fataar
+     * @return Author
+     * @param authorID
+     */
+    @SuppressLint("Range")
+    public Author getAuthorByID(int authorID) {
+        Author author = new Author();
+        String selectQuery = "SELECT * FROM Author WHERE authorID = " + authorID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                author.setAuthorID(c.getInt(c.getColumnIndex("authorID")));
+                author.setAuthorName(c.getString(c.getColumnIndex("authorName")));
+                author.setAuthorSurname(c.getString(c.getColumnIndex("authorSurname")));
+                Log.d("DatabaseHandler", "getAuthorByID: " + author.getFullName());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return author;
+    }
+    @SuppressLint("Range")
+    public Author getAuthorByName(String fName,String lName) {
+        Author author = new Author();
+        String selectQuery = "SELECT * FROM Author WHERE authorName = \'" + fName+"\' and authorSurname = \'"+lName+"\'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                author.setAuthorID(c.getInt(c.getColumnIndex("authorID")));
+                author.setAuthorName(c.getString(c.getColumnIndex("authorName")));
+                author.setAuthorSurname(c.getString(c.getColumnIndex("authorSurname")));
+                Log.d("DatabaseHandler", "getAuthorByID: " + author.getFullName());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return author;
+    }
+
+    /**
+     * Delete a library
+     * Qaanita Fataar
+     * @return void
+     * @param libraryID,libraryType
+     */
+    public void deleteLibrary(int libraryID, String libraryType){
+        String deleteLibQuery = "DELETE FROM Library WHERE libraryID = "+libraryID;
+        String deleteSubLibQuery = "";
+        switch (libraryType) {
+            case "Book":
+                deleteSubLibQuery = "DELETE FROM BookLibrary WHERE libraryID = " + libraryID;
+                break;
+            case "Game":
+                deleteSubLibQuery = "DELETE FROM GameLibrary WHERE libraryID = " + libraryID;
+                break;
+            case "Watch":
+                deleteSubLibQuery = "DELETE FROM WatchLibrary WHERE libraryID = " + libraryID;
+                break;
+        }
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            if (!deleteSubLibQuery.equals(""))
+                db.execSQL(deleteSubLibQuery);
+            db.execSQL(deleteLibQuery);
+
+            Log.d("deleteLibrary", "Deleted " + libraryID);
+        } catch(Exception e){
+            Log.d("deleteLibrary", "Error \n" + e.getMessage());
+        }
+    }
+
+    public void updateGenre(int id,String genre) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            String query = "UPDATE Genre SET genreName = '"+genre +"' WHERE genreID = "+id;
+            db.execSQL(query);
+    }
+
+    public void addGenre(String genre) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Insert into Genre (genreName) values ('"+genre +"')";
+        db.execSQL(query);
+    }
+
+    @SuppressLint("Range")
+    public ArrayList<Booklog> getBooklogsFromBook(int bookID) {
+        ArrayList<Booklog> blArrayList = new ArrayList<>();
+
+        if (bookID!=-1) {
+            String selectQuery = "SELECT * FROM Booklog where bookID = " + bookID;
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor c = db.rawQuery(selectQuery, null);
+            if (c.moveToFirst()) {
+                do {
+                    Booklog booklog = new Booklog();
+                    booklog.setBL_ID(c.getInt(c.getColumnIndex("BL_ID")));
+                    booklog.setBookID(bookID);
+                    booklog.setBlTitle(c.getString(c.getColumnIndex("blTitle")));
+                    booklog.setBlNote(c.getString(c.getColumnIndex("blNote")));
+                    booklog.setBlPageNumber(c.getInt(c.getColumnIndex("blPageNumber")));
+
+                    blArrayList.add(booklog);
+                } while (c.moveToNext());
+            }
+            c.close();
+        }else{
+            String selectQuery = "SELECT * FROM Booklog";
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor c = db.rawQuery(selectQuery, null);
+            if (c.moveToFirst()) {
+                do {
+                    Booklog booklog = new Booklog();
+                    booklog.setBL_ID(c.getInt(c.getColumnIndex("BL_ID")));
+                    booklog.setBookID(c.getInt(c.getColumnIndex("bookID")));
+                    booklog.setBlTitle(c.getString(c.getColumnIndex("blTitle")));
+                    booklog.setBlNote(c.getString(c.getColumnIndex("blNote")));
+                    booklog.setBlPageNumber(c.getInt(c.getColumnIndex("blPageNumber")));
+
+                    blArrayList.add(booklog);
+                } while (c.moveToNext());
+            }
+            c.close();
+
+        }
+        return blArrayList;
+    }
+
+    public void updateBooklog(int id,String Title, String Note,int PN) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE Booklog SET blTitle = '"+Title +"',blNote = '"+Note +"', blPageNumber= "+PN +"  WHERE BL_ID = "+id;
+        db.execSQL(query);
+    }
+
+    public void addBooklog(int bookID,String Title, String Note,int PN) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Insert into Booklog (bookID,blTitle,blNote,blPageNumber) " +
+                "values ("+bookID+",'"+Title+"', '"+Note+"', "+PN+")";
+        db.execSQL(query);
+    }
+
+
+    /**
+     * Update a library (change name)
+     * Qaanita Fataar
+     * @return void
+     * @param libraryID,libraryName
+     */
+    public void updateLibrary(int libraryID, String libraryName){
+        String updateQuery = "UPDATE Library SET libraryName = '"+libraryName.replace("'", "''")
+                +"' WHERE libraryID = "+libraryID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            db.execSQL(updateQuery);
+            Log.d("updateLibrary", "Updated " + libraryID+", "+libraryName);
+        } catch(Exception e){
+            Log.d("updateLibrary", "Error \n" + e.getMessage());
+        }
+    }
+
+    /**
+     * Update a Series (favourite, started, complete)
+     * Qaanita Fataar
+     * @return void
+     * @param series
+     */
+    public void updateSeries(Series series){
+        int fav, start, complete;
+        fav = (series.getFavourite()) ? 1 : 0;
+        start = (series.getStarted()) ? 1 : 0;
+        complete = (series.getComplete()) ? 1 : 0;
+        String updateQuery = "UPDATE Series SET favourite = "+fav+", started = "+start
+                +", complete = "+complete+" WHERE seriesID = "+series.getSeriesID();
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            db.execSQL(updateQuery);
+            Log.d("updateLibrary", "Updated " + series.toString());
+        } catch(Exception e){
+            Log.d("updateLibrary", "Error \n" + e.getMessage());
+        }
+    }
+
+    /**
+     * Update a Movie (favourite, started, complete)
+     * Adriaan Benn && Alexandria Damons
+     * @return void
+     * @param  movie
+     */
+    public void updateMovie(Movie movie){
+        int fav, start, complete;
+        fav = (movie.getFavourite()) ? 1 : 0;
+        start = (movie.getStarted()) ? 1 : 0;
+        complete = (movie.getComplete()) ? 1 : 0;
+        String updateQuery = "UPDATE Movie SET favourite = "+fav+", started = "+start
+                +", complete = "+complete+" WHERE movieID = "+movie.getMovieID();
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            db.execSQL(updateQuery);
+            
+        } catch(Exception e){
+           e.printStackTrace();
+        }
+    }
+
+    /**
+     * Update a Game (favourite, started, complete)
+     * Adriaan Benn && Alexandria Damons
+     * @return void
+     * @param  game
+     */
+    public void updateGame(Game game){
+        int fav, start, complete;
+        fav = (game.isFavourite()) ? 1 : 0;
+        start = (game.isStarted()) ? 1 : 0;
+        complete = (game.isCompleted()) ? 1 : 0;
+        String updateQuery = "UPDATE Game SET favourite = "+fav+", started = "+start
+                +", complete = "+complete+" WHERE gameID = "+game.getGameID();
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            db.execSQL(updateQuery);
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Update a Book (favourite, started, complete)
+     * Adriaan Benn
+     * @return void
+     * @param  book
+     */
+    public void updateBook(Book book){
+        int fav, start, complete;
+        fav = (book.isFavourite()) ? 1 : 0;
+        start = (book.isStarted()) ? 1 : 0;
+        complete = (book.isCompleted()) ? 1 : 0;
+        String updateQuery = "UPDATE Book SET favourite = "+fav+", started = "+start
+                +", complete = "+complete+" WHERE bookID = "+book.getBookID();
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+            db.execSQL(updateQuery);
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Create a record/log for a series
+     * Qaanita Fataar
+     * @return int
+     */
+    public int createSeriesLog(SeriesLog seriesLog){
+        //INSERT INTO SeriesLog (seriesID,season,episode,s_note,s_timestamp)
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("seriesID",seriesLog.getSeriesID());
+        values.put("season", seriesLog.getSeason());
+        values.put("episode", seriesLog.getEpisode());
+        values.put("s_note", seriesLog.getS_note());
+        values.put("s_timestamp", seriesLog.getS_timestamp());
+        long id = db.insertWithOnConflict("SeriesLog", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        Log.d("createSeriesLog", "complete // " +id);
+
+        return (int) id;
+    }
+
+    /**
+     * Get all logs for a series (by ID)
+     * Qaanita Fataar
+     * @return ArrayList<SeriesLog>
+     * @param seriesID
+     */
+    @SuppressLint("Range")
+    public ArrayList<SeriesLog> getAllSeriesLogByID(int seriesID){
+        ArrayList<SeriesLog> seriesLogs = new ArrayList<>();
+        String selectQuery = "SELECT * FROM SeriesLog WHERE seriesID = " + seriesID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                SeriesLog seriesLog = new SeriesLog();
+                seriesLog.setSL_ID(c.getInt(c.getColumnIndex("SL_ID")));
+                seriesLog.setSeriesID(c.getInt(c.getColumnIndex("seriesID")));
+                seriesLog.setSeason(c.getString(c.getColumnIndex("season")));
+                seriesLog.setEpisode(c.getString(c.getColumnIndex("episode")));
+                seriesLog.setS_note(c.getString(c.getColumnIndex("s_note")));
+                seriesLog.setS_timestamp(c.getString(c.getColumnIndex("s_timestamp")));
+                seriesLogs.add(seriesLog);
+                Log.d("DatabaseHandler", "getAllSeriesLogByID: " + seriesLog.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return seriesLogs;
+    }
+
+    /**
+     * Get a single log for a series (by SL_ID)
+     * Qaanita Fataar
+     * @return ArrayList<SeriesLog>
+     * @param SL_ID
+     */
+    @SuppressLint("Range")
+    public SeriesLog getSeriesLogByID(int SL_ID){
+        SeriesLog seriesLog = new SeriesLog();
+        String selectQuery = "SELECT * FROM SeriesLog WHERE SL_ID = " + SL_ID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                seriesLog.setSL_ID(c.getInt(c.getColumnIndex("SL_ID")));
+                seriesLog.setSeriesID(c.getInt(c.getColumnIndex("seriesID")));
+                seriesLog.setSeason(c.getString(c.getColumnIndex("season")));
+                seriesLog.setEpisode(c.getString(c.getColumnIndex("episode")));
+                seriesLog.setS_note(c.getString(c.getColumnIndex("s_note")));
+                seriesLog.setS_timestamp(c.getString(c.getColumnIndex("s_timestamp")));
+                Log.d("DatabaseHandler", "getAllSeriesLogByID: " + seriesLog.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return seriesLog;
+    }
+    
+
+    /**
+     * Gets all the Libraries of type watch from the database
+     * Adriaan Benn
+     * @return ArrayList<WatchLibrary> populated with watchLibraries
+     */
+    @SuppressLint("Range")
+    public ArrayList<Library> getGameLibraries()
+    {
+        ArrayList<Library> gameLibraries = new ArrayList<>();
+
+        String SQL = "SELECT * FROM Library WHERE libraryType = \"Game\"";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(SQL, null);
+
+        if(c.moveToFirst())
+        {
+            do{
+
+                int libraryID = c.getInt(c.getColumnIndex("libraryID"));
+                String libraryName = c.getString(c.getColumnIndex("libraryName"));
+                String libraryType = c.getString(c.getColumnIndex("libraryType"));
+                gameLibraries.add(new Library(libraryID,libraryName,libraryType));
+
+
+            } while (c.moveToNext());
+        }
+        c.close();
+        return gameLibraries;
+    }
+
+    @SuppressLint("Range")
+    public ArrayList<Library> getBookLibraries()
+    {
+        ArrayList<Library> BookLibraries = new ArrayList<>();
+
+        String SQL = "SELECT * FROM Library WHERE libraryType = \"Book\"";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(SQL, null);
+
+        if(c.moveToFirst())
+        {
+            do{
+
+                int libraryID = c.getInt(c.getColumnIndex("libraryID"));
+                String libraryName = c.getString(c.getColumnIndex("libraryName"));
+                String libraryType = c.getString(c.getColumnIndex("libraryType"));
+                BookLibraries.add(new Library(libraryID,libraryName,libraryType));
+
+
+            } while (c.moveToNext());
+        }
+        return BookLibraries;
+    }
+
+    /**
+     * Gets all authors from the database.
+     * Alexandria
+     * @return ArrayList<Author>
+     */
+    @SuppressLint("Range")
+    public ArrayList<Game> getGames() {
+        ArrayList<Game> gameArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Game";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                Game game = new Game();
+                game.setGameID(c.getInt(c.getColumnIndex("gameID")));
+                game.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                game.setGameTitle(c.getString(c.getColumnIndex("gameTitle")));
+                game.setGameType(c.getString(c.getColumnIndex("gameType")));
+                game.setFavourite(c.getInt(c.getColumnIndex("favourite"))==1);
+                game.setStarted(c.getInt(c.getColumnIndex("started")) == 1);
+                game.setCompleted(c.getInt(c.getColumnIndex("complete"))==1);
+
+                gameArrayList.add(game);
+                Log.d("DatabaseHandler", "getGameLibraries: " + game.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return gameArrayList;
+    }
+
+    /**
+     * Gets all authors from the database.
+     * Alexandria
+     * @return ArrayList<Author>
+     */
+    @SuppressLint("Range")
+    public ArrayList<Game> getGames(String string) {
+        ArrayList<Game> gameArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Game WHERE gameTitle LIKE '%" + string +"%'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                Game game = new Game();
+                game.setGameID(c.getInt(c.getColumnIndex("gameID")));
+                game.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                game.setGameTitle(c.getString(c.getColumnIndex("gameTitle")));
+                game.setGameType(c.getString(c.getColumnIndex("gameType")));
+                game.setFavourite(c.getInt(c.getColumnIndex("favourite"))==1);
+                game.setStarted(c.getInt(c.getColumnIndex("started")) == 1);
+                game.setCompleted(c.getInt(c.getColumnIndex("complete"))==1);
+
+                gameArrayList.add(game);
+                Log.d("DatabaseHandler", "getGameLibraries: " + game.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return gameArrayList;
+    }
+
+    @SuppressLint("Range")
+    public ArrayList<Book> getBooks(String string) {
+        ArrayList<Book> bookArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Book WHERE bookTitle LIKE '%" + string +"%'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                Book book = new Book();
+                book.setBookID(c.getInt(c.getColumnIndex("bookID")));
+                book.setAuthorID(c.getInt(c.getColumnIndex("authorID")));
+                book.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                book.setISBN(c.getString(c.getColumnIndex("ISBN")));
+                book.setBookTitle(c.getString(c.getColumnIndex("bookTitle")));
+                book.setFavourite(c.getInt(c.getColumnIndex("favourite")) > 0);
+                book.setStarted(c.getInt(c.getColumnIndex("started")) > 0);
+                book.setCompleted(c.getInt(c.getColumnIndex("complete")) > 0);
+
+                bookArrayList.add(book);
+                Log.d("DatabaseHandler", "getBookLibraries: " + book.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return bookArrayList;
+    }
+
+    @SuppressLint("Range")
+    public ArrayList<Book> getBooks() {
+        ArrayList<Book> bookArrayList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM Book";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        if (c.moveToFirst()) {
+            do {
+                Book book = new Book();
+                book.setBookID(c.getInt(c.getColumnIndex("bookID")));
+                book.setAuthorID(c.getInt(c.getColumnIndex("authorID")));
+                book.setGenreID(c.getInt(c.getColumnIndex("genreID")));
+                book.setISBN(c.getString(c.getColumnIndex("ISBN")));
+                book.setBookTitle(c.getString(c.getColumnIndex("bookTitle")));
+                book.setFavourite(c.getInt(c.getColumnIndex("favourite"))==1);
+                book.setStarted(c.getInt(c.getColumnIndex("started")) == 1);
+                book.setCompleted(c.getInt(c.getColumnIndex("complete"))==1);
+
+                bookArrayList.add(book);
+                Log.d("DatabaseHandler", "getBookLibraries: " + book.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return bookArrayList;
+    }
+
+    /**
+     * Create new author in database.
+     * Alexandria
+     * @return int ID
+     */
+    public int createGameLibrary(Game game, Library library) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("libraryID", library.getLibraryID());
+        values.put("gameID", game.getGameID());
+        long id = db.insertWithOnConflict("GameLibrary", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        Log.d("createGameLibrary", "complete // " +id);
+
+        return (int) id;
+    }
+
+    public int createBookLibrary(Book book, Library library) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("libraryID", library.getLibraryID());
+        values.put("bookID", book.getBookID());
+        long id = db.insertWithOnConflict("BookLibrary", null, values, SQLiteDatabase.CONFLICT_IGNORE);
+        Log.d("createBookLibrary", "complete // " +id);
+
+        return (int) id;
+    }
+
+    /**
+     * Create new movie log in database.
+     * Alexandria
+     * @return int ID
+     */
+    public void addMovieLog(MovieLog log) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Insert into Movielog (movieID,m_note,m_timestamp) " +
+                "values ("+log.getMovieID()+",'"+log.getM_note()+"', '"+log.getM_timestamp()+"')";
+        db.execSQL(query);
 
     }
 
+    /**
+     * Gets all the movie logs from the database
+     * Alexandria
+     * @return ArrayList<MovieLog> populated with list
+     */
+    @SuppressLint("Range")
+    public ArrayList<MovieLog> getMovieLog()
+    {
+        ArrayList<MovieLog> logs = new ArrayList<>();
+
+        String SQL = "SELECT * FROM MovieLog";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(SQL, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                MovieLog movieLog = new MovieLog();
+                movieLog.setML_ID(c.getInt(c.getColumnIndex("ML_ID")));
+                movieLog.setMovieID(c.getInt(c.getColumnIndex("movieID")));
+                movieLog.setM_note(c.getString(c.getColumnIndex("m_note")));
+                movieLog.setM_timestamp(c.getString(c.getColumnIndex("m_timestamp")));
+
+                logs.add(movieLog);
+                Log.d("DatabaseHandler", "getMovieLogs: " + movieLog.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return logs;
+    }
+
+
+    /**
+     * Updates a movie log in the database.
+     * Alexandria
+     * @return
+     */
+    public void updateMovieLog(int id, String note,String time) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE Movielog SET m_note = '"+ note +"',m_timestamp = '"+ time +"' WHERE ML_ID = "+id;
+        db.execSQL(query);
+    }
+
+
+    /**
+     * Gets all genres from the database.
+     * Alexandria
+     * @return ArrayList<Genre>
+     */
+    @SuppressLint("Range")
+    public Genre getGenre(int id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = String.format("SELECT * FROM GENRE WHERE genreID = %d",id);
+
+        Genre genre = null;
+        Cursor c = db.rawQuery(sql,null);
+        if(c.moveToFirst())
+        {
+            do {
+                String genreName = c.getString(c.getColumnIndex("genreName"));
+
+                genre = new Genre(id,genreName);
+
+            } while (c.moveToNext());
+        }
+        return genre;
+    }
+
+    /**
+     * Gets a specific genre from the database.
+     * Alexandria
+     * @return genre
+     */
+    @SuppressLint("Range")
+    public Genre getGenre(String Name)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = String.format("SELECT * FROM GENRE WHERE genreName = \'%s\'",Name);
+
+        Genre genre = null;
+        Cursor c = db.rawQuery(sql,null);
+        if(c.moveToFirst())
+        {
+            do {
+                int id = c.getInt(c.getColumnIndex("genreID"));
+
+                genre = new Genre(id,Name);
+
+            } while (c.moveToNext());
+        }
+        return genre;
+    }
+
+
+    public int statsSeriesLogCount() {
+            SQLiteDatabase db = this.getWritableDatabase();
+            String sql = String.format("Select count(SL_ID) From SeriesLog");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+            return  c.getInt(0);
+    }
+
+    public int statsMovieLogCount() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = String.format("Select count(ML_ID) From MovieLog");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getInt(0);
+    }
+
+    public int statsGameLogCount() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = String.format("Select count(GL_ID) From GameLog");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getInt(0);
+    }
+
+    public int statsBookLogCount() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = String.format("Select count(BL_ID) From BookLog");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getInt(0);
+    }
+
+    public int statsFinishedSeries() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = String.format("Select count(seriesID) From Series where complete=1");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getInt(0);
+    }
+
+    public int statsFinishedMovies() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = String.format("Select count(movieID) From Movie where complete=1");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getInt(0);
+    }
+
+    public int statsFinishedGames() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = String.format("Select count(gameID) From Game where complete=1");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getInt(0);
+    }
+
+    public int statsFinishedBooks() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = String.format("Select count(bookID) From Book where complete=1");
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getInt(0);
+    }
+
+    public String statsSeriesPopGenre() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "Select genreName,count(Genre.genreID) From Genre inner join Series on Genre.genreID=Series.genreID group by Genre.genreName order by count(Genre.genreID) desc";
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getString(0);
+    }
+
+    public String statsMoviePopGenre() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "Select genreName,count(Genre.genreID) From Genre inner join Movie on " +
+                "Genre.genreID=Movie.genreID group by Genre.genreName order by count(Genre.genreID) desc";
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getString(0);
+    }
+
+    public String statsGamePopGenre() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "Select genreName,count(Genre.genreID) From Genre inner join Game on " +
+                "Genre.genreID=Game.genreID group by Genre.genreName order by count(Genre.genreID) desc";
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getString(0);
+    }
+
+    public String statsBookPopGenre() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "Select genreName,count(Genre.genreID) From Genre inner join Book on " +
+                "Genre.genreID=Book.genreID group by Genre.genreName order by count(Genre.genreID) desc";
+        Cursor c = db.rawQuery(sql,null);
+        c.moveToFirst();
+        return  c.getString(0);
+    }
+
+    /**
+     * Gets all the game logs from the database
+     * Alexandria
+     * @return ArrayList<GameLog> populated with list
+     */
+    @SuppressLint("Range")
+    public ArrayList<GameLog> getGameLogs()
+    {
+
+        ArrayList<GameLog> logs = new ArrayList<>();
+
+
+        String SQL = "SELECT * FROM GameLog";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(SQL, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+
+                GameLog gameLog = new GameLog();
+                gameLog.setGL_ID(c.getInt(c.getColumnIndex("GL_ID")));
+                gameLog.setGameID(c.getInt(c.getColumnIndex("gameID")));
+                gameLog.setGLTitle(c.getString(c.getColumnIndex("glTitle")));
+                gameLog.setGLNote(c.getString(c.getColumnIndex("glNote")));
+
+                logs.add(gameLog);
+                Log.d("DatabaseHandler", "getGameLogs: " + gameLog.toString());
+            } while (c.moveToNext());
+        }
+        c.close();
+        return logs;
+    }
+
+    /**
+     * Updates a game log in the database.
+     * Alexandria
+     * @return
+     */
+    public void updateGameLog(int id, String title,String note) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE GameLog SET glTitle = '"+ title +"',glNote = '"+ note +"' WHERE GL_ID = "+id;
+        db.execSQL(query);
+    }
+
+    /**
+     * Create new game log in database.
+     * Alexandria
+     * @return int ID
+     */
+    public void addGameLog(GameLog log) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Insert into Gamelog (gameID,glTitle,glNote) " +
+                "values ("+log.getGameID()+",'"+log.getGLTitle()+"', '"+log.getGLNote()+"')";
+        db.execSQL(query);
+
+    }
+
+    /**
+     * Adriaan
+     * SQL to remove an media object from the library
+     * @param library from which object is being removed from
+     * @param object Media object being removed
+     */
+    public void removeFromLibrary(Library library, Object object)
+    {
+        int libraryID=library.getLibraryID();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        if(object instanceof Book)
+        {
+            Book cur = (Book) object;
+            int bookID = cur.getBookID();
+            String SQL = String.format("DELETE FROM BookLibrary WHERE \n bookID = %d AND libraryID = %d",
+                    bookID, libraryID);
+            db.execSQL(SQL);
+
+
+        }
+        else if(object instanceof Game)
+        {
+            Game cur = (Game) object;
+            int gameID = cur.getGameID();
+            String SQL = String.format("DELETE FROM GameLibrary WHERE \n gameID = %d AND libraryID = %d",
+                    gameID, libraryID);
+            db.execSQL(SQL);
+
+        }
+        else if(object instanceof WatchObject) {
+            WatchObject cur = (WatchObject) object;
+            int objectID = cur.getID();
+            String SQL = null;
+            if(object instanceof Movie)
+            SQL = String.format(
+                    "DELETE FROM WatchLibrary WHERE libraryID = %d AND " +
+                            "WLI_ID = (SELECT WLI_ID FROM WatchListItem WHERE  movieID = %d )"
+                    , libraryID, objectID);
+            else
+            SQL = String.format(
+                    "DELETE FROM WatchLibrary WHERE libraryID = %d AND " +
+                            "WLI_ID = (SELECT WLI_ID FROM WatchListItem WHERE seriesID = %d)"
+                    , libraryID, objectID);
+
+            db.execSQL(SQL);
+        }
+    }
+
+    public Collection<WatchObject> getWatchItems(String keyword) {
+        ArrayList<WatchObject> watchList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM WatchListItem";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                @SuppressLint("Range") int watchListItemID = c.getInt(c.getColumnIndex("WLI_ID"));
+                Log.d("getAllWatchItemsLibrary", "wli_id: " + watchListItemID);
+                WatchObject watchItem = getWatchItemByID(watchListItemID);
+                if (keyword != null){
+                    if (watchItem.getTitle() != null && watchItem.getTitle().toLowerCase().contains(keyword.toLowerCase())){
+                        watchList.add(watchItem);
+                        Log.d("DatabaseHandler", "getWatchItems: " + watchItem.getTitle());
+                    }
+                } else {
+                    watchList.add(watchItem);
+                    Log.d("DatabaseHandler", "getWatchItems: " + watchItem.getTitle());
+                }
+
+            } while (c.moveToNext());
+        }
+        c.close();
+        return watchList;
+    }
+
+    @SuppressLint("Range")
+    public int getWLI_IDbySeriesID(int sID){
+        String selectQuery = "SELECT * FROM WatchListItem WHERE seriesID = " +sID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        int wli_id = 0;
+        if (c.moveToFirst()){
+            wli_id = c.getInt(c.getColumnIndex("WLI_ID"));
+        }
+        return wli_id;
+    }
+
+    @SuppressLint("Range")
+    public int getWLI_IDbyMovieID(int mID){
+        String selectQuery = "SELECT * FROM WatchListItem WHERE movieID = " +mID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        int wli_id = 0;
+        if (c.moveToFirst()){
+            wli_id = c.getInt(c.getColumnIndex("WLI_ID"));
+        }
+        return wli_id;
+    }
+
+    @SuppressLint("Range")
+    public Library getLibraryByID(int libID) {
+        String selectQuery = "SELECT * FROM Library WHERE libraryID=" +libID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+        Library library = new Library();
+        if (c.moveToFirst()){
+            library.setLibraryID(c.getInt(c.getColumnIndex("libraryID")));
+            library.setLibraryName(c.getString(c.getColumnIndex("libraryName")));
+            library.setLibraryType(c.getString(c.getColumnIndex("libraryType")));
+        }
+        return library;
+    }
+
+    public void deleteTemp(){
+        String deleteLibQuery = "DELETE FROM Library WHERE libraryName='tempshare'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        try{
+            db.execSQL(deleteLibQuery);
+        } catch(Exception e){
+            Log.d("deleteTemp", "Error \n" + e.getMessage());
+        }
+    }
 }

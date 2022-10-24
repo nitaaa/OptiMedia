@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/opaque_movie_series_theme"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtSLogReTitle"
+        style="@style/txtHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="[Season - Episode]"
+        android:layout_marginStart="4dp"/>
+
+    <LinearLayout
+        android:id="@+id/linLayoutSLogRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtSLogReTime"
+            style="@style/txtSubHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_timestamp" />
+
+        <TextView
+            android:id="@+id/txtSLogReNote"
+            style="@style/txtSubHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_note" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -2,8 +2,8 @@
     <string name="app_name">OptiMedia</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Optimedia</string>
+    <string name="nav_header_subtitle">Partner\'s in Code</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -21,6 +21,17 @@
     <string name="movieseriestxt">Movie/Series</string>
     <string name="createbtn">Create</string>
     <string name="createlabel">Create Library</string>
+    <string name="lbl_season">Season</string>
+    <string name="lbl_episode">Episode</string>
+    <string name="lbl_timestamp">Time (hh:mm:ss)</string>
+    <string name="lbl_note">Note</string>
+    <string name="btn_add_seriesLog">Add Series Log</string>
+    <string name="lbl_delete">Delete</string>
+    <string name="lbl_share">Share</string>
+    <string name="lbl_keyword">Enter search term</string>
+    <string name="lbl_showFavourites">Show Favourites</string>
+    <string name="lbl_mediaTypes">Select Media (Optional)</string>
+    <string name="lbl_all">Search All</string>
 
     <!-- Adriaan -->
     <string name="addMediaToLibrary">Add Movie/Series to library</string>
@@ -29,48 +40,90 @@
     <string name="action_addSelected">Add Selected</string>
     <string name="label_SelectLibrary">Select a Library</string>
     <string name="selectMedia">Select Movies/Series (max %d)</string>
-    <string name="heading_addNewMovie">Add new movie to database</string>
+    <string name="heading_addNewMovie">Add MFovie</string>
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
     <string name="lbl_movie_title">Movie title:</string>
     <string name="lbl_movie_link">Movie URL or Source Name:</string>
-    <string name="message_movieAdded">Movie (%s) was added</string>
+    <string name="message_movieed">Movie (%s) was added</string>
     <string name="lbl_genre">Select Genre</string>
     <string name="movie">Movie</string>
     <string name="series">Series</string>
     <string name="invalidMovieTitle">Please Enter a Valid Movie Title</string>
-    <string name="action_addMovie" >Add Movie</string>
+    <string name="action_addMovie">Add Movie</string>
     <string name="invalidSearchTerm">Please Enter a Valid Search Term</string>
     <string name="movieAlreadyInDB">Movie named %s already in database. Do you wish to continue adding?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="lbl_scanToAddLibrary">Scan this QR code to add %s</string>
+    <string name="submit">Submit</string>
+    <string name="scanAnother">Scan More</string>
+    <string name="scanNr">Scan Nr: %d</string>
+    <string name="A05000_instructions">Continue scanning (Scan More button) until the the last QR code has been scanned. Please take care not to scan anything other QR codes, and only scan what the sender has provided. Scans have to be done in order given by sender. When finished, click submit. Use the count below to ensure that number of QR codes scanned equates to the current QR code as show on the sender screen</string>
+    <string name="scanQR">Scan QR Code</string>
+    <string name="ok">OK</string>
+    <string name="noCameraPermission">Cannot scan QR code without camera permissions. Try Again</string>
+    <string name ="scanFailed">Scanning Failed/Cancelled</string>
+    <string name="addToWatchLibraryConfirmation">Media added to watch library</string>
+    <string name="createLibraryToast">Library \'%s\' created</string>
+    <string name="importFail">Importing failed, please check your contents and try again</string>
+    <string name="confirmRemoveFromLib">Are you sure you wish to remove \'%s\' from library \'%s\'</string>
+    <string name="message_movieAdded">Movie \'%s\' added to database</string>
 
     <string name="label_new_media">Add New Media</string>
     <string name="add_new_game">Add New Game</string>
     <string name="game_name">Game Name:</string>
     <string name="game_type">Game Type:</string>
     <string name="select_genre">Select Genre:</string>
+    <string name="fileName">Set File Name</string>
+    <string name="newGenreBtn">Add Genre</string>
+    <string name="invalidGenre">Please enter a valid genre</string>
+
+    <string name="undo">Undo</string>
 
     <!-- Temp: might be replaced by other people's strings-->
     <string name="add_new_book">Add New Book</string>
     <string name="add_new_series">Add New Series</string>
     <string name="add_new_movie">Add New Movie</string>
-    
+
     <!--Colin's use cases strings-->
     <string name="series_name">Series Name:</string>
     <string name="genre_type">Genre Type:</string>
     <string name="favourite">Favourite:</string>
     <string name="started">Started:</string>
     <string name="completed">Completed:</string>
-    <string name="addbtn">Add</string>
+    <string name="addbtn">Add new Series</string>
     <string name="log_title">Log Title:</string>
     <string name="log_note">Note:</string>
     <string name="log_pgno">Page Number:</string>
     <string name="share_qr">Generate QR Code</string>
     <string name="share_xml">Create XML</string>
-    
+
     <string name="manage_authors">Manage Authors</string>
     <string name="add_booklog">Add Booklog</string>
     <string name="share_library">Share Library</string>
+    <string name="addGameLibrary">Add Game to Library</string>
+
+    <string name="contentDescription_QRImageView">QR code of items being shared</string>
+    <string name="generateQRCode">Generate QR Code</string>
+    <string name="btnNext">Next</string>
+    <string name="btnPrev">Previous</string>
+    <string name="A03200_lblIndex">%d of %d</string>
+
+
+    <string name="view_all_libraries">View All Libraries</string>
+    <string name="record_season_and_episode">Record Season and Episode</string>
+    <string name="copy">Copy</string>
+    <string name="exportXML">Export XML</string>
+
+    <string name="favourite_genre">Most popular genre:</string>
+    <string name="enterGenreName">Enter Genre</string>
+    <string name="search_media">Search Media</string>
+    <string name="gameLog">Game Log</string>
+    <string name="manageGameLogs">Manage Game Logs</string>
+    <string name="createGameLog">Create Game Log</string>
+    <string name="emptyScanError">Please scan contents before submitting</string>
+    <string name="toastAddTogameLibrary">Addedgames to \'%s\'</string>
+
 
 </resources>

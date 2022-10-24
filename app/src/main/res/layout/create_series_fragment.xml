@@ -40,35 +40,65 @@
                 tools:ignore="HardcodedText" />
 
             <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Series URL or Source Name:"
+                />
+
+            <EditText
+                android:id="@+id/seriesLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Enter Series URL or Source Name"/>
+
+            <TextView
                 android:id="@+id/textView3"
                 style="@style/TextAppearance.AppCompat.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/genre_type" />
 
-            <Spinner
-                android:id="@+id/spinnerGenre"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/genre_type"
-                android:minHeight="48dp" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerGenre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="2"/>
+
+                <Button
+                    android:id="@+id/btnAddGenre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/newGenreBtn"/>
+            </LinearLayout>
 
             <Switch
-                android:id="@+id/sFavourite"
+                android:id="@+id/A08400_favourite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="48dp"
                 android:text="@string/favourite" />
 
             <Switch
-                android:id="@+id/sStarted"
+                android:id="@+id/A08400_started"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="48dp"
                 android:text="@string/started" />
 
             <Switch
-                android:id="@+id/sCompleted"
+                android:id="@+id/A08400_completed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="48dp"

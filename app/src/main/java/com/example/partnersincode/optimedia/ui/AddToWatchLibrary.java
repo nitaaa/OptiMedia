@@ -135,22 +135,18 @@ public class AddToWatchLibrary extends Fragment {
     private void onAddSelectedClicked(View view)
     {
         addObjectsToLibrary();
+        Toast.makeText(getContext(),R.string.addToWatchLibraryConfirmation,Toast.LENGTH_SHORT).show();
         getActivity().onBackPressed();
     }
 
     private void onSearchClicked(View view)
     {
+        DatabaseHandler db = new DatabaseHandler(getContext());
+
         String searchTerm = searchField.getText().toString();
 
-        if(searchTerm.equals(""))
-        {
-            Toast.makeText(getContext(),R.string.invalidSearchTerm,Toast.LENGTH_SHORT).show();
+        adaptor.updateForSearch(searchTerm);
 
-
-        }
-
-        //Do some thing with this text to call another use case
-        Toast.makeText(getContext(), "This is where A07000 will be called to search for "+searchTerm,Toast.LENGTH_SHORT).show();
 
     }
 
@@ -162,7 +158,7 @@ public class AddToWatchLibrary extends Fragment {
 
         for (WatchObject added :
                 adaptor.getSelectedWatchObjects()) {
-
+            if(adaptor.getSelectedWatchObjects().size()==0) return;
             String idFieldName = "";
 
             if (added instanceof Movie) idFieldName = "movieID";
@@ -175,7 +171,7 @@ public class AddToWatchLibrary extends Fragment {
             //Get the id of the watchlistitem holding this movie/series object
             DatabaseHandler db = new DatabaseHandler(getContext());
             int WLI_ID = db.getWLI_ID(idFieldName,objectID);
-
+            if(WLI_ID == -1) return;
             //Add movie or series to watchlibrary
             db.addWLItoLibrary(library,WLI_ID);
 

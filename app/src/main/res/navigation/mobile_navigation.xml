@@ -47,31 +47,29 @@
         android:name="com.example.partnersincode.optimedia.ui.createAuthor"
         android:label="Author"
         tools:layout="@layout/fragment_create_author" />
+
     <fragment
         android:id="@+id/nav_manageAuthors"
         android:name="com.example.partnersincode.optimedia.ui.manageAuthors"
         android:label="Manage Authors"
         tools:layout="@layout/fragment_manage_authors" />
+
     <fragment
         android:id="@+id/nav_createBook"
         android:name="com.example.partnersincode.optimedia.ui.createBook"
-        android:label="Create Book"
+        android:label="Add Book"
         tools:layout="@layout/fragment_create_book" />
 
+    <fragment
+        android:id="@+id/nav_importLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.importLibrary.ImportLibrary"
+        android:label="Import Library" />
 
-    <!--Colin presented -->
-    <fragment
-        android:id="@+id/nav_addBookLog"
-        android:name="com.example.partnersincode.optimedia.ui.addBookLog.AddBookLog"
-        android:label="Add BookLog" />
-    <fragment
-        android:id="@+id/nav_shareLibrary"
-        android:name="com.example.partnersincode.optimedia.ui.shareLibrary.ShareLibrary"
-        android:label="Share Library" />
     <fragment
         android:id="@+id/nav_createSeries"
         android:name="com.example.partnersincode.optimedia.ui.createSeries.CreateSeries"
-        android:label="Add Series" />
+        android:label="Add Series"
+        />
 
 
     <fragment
@@ -85,5 +83,145 @@
         android:name="com.example.partnersincode.optimedia.ui.CreateGame"
         android:label="@string/add_new_game"
         tools:layout="@layout/fragment_create_game" />
+
+    <fragment
+        android:id="@+id/nav_createGenre"
+        android:name="com.example.partnersincode.optimedia.ui.createGenre"
+        android:label="Show Genres"
+        tools:layout="@layout/fragment_create_genre" />
+
+    <fragment
+        android:id="@+id/nav_manageGenre"
+        android:name="com.example.partnersincode.optimedia.ui.manageGenres"
+        android:label="Create/Edit Genre"
+        tools:layout="@layout/fragment_manage_genres" />
+
+    <fragment
+        android:id="@+id/nav_viewBooklogs"
+        android:name="com.example.partnersincode.optimedia.ui.showBooklogs"
+        android:label="Show Booklogs"
+        tools:layout="@layout/fragment_show_booklogs" />
+
+    <fragment
+        android:id="@+id/nav_createBooklogs"
+        android:name="com.example.partnersincode.optimedia.ui.createBooklog"
+        android:label="Book Log"
+        tools:layout="@layout/add_logtobook_fragment" />
+        
+    <fragment
+        android:id="@+id/nav_showQrCode"
+        android:name="com.example.partnersincode.optimedia.ui.ShowQrCode"
+        android:label="@string/generateQRCode"
+        tools:layout="@layout/fragment_show_qr_code" />
+
+    <fragment
+        android:id="@+id/nav_viewAllLibraries"
+        android:name="com.example.partnersincode.optimedia.ui.viewAllLibraries"
+        android:label="View All Libraries"
+        tools:layout="@layout/fragment_view_all_libraries" />
+
+    <fragment
+        android:id="@+id/nav_viewBookLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.viewBookLibrary"
+        android:label="View Book Library"
+        tools:layout="@layout/fragment_view_book_library" />
+
+
+    <fragment
+        android:id="@+id/nav_viewGameLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.viewGameLibrary"
+        android:label="View Game Library"
+        tools:layout="@layout/fragment_view_game_library" />
+
+    <fragment
+        android:id="@+id/nav_viewWatchLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.viewWatchLibrary"
+        android:label="View Watch Library"
+        tools:layout="@layout/fragment_view_watch_library" />
+
+    <fragment
+        android:id="@+id/nav_editLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.editLibrary"
+        android:label="Edit Library"
+        tools:layout="@layout/fragment_edit_library" />
+
+    <fragment
+        android:id="@+id/nav_createSeriesLog"
+        android:name="com.example.partnersincode.optimedia.ui.createSeriesLog"
+        android:label="Series Log"
+        tools:layout="@layout/fragment_create_series_log" />
+
+
+    <fragment
+        android:id="@+id/nav_addGameToLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.addGameToLibrary"
+        android:label="@string/addGameLibrary"
+        tools:layout="@layout/fragment_add_game_to_library" />
+
+    <fragment
+        android:id="@+id/nav_createMovieLog"
+        android:name="com.example.partnersincode.optimedia.ui.createMovieLog"
+        android:label="Movie Log"
+        tools:layout="@layout/fragment_create_movie_log" />
+
+    <fragment
+        android:id="@+id/nav_manageMovieLog"
+        android:name="com.example.partnersincode.optimedia.ui.manageMovieLog"
+        android:label="Manage Movie Log"
+        tools:layout="@layout/fragment_manage_movie_log" />
+    <fragment
+        android:id="@+id/nav_xmlExport"
+        android:name="com.example.partnersincode.optimedia.ui.xmlExport"
+        android:label="Export Library"
+        tools:layout="@layout/fragment_xml_export" />
+    <fragment
+        android:id="@+id/nav_addBookToLib"
+        android:name="com.example.partnersincode.optimedia.addBookToLib.addBookToLibrary"
+        android:label="Add Book to Library" />
+    <fragment
+        android:id="@+id/nav_viewList"
+        android:name="com.example.partnersincode.optimedia.ui.ViewList"
+        android:label="View List"
+        tools:layout="@layout/fragment_view_list" />
+    <fragment
+        android:id="@+id/nav_viewStatistics"
+        android:name="com.example.partnersincode.optimedia.ui.ViewStatistics"
+        android:label="Statistics"
+        tools:layout="@layout/fragment_view_statistics" />
+    <fragment
+        android:id="@+id/nav_createGameLog"
+        android:name="com.example.partnersincode.optimedia.ui.createGameLog"
+        android:label="@string/createGameLog"
+        tools:layout="@layout/fragment_create_game_log" />
+    <fragment
+        android:id="@+id/nav_manageGameLog"
+        android:name="com.example.partnersincode.optimedia.ui.manageGameLog"
+        android:label="@string/manageGameLogs"
+        tools:layout="@layout/fragment_manage_game_log" />
+    <fragment
+        android:id="@+id/nav_qrScanControl"
+        android:name="com.example.partnersincode.optimedia.ui.scanQRCode.qrScanControl"
+        android:label="Scan QR Code"
+        tools:layout="@layout/fragment_scan_qr_code" />
+    <fragment
+        android:id="@+id/nav_xmlImport"
+        android:name="com.example.partnersincode.optimedia.ui.xmlImport"
+        android:label="Import XML"
+        tools:layout="@layout/fragment_xml_import" />
+    <fragment
+        android:id="@+id/nav_search_media_items"
+        android:name="com.example.partnersincode.optimedia.ui.search_media_items"
+        android:label="Search Media"
+        tools:layout="@layout/fragment_search_media_items" />
+    <fragment
+        android:id="@+id/nav_viewSearch"
+        android:name="com.example.partnersincode.optimedia.ui.viewSearch"
+        android:label="Search Results"
+        tools:layout="@layout/fragment_view_search" />
+    <fragment
+        android:id="@+id/nav_viewMediaObject"
+        android:name="com.example.partnersincode.optimedia.ui.viewMediaObject"
+        android:label="View Media"
+        tools:layout="@layout/fragment_view_media_object" />
 
 </navigation>

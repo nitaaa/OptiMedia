@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -76,7 +75,7 @@ public class manageAuthors extends Fragment {
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
 
         List<Author> authors = dbHandler.getAuthors();
-        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerAuthors);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerGameLog);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -93,9 +92,8 @@ public class manageAuthors extends Fragment {
             Navigation.findNavController(view).navigate(R.id.nav_createAuthor, bundle);
         });
 
-        Button btnCreateAuthor = rootView.findViewById(R.id.btnCreateAuthor);
+        Button btnCreateAuthor = rootView.findViewById(R.id.btnCreateGameLog);
         btnCreateAuthor.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.nav_createAuthor));
-        
 
         return rootView;
     }

@@ -6,16 +6,13 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_dashboard"
             android:title="@string/menu_home" />
-<!--        <item-->
-<!--            android:id="@+id/nav_gallery"-->
-<!--            android:icon="@drawable/ic_menu_gallery"-->
-<!--            android:title="@string/menu_gallery" />-->
-<!--        <item-->
-<!--            android:id="@+id/nav_slideshow"-->
-<!--            android:icon="@drawable/ic_menu_slideshow"-->
-<!--            android:title="@string/menu_slideshow" />-->
+
+        <item
+            android:id="@+id/nav_search_media_items"
+            android:icon="@drawable/ic_search"
+            android:title="@string/search_media" />
 
         <item
             android:id="@+id/nav_createLibrary"
@@ -23,23 +20,34 @@
             android:title="@string/createlabel" />
 
         <item
-            android:id="@+id/nav_manageAuthors"
-            android:icon="@drawable/ic_author"
-            android:title="@string/manage_authors" />
+            android:id="@+id/nav_viewAllLibraries"
+            android:icon="@drawable/ic_library"
+            android:title="@string/view_all_libraries" />
 
         <item
-            android:id="@+id/nav_addBookLog"
-            android:icon="@drawable/ic_book"
-            android:title="@string/add_booklog" />
-
-        <item
-            android:id="@+id/nav_shareLibrary"
+            android:id="@+id/nav_importLibrary"
             android:icon="@drawable/ic_share"
-            android:title="@string/share_library" />
+            android:title="Import Library" />
 
         <item
             android:id="@+id/nav_addNewMedia"
-            android:icon="@drawable/ic_add"
+            android:icon="@drawable/ic_create"
             android:title="@string/label_new_media" />
+
+<!--        <item-->
+<!--            android:id="@+id/nav_manageGenre"-->
+<!--            android:icon="@drawable/ic_genre"-->
+<!--            android:title="Manage genres" />-->
+
+<!--        <item-->
+<!--            android:id="@+id/nav_manageAuthors"-->
+<!--            android:icon="@drawable/ic_author"-->
+<!--            android:title="@string/manage_authors" />-->
+
+        <item
+            android:id="@+id/nav_viewStatistics"
+            android:icon="@drawable/stats"
+            android:title="Statistics" />
+
     </group>
 </menu>

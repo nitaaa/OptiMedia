@@ -1,6 +1,11 @@
 package com.example.partnersincode.optimedia.models;
 
-public class Game {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Game extends MediaObject implements Parcelable {
     private int gameID;
     private int genreID;
     private String gameTitle, gameType;
@@ -18,6 +23,28 @@ public class Game {
 
     public Game() {
     }
+
+    protected Game(Parcel in) {
+        gameID = in.readInt();
+        genreID = in.readInt();
+        gameTitle = in.readString();
+        gameType = in.readString();
+        favourite = in.readByte() != 0;
+        started = in.readByte() != 0;
+        completed = in.readByte() != 0;
+    }
+
+    public static final Creator<Game> CREATOR = new Creator<Game>() {
+        @Override
+        public Game createFromParcel(Parcel in) {
+            return new Game(in);
+        }
+
+        @Override
+        public Game[] newArray(int size) {
+            return new Game[size];
+        }
+    };
 
     @Override
     public String toString() {
@@ -78,5 +105,21 @@ public class Game {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeInt(gameID);
+        parcel.writeInt(genreID);
+        parcel.writeString(gameTitle);
+        parcel.writeString(gameType);
+        parcel.writeByte((byte) (favourite ? 1 : 0));
+        parcel.writeByte((byte) (started ? 1 : 0));
+        parcel.writeByte((byte) (completed ? 1 : 0));
     }
 }

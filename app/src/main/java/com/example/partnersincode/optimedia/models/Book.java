@@ -1,6 +1,11 @@
 package com.example.partnersincode.optimedia.models;
 
-public class Book {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Book extends MediaObject implements Parcelable {
     private int bookID;
     private int authorID;
     private int genreID;
@@ -20,6 +25,29 @@ public class Book {
 
     public Book() {
     }
+
+    protected Book(Parcel in) {
+        bookID = in.readInt();
+        authorID = in.readInt();
+        genreID = in.readInt();
+        ISBN = in.readString();
+        bookTitle = in.readString();
+        favourite = in.readByte() != 0;
+        started = in.readByte() != 0;
+        completed = in.readByte() != 0;
+    }
+
+    public static final Creator<Book> CREATOR = new Creator<Book>() {
+        @Override
+        public Book createFromParcel(Parcel in) {
+            return new Book(in);
+        }
+
+        @Override
+        public Book[] newArray(int size) {
+            return new Book[size];
+        }
+    };
 
     @Override
     public String toString() {
@@ -88,5 +116,22 @@ public class Book {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeInt(bookID);
+        parcel.writeInt(authorID);
+        parcel.writeInt(genreID);
+        parcel.writeString(ISBN);
+        parcel.writeString(bookTitle);
+        parcel.writeByte((byte) (favourite ? 1 : 0));
+        parcel.writeByte((byte) (started ? 1 : 0));
+        parcel.writeByte((byte) (completed ? 1 : 0));
     }
 }
