@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
         adapter.setOnClickListener( view -> {
             LibraryAdapter.LibraryViewHolder viewHolder = (LibraryAdapter.LibraryViewHolder) reListLib_Home.findContainingViewHolder(view);
             Library library = viewHolder.library;
-            Toast.makeText(this.getContext(), library.getLibraryName(),Toast.LENGTH_LONG).show();
+//            Toast.makeText(this.getContext(), library.getLibraryName(),Toast.LENGTH_LONG).show();
             Bundle bundle = new Bundle();
             bundle.putParcelable("libraryInfo", library);
 

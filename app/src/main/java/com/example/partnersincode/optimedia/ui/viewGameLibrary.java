@@ -96,7 +96,7 @@ public class viewGameLibrary extends Fragment {
         adapter.setOnClickListener( view -> {
             GameAdapter.GameViewHolder viewHolder = (GameAdapter.GameViewHolder) reGameLibrary.findContainingViewHolder(view);
             Game game = viewHolder.game;
-            Toast.makeText(this.getContext(), game.toString(),Toast.LENGTH_LONG).show();
+//            Toast.makeText(this.getContext(), game.toString(),Toast.LENGTH_LONG).show();
             Bundle bundle = new Bundle();
             bundle.putParcelable("gameInfo", game);
             Navigation.findNavController(view).navigate(R.id.nav_manageGameLog, bundle); //navigate to A02111

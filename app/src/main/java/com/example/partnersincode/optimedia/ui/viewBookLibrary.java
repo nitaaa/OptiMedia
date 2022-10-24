@@ -93,7 +93,7 @@ public class viewBookLibrary extends Fragment {
         adapter.setOnClickListener( view -> {
             BookAdapter.BookViewHolder viewHolder = (BookAdapter.BookViewHolder) reBookLibrary.findContainingViewHolder(view);
             Book book = viewHolder.book;
-            Toast.makeText(this.getContext(), book.toString(),Toast.LENGTH_LONG).show();
+//            Toast.makeText(this.getContext(), book.toString(),Toast.LENGTH_LONG).show();
             Bundle bundle = new Bundle();
             bundle.putParcelable("bookInfo", book);
             Navigation.findNavController(view).navigate(R.id.nav_viewBooklogs, bundle); //navigate to A02111
