@@ -3,8 +3,9 @@ package com.example.partnersincode.optimedia.ui.scanQRCode;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResult;
+
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -22,7 +23,7 @@ import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
 /**
- * This is the Fragment that initated the qrScanAction, as well as stores and make use of
+ * This is the Fragment that initiated the qrScanAction, as well as stores and make use of
  * the scanned string
  * A simple {@link Fragment} subclass.
  * Use the {@link qrScanControl#newInstance} factory method to
@@ -55,12 +56,12 @@ public class qrScanControl extends Fragment {
             result ->
             {
                 if(result.getContents()!=null) {
-                    Intent origInent = result.getOriginalIntent();
-                    if(origInent==null)
+                    Intent originalIntent = result.getOriginalIntent();
+                    if(originalIntent==null)
                     {
                         Toast.makeText(getContext(),"Scan Failed",Toast.LENGTH_SHORT).show();
                     }
-                    else if(origInent.hasExtra(Intents.Scan.MISSING_CAMERA_PERMISSION)) {
+                    else if(originalIntent.hasExtra(Intents.Scan.MISSING_CAMERA_PERMISSION)) {
                         Toast.makeText(getContext(),"No Camera Permissions",Toast.LENGTH_SHORT).show();
                     }
                     else{
@@ -101,6 +102,7 @@ public class qrScanControl extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -116,12 +118,24 @@ public class qrScanControl extends Fragment {
         setOnClickActions(root);
 //        setOnResultReturned();
 
+        if(savedInstanceState!=null)
+        {
+            contentsScanned.set(savedInstanceState.getString("scanContents"));
+            nrOfScans.set(savedInstanceState.getInt("scanNr"));
+        }
 
 
         return root;
     }
 
-//    private void setOnResultReturned()
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("scanContents",contentsScanned.get());
+        outState.putInt("scanNr", nrOfScans.get());
+    }
+
+    //    private void setOnResultReturned()
 //    {
 //        getParentFragmentManager().setFragmentResultListener(requestKey,this,(requestKey1, result) ->
 //        {
@@ -195,6 +209,10 @@ public class qrScanControl extends Fragment {
 
     private void onSubmitClicked(View view)
     {
+        if(nrOfScans.get()<=0) {
+            Toast.makeText(getContext(), getString(R.string.emptyScanError),Toast.LENGTH_SHORT).show();
+            return;
+        }
         Bundle bundle = new Bundle();
         bundle.putString("XML",contentsScanned.get());
 
@@ -203,6 +221,7 @@ public class qrScanControl extends Fragment {
 
     private void onUndoClicked(View view)
     {
+        if(nrOfScans.get()<=0) return;//do not try to undo if nothing has been done
         String last =  contentsScanned.get().replace(lastScan,"");
         contentsScanned.set(last);
         nrOfScans.set(nrOfScans.get()-1);

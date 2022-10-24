@@ -122,6 +122,8 @@
     <string name="gameLog">Game Log</string>
     <string name="manageGameLogs">Manage Game Logs</string>
     <string name="createGameLog">Create Game Log</string>
+    <string name="emptyScanError">Please scan contents before submitting</string>
+    <string name="toastAddTogameLibrary">Addedgames to \'%s\'</string>
 
 
 </resources>
