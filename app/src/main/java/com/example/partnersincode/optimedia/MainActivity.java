@@ -1,8 +1,10 @@
 package com.example.partnersincode.optimedia;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -32,16 +34,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-//        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                getSupportFragmentManager()
-//                        .beginTransaction()
-//                        .replace(R.id.nav_host_fragment_content_main,new AddToWatchLibrary())
-//                        .addToBackStack(null)
-//                        .commit();
-//            }
-//        });
+        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(getApplicationContext(), MainActivity.class);
+                //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
 
 //        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
