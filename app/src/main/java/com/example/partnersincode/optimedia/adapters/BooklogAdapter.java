@@ -68,4 +68,5 @@ public class BooklogAdapter extends RecyclerView.Adapter<BooklogAdapter.BLViewHo
     }
 
 
+
 }

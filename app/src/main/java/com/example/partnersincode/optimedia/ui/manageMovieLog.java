@@ -107,6 +107,7 @@ public class manageMovieLog extends Fragment {
            bundle.putParcelable("movieInfo",movie);
            bundle.putString("Intent", "Add");
            Navigation.findNavController(view).navigate(R.id.nav_createMovieLog,bundle);
+           adapter.notifyDataSetChanged();
        });
 
         return rootView;

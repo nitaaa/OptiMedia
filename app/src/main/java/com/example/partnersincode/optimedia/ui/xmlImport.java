@@ -173,6 +173,7 @@ public class xmlImport extends Fragment {
 
                     }
                     library.add(series);
+                    db.createSeries(series.getTitle(),series.getGenreID(),series.getLink(),series.getFavourite(),series.getStarted(),series.getComplete());
 
                 }
 
@@ -197,6 +198,7 @@ public class xmlImport extends Fragment {
 
                     }
                     library.add(movie);
+                    db.addMovie(movie);
                 }
 
                 if(nodeName.equals("game"))
@@ -220,6 +222,7 @@ public class xmlImport extends Fragment {
 
                     }
                     library.add(game);
+                    db.createNewGame(game);
                 }
 
                 if(nodeName.equals("book"))
@@ -256,6 +259,7 @@ public class xmlImport extends Fragment {
 
                     book = new Book(-1,dbAuthor.getAuthorID(),dbGenre.getGenreID(),ISBN,title, false,false,false);
                     library.add(book);
+                    db.createNewBook(book);
                 }
 
             }
