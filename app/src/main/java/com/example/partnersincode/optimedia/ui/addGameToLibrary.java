@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -143,7 +144,7 @@ public class addGameToLibrary extends Fragment {
                 dbHandler.createGameLibrary(added, library);
             }
             Toast.makeText(getContext(), getString(R.string.toastAddTogameLibrary,library.getLibraryName()),Toast.LENGTH_SHORT).show();
-
+            Navigation.findNavController(view).navigate(R.id.nav_addNewMedia);
         });
 
         return rootView;
