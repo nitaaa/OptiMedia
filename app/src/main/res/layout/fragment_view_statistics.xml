@@ -22,6 +22,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="44dp"
         android:text="Series"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Movies"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/txtFS" />
 
@@ -40,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:text="Games"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/txtFM" />
 
@@ -49,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:text="Books"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/txtFG" />
 
