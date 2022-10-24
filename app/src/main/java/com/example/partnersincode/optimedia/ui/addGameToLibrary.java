@@ -121,6 +121,15 @@ public class addGameToLibrary extends Fragment {
                     recyclerView2.setLayoutManager(layoutManager2);
                     AddGameAdapter gameAdapter2 = new AddGameAdapter(games2);
                     recyclerView2.setAdapter(gameAdapter2);
+
+                    gameAdapter2.setOnClickListener( view2 -> {
+                        AddGameAdapter.AddGameViewHolder viewHolder = (AddGameAdapter.AddGameViewHolder) recyclerView2.findContainingViewHolder(view2);
+                        //Toast.makeText(this.getContext(), author.getFullName(),Toast.LENGTH_LONG).show();
+                        //TODO:
+                        if (viewHolder != null) {
+                            viewHolder.setSelected();
+                        }
+                    });
                 });
 
         Button btnAdd = rootView.findViewById(R.id.btnAddGameLog);

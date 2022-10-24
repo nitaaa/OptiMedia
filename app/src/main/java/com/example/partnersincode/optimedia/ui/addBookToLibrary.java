@@ -117,6 +117,14 @@ public class addBookToLibrary extends Fragment {
             recyclerView2.setLayoutManager(layoutManager2);
             AddBookAdapter bookAdapter2 = new AddBookAdapter(books1);
             recyclerView2.setAdapter(bookAdapter2);
+
+            bookAdapter2.setOnClickListener( view2-> {
+                AddBookAdapter.AddBookViewHolder viewHolder = (AddBookAdapter.AddBookViewHolder) recyclerView2.findContainingViewHolder(view2);
+
+                if (viewHolder != null) {
+                    viewHolder.setSelected();
+                }
+            });
         });
 
         Button btnAdd = rootView.findViewById(R.id.btnBooktoLib);
