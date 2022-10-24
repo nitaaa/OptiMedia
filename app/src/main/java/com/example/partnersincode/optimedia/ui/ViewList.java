@@ -10,26 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
-import com.example.partnersincode.optimedia.adapters.AddGameAdapter;
 import com.example.partnersincode.optimedia.adapters.BookAdapter;
 import com.example.partnersincode.optimedia.adapters.GameAdapter;
 import com.example.partnersincode.optimedia.adapters.WatchObjectAdapter;
-import com.example.partnersincode.optimedia.addBookToLib.AddBookAdapter;
 import com.example.partnersincode.optimedia.models.Book;
 import com.example.partnersincode.optimedia.models.Game;
-import com.example.partnersincode.optimedia.models.Library;
-import com.example.partnersincode.optimedia.models.Movie;
-import com.example.partnersincode.optimedia.models.Series;
 import com.example.partnersincode.optimedia.models.WatchObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.

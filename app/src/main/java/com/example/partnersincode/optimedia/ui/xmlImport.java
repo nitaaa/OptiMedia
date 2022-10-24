@@ -246,12 +246,12 @@ public class xmlImport extends Fragment {
                     }
 
                     try{
-                        dbAuthor = db.getAuthorByName(authorSurname,authorName);
+                        dbAuthor = db.getAuthorByName(authorName,authorSurname);
                     }catch (Exception e)
                     {
                         Author author = new Author(-1,authorName,authorSurname);
                         db.createNewAuthor(author);
-                        dbAuthor =  db.getAuthorByName(authorSurname,authorName);
+                        dbAuthor =  db.getAuthorByName(authorName,authorSurname);
                     }
 
                     book = new Book(-1,dbAuthor.getAuthorID(),dbGenre.getGenreID(),ISBN,title, false,false,false);

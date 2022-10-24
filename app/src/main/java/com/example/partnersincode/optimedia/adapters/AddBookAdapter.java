@@ -1,4 +1,4 @@
-package com.example.partnersincode.optimedia.addBookToLib;
+package com.example.partnersincode.optimedia.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
