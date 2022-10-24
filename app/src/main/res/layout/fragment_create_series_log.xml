@@ -12,6 +12,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -55,7 +57,7 @@
                         android:layout_marginStart="4dp"
                         android:autoLink="web"
                         android:text="[Link]"
-                        android:textColorLink="@color/movie_series_theme"/>
+                        android:textColorLink="@color/movie_series_theme" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -68,14 +70,14 @@
                         android:id="@+id/btnDeleteSeries"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/lbl_delete"
                         android:singleLine="true"
+                        android:text="@string/lbl_delete"
+                        android:textColor="@color/black"
                         android:textSize="10sp"
+                        app:backgroundTint="@color/movie_series_theme"
                         app:icon="@drawable/ic_delete"
                         app:iconPadding="0dp"
-                        app:backgroundTint="@color/movie_series_theme"
-                        android:textColor="@color/black"
-                        app:iconTint="#000000"/>
+                        app:iconTint="#000000" />
 
                     <Button
                         android:id="@+id/btnShareSeries"
@@ -85,11 +87,11 @@
                         android:text="@string/lbl_share"
                         android:textColor="@color/black"
                         android:textSize="10sp"
+                        android:visibility="invisible"
                         app:backgroundTint="@color/movie_series_theme"
                         app:icon="@drawable/ic_share"
                         app:iconPadding="0dp"
-                        app:iconTint="#000000"
-                        android:visibility="invisible"/>
+                        app:iconTint="#000000" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -100,9 +102,9 @@
                 style="@style/txtSubHeading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="30dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:minHeight="30dp"
                 android:text="@string/favourite"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -111,9 +113,9 @@
                 style="@style/txtSubHeading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="30dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:minHeight="30dp"
                 android:text="@string/started"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -122,9 +124,9 @@
                 style="@style/txtSubHeading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="30dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:minHeight="30dp"
                 android:text="@string/completed"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -139,27 +141,27 @@
                 android:id="@+id/edtTxtSLSeason"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:ems="10"
                 android:hint="@string/lbl_season" />
 
             <EditText
                 android:id="@+id/edtTxtSLogEpisode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:ems="10"
                 android:hint="@string/lbl_episode" />
 
             <EditText
                 android:id="@+id/edtTxtSLogTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:ems="10"
                 android:hint="@string/lbl_timestamp"
                 android:inputType="time" />
 
@@ -167,11 +169,11 @@
                 android:id="@+id/edtTxtSLogNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:ems="10"
                 android:gravity="start|top"
                 android:hint="@string/lbl_note"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:inputType="textMultiLine" />
 
             <Button
@@ -181,13 +183,13 @@
                 android:insetLeft="16dp"
                 android:insetRight="16dp"
                 android:text="Add Series Log"
-                app:backgroundTint="@color/movie_series_theme"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                app:backgroundTint="@color/movie_series_theme" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerSeriesLog"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"                />
+                android:layout_height="match_parent" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
