@@ -67,7 +67,7 @@
 
     <fragment
         android:id="@+id/nav_createSeries"
-        android:name="com.example.partnersincode.optimedia.ui.createSeries.CreateSeries"
+        android:name="com.example.partnersincode.optimedia.ui.CreateSeries"
         android:label="Add Series"
         />
 
@@ -176,7 +176,7 @@
         tools:layout="@layout/fragment_xml_export" />
     <fragment
         android:id="@+id/nav_addBookToLib"
-        android:name="com.example.partnersincode.optimedia.addBookToLib.addBookToLibrary"
+        android:name="com.example.partnersincode.optimedia.ui.addBookToLibrary"
         android:label="Add Book to Library" />
     <fragment
         android:id="@+id/nav_viewList"
