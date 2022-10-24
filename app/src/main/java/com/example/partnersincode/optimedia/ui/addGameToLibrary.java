@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -132,6 +133,7 @@ public class addGameToLibrary extends Fragment {
 
                 dbHandler.createGameLibrary(added, library);
             }
+            Toast.makeText(getContext(), getString(R.string.toastAddTogameLibrary,library.getLibraryName()),Toast.LENGTH_SHORT).show();
 
         });
 
