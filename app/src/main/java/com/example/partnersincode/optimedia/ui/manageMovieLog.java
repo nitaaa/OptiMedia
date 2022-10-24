@@ -19,6 +19,7 @@ import com.example.partnersincode.optimedia.models.Movie;
 import com.example.partnersincode.optimedia.models.MovieLog;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class manageMovieLog extends Fragment {
@@ -72,6 +73,7 @@ public class manageMovieLog extends Fragment {
         Bundle getBundle = this.getArguments();
         if (getBundle != null) {
             movie = getBundle.getParcelable("movieInfo");
+            MovieID = movie.getMovieID();
         }else
             MovieID=-1;
 
@@ -79,7 +81,7 @@ public class manageMovieLog extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_manage_movie_log, container, false);
         DatabaseHandler dbHandler = new DatabaseHandler(this.getContext());
 
-        List<MovieLog> logs = dbHandler.getMovieLog();
+        List<MovieLog> logs = dbHandler.getMovieLog().stream().filter(movieLog -> movieLog.getMovieID()==MovieID).collect(Collectors.toList());
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerGameLog);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
