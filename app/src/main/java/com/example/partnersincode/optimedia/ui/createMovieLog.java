@@ -135,7 +135,7 @@ public class createMovieLog extends Fragment {
         } else {
             btnAddMovieLog.setOnClickListener(view -> {
                 MovieLog log = new MovieLog();
-                log.setMovieID(MovieID);
+                log.setMovieID(movie.getMovieID());
                 log.setM_note(edtxtNote.getText().toString());
                 log.setM_timestamp(edtxtTime.getText().toString());
                 dbHandler.addMovieLog(log);
