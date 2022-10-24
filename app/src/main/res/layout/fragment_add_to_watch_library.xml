@@ -96,13 +96,13 @@
 
         <Button
             android:id="@+id/A02310_AddSelected"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
             android:layout_marginBottom="20dp"
             android:text="@string/action_addSelected"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/A02310_RecView"
+            app:layout_constraintStart_toStartOf="@+id/A02310_RecView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

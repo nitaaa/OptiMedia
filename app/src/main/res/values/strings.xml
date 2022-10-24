@@ -37,7 +37,7 @@
     <string name="addMediaToLibrary">Add Movie/Series to library</string>
     <string name="selLibrary">Select a Library</string>
     <string name="action_search">Search</string>
-    <string name="action_addSelected">Add Selected</string>
+    <string name="action_addSelected">Add</string>
     <string name="label_SelectLibrary">Select a Library</string>
     <string name="selectMedia">Select Movies/Series (max %d)</string>
     <string name="heading_addNewMovie">Add Movie</string>
