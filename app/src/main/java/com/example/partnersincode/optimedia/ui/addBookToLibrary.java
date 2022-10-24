@@ -1,8 +1,9 @@
-package com.example.partnersincode.optimedia.addBookToLib;
+package com.example.partnersincode.optimedia.ui;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,12 +14,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.partnersincode.optimedia.DatabaseHandler;
 import com.example.partnersincode.optimedia.R;
-import com.example.partnersincode.optimedia.adapters.AddGameAdapter;
+import com.example.partnersincode.optimedia.adapters.AddBookAdapter;
 import com.example.partnersincode.optimedia.models.Book;
-import com.example.partnersincode.optimedia.models.Game;
 import com.example.partnersincode.optimedia.models.Library;
 
 import java.util.ArrayList;
@@ -116,6 +117,14 @@ public class addBookToLibrary extends Fragment {
             recyclerView2.setLayoutManager(layoutManager2);
             AddBookAdapter bookAdapter2 = new AddBookAdapter(books1);
             recyclerView2.setAdapter(bookAdapter2);
+
+            bookAdapter2.setOnClickListener( view2-> {
+                AddBookAdapter.AddBookViewHolder viewHolder = (AddBookAdapter.AddBookViewHolder) recyclerView2.findContainingViewHolder(view2);
+
+                if (viewHolder != null) {
+                    viewHolder.setSelected();
+                }
+            });
         });
 
         Button btnAdd = rootView.findViewById(R.id.btnBooktoLib);
@@ -128,7 +137,8 @@ public class addBookToLibrary extends Fragment {
 
                 dbHandler.createBookLibrary(added, library);
             }
-
+            Toast.makeText(getContext(), getString(R.string.toastAddToBookLibrary,library.getLibraryName()),Toast.LENGTH_SHORT).show();
+            Navigation.findNavController(view).navigate(R.id.nav_addNewMedia);
         });
 
         return rootView;

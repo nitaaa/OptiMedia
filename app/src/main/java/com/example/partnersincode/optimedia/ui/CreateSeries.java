@@ -1,4 +1,4 @@
-package com.example.partnersincode.optimedia.ui.createSeries;
+package com.example.partnersincode.optimedia.ui;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -53,7 +53,7 @@ public class CreateSeries extends Fragment {
 
             dbHandler.createSeries(Title,genre.getGenreID(),link,bFav,bStarted,bCom);
             Toast.makeText(this.getContext(),"Added Series", Toast.LENGTH_SHORT).show();
-            Navigation.findNavController(view).navigate(R.id.nav_home);
+            Navigation.findNavController(view).navigate(R.id.nav_addNewMedia);
         });
 
         return view;
