@@ -49,6 +49,10 @@ public class createBook extends Fragment {
     List<Author> authors;
     ArrayAdapter<Author> adapter2;
 
+    Switch fav;
+    Switch com;
+    Switch start;
+
     public createBook() {
         // Required empty public constructor
     }
@@ -92,6 +96,10 @@ public class createBook extends Fragment {
         TextView edtxtBookISBN = rootView.findViewById(R.id.edtxtName);
         TextView edtxtBookTitle = rootView.findViewById(R.id.edtxtSurname);
 
+        fav = rootView.findViewById(R.id.A08400_favourite);
+        start = rootView.findViewById(R.id.A08400_started);
+        com = rootView.findViewById(R.id.A08400_completed);
+
         //get genre for spinner
         genres = dbHandler.getGenres();
         adapter = new ArrayAdapter<>(this.getContext(), android.R.layout.simple_spinner_dropdown_item, genres);
@@ -122,9 +130,9 @@ public class createBook extends Fragment {
             Author curAuthor = (Author) spinAuthor.getSelectedItem();
             newBook.setAuthorID(curAuthor.getAuthorID());
 
-            boolean bFav = ((Switch)view.findViewById((R.id.A08400_favourite))).isChecked();
-            boolean bStarted = ((Switch)view.findViewById((R.id.A08400_started))).isChecked();
-            boolean bCom = ((Switch)view.findViewById((R.id.A08400_completed))).isChecked();
+            boolean bFav = fav.isChecked();
+            boolean bStarted = start.isChecked();
+            boolean bCom = com.isChecked();
             newBook.setFavourite(bFav);
             newBook.setStarted(bStarted);
             newBook.setCompleted(bCom);
